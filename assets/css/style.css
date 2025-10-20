@@ -6,7 +6,46 @@
 }  
 
 body {
-    background-color: var(--background-color);
-    color: var(--text-color);
-    font-family: var(--primary-font);
+    background-color: var(--background-color)!important;
+    color: var(--text-color)!important;
+    font-family: var(--primary-font)!important;
+    margin: 0;
+    padding: 0;
+}
+
+.bg-layer-1 {
+    position: fixed;
+        inset: 0;
+        background-image: url(/assets/images/bg_darker.gif);
+        background-repeat: repeat;
+        opacity: 0.6;
+        filter: hue-rotate(180deg) saturate(1.5) brightness(0.8);
+        z-index: 1;
+}
+
+.bg-layer-2 {
+     position: fixed;
+        inset: 0;
+        background-image: url(/assets/images/bg_dark_anim_0_08.gif);
+        background-repeat: repeat;
+        opacity: 0.4;
+        filter: hue-rotate(180deg) saturate(2) brightness(1.2);
+        mix-blend-mode: screen;
+        z-index: 2;
+}
+
+.bg-glow {
+     position: fixed;
+        inset: 0;
+        background: rgba(0, 255, 0, 0.06);
+        mix-blend-mode: screen;
+        z-index: 3;
+}
+
+.dark-overlay{
+      position: fixed;
+        inset: 0;
+        background: radial-gradient(circle, transparent 0%, transparent 50%, #000 100%);
+        opacity: 0.7;
+        z-index: 4;
 }
