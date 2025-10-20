@@ -1,51 +1,162 @@
+/* CSS Variables for Theming */
 :root {
-    --background-color: #000000;
-    --text-color: #00ff00;
-    --primary-font: 'Courier New', monospace;
-    --secondary-font: 'Arial', sans-serif;
-}  
-
-body {
-    background-color: var(--background-color)!important;
-    color: var(--text-color)!important;
-    font-family: var(--primary-font)!important;
-    margin: 0;
-    padding: 0;
+  --background-color: #000000;
+  --text-color: #00ff00;
+  --primary-font: 'Courier New', monospace;
+  --secondary-font: 'Arial', sans-serif;
 }
 
+/* Global Styles */
+body {
+  background-color: var(--background-color) !important;
+  color: var(--text-color) !important;
+  font-family: var(--primary-font) !important;
+  margin: 0;
+  padding: 0;
+  letter-spacing: 1px;
+}
+
+/* Centered Container */
+.container {
+  z-index: 5;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+header {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 0rem;
+  z-index: 6;
+}
+
+/* Background Layers- green hues and mix-blend-mode */
 .bg-layer-1 {
-    position: fixed;
-        inset: 0;
-        background-image: url(/assets/images/bg_darker.gif);
-        background-repeat: repeat;
-        opacity: 0.6;
-        filter: hue-rotate(180deg) saturate(1.5) brightness(0.8);
-        z-index: 1;
+  position: fixed;
+  inset: 0;
+  background-image: url(/assets/images/bg_darker.gif);
+  background-repeat: repeat;
+  opacity: 0.6;
+  filter: hue-rotate(180deg) saturate(1.5) brightness(0.8);
+  z-index: 1;
 }
 
 .bg-layer-2 {
-     position: fixed;
-        inset: 0;
-        background-image: url(/assets/images/bg_dark_anim_0_08.gif);
-        background-repeat: repeat;
-        opacity: 0.4;
-        filter: hue-rotate(180deg) saturate(2) brightness(1.2);
-        mix-blend-mode: screen;
-        z-index: 2;
+  position: fixed;
+  inset: 0;
+  background-image: url(/assets/images/bg_dark_anim_0_08.gif);
+  background-repeat: repeat;
+  opacity: 0.4;
+  filter: hue-rotate(180deg) saturate(2) brightness(1.2);
+  /* screen blend for subtle green glow */
+  mix-blend-mode: screen;
+  z-index: 2;
 }
 
 .bg-glow {
-     position: fixed;
-        inset: 0;
-        background: rgba(0, 255, 0, 0.06);
-        mix-blend-mode: screen;
-        z-index: 3;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 255, 0, 0.06);
+  /* screen blend for subtle green glow */
+  mix-blend-mode: screen;
+  z-index: 3;
 }
 
-.dark-overlay{
-      position: fixed;
-        inset: 0;
-        background: radial-gradient(circle, transparent 0%, transparent 50%, #000 100%);
-        opacity: 0.7;
-        z-index: 4;
+.dark-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    circle,
+    transparent 0%,
+    transparent 50%,
+    #000 100%
+  );
+  opacity: 0.7;
+  z-index: 4;
+}
+
+/* Form Container Styling */
+
+.form-container {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 255, 0, 0.3);
+  padding: 2rem;
+  /*Weak blur effect to show background- webkit for safari compatibility*/
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  z-index: 6;
+  padding: 32px;
+}
+
+/* Form Label Styling */
+form-label {
+  width: 100%;
+  color: rgb(0, 255, 0);
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  padding: 0.75rem;
+  background: rgba(0, 0, 0, 0.5);
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(0, 255, 0, 0.3);
+  border-image: initial;
+  transition: 0.3s;
+}
+
+/* input text, background and border */
+#inputPassword5 {
+  color: #ffffff;
+  justify-content: center;
+  width: 90%;
+  height: 40px;
+  border-radius: 0 !important;
+  background-color: transparent !important;
+  border: solid 1px var(--text-color) !important;
+  margin-bottom: 25px;
+  width: 100%;
+  height: 40px;
+  justify-content: center;
+}
+
+/* placeholder color (with vendor fallbacks) */
+#inputPassword5::placeholder {
+  color: var(--text-color);
+}
+#inputPassword5::-webkit-input-placeholder {
+  color: var(--text-color);
+}
+#inputPassword5:-ms-input-placeholder {
+  color: var(--text-color);
+}
+#inputPassword5::-ms-input-placeholder {
+  color: var(--text-color);
+}
+
+/* Connect Button Styling */
+#submit-btn {
+  width: 100%;
+  color: rgb(0, 255, 0);
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.75rem;
+  background: rgba(0, 255, 0, 0.2);
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(0, 255, 0);
+  border-image: initial;
+  transition: 0.3s;
+}
+
+.form-text {
+  text-align: center;
+  font-size: 0.75rem !important;
+  color: var(--text-color) !important;
+  margin-top: 1.5rem !important;
+  opacity: 0.8 !important;
 }

@@ -1,38 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Movie Database</title>
-    <link rel="icon" type="image/png" href="assets/images/film3.png">
+    <link rel="icon" type="image/png" href="assets/images/film3.png" />
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css" />
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-</head>
-<body>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
     <!--Backgrounds- green hues-->
     <div class="bg-layer-1"></div>
     <div class="bg-layer-2"></div>
     <div class="bg-glow"></div>
     <div class="dark-overlay"></div>
-
+    
+<!--Header-->
     <div class="container">
-<header>
-    <h1></h1>
-    <p></p>
-</header>
-    <section id="login-form">
-    <label for="inputPassword5" class="form-label">API KEY:</label>
-<input type="password" placeholder="Enter your API key" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
-<div id="passwordHelpBlock" class="form-text">
- NOTE: Access restricted to authorized users only
-</div>
-</section>
-</div>
+      <div class="column">
+        <div class="row">
+          <header>
+            <h1>The Movie Database</h1>
+            <p>Access the latest movie information</p>
+          </header>
+        </div>
+
+        <!--Form Container-->
+        <div class="row">
+          <div class="form-container">
+            <section id="login-form">
+              <label for="inputPassword5" class="form-label">API KEY:</label>
+              <input
+                type="password"
+                id="inputPassword5"
+                placeholder="Enter your API key"
+                class="form-control"
+                aria-describedby="passwordHelpBlock"
+              />
+              <button type="submit" id="submit-btn">CONNECT</button>
+              <div id="passwordHelpBlock" class="form-text">
+                NOTE: Access restricted to authorized users only
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Javascript -->
     <script src="assets/js/script.js"></script>
-</body>
-
+  </body>
 </html>
