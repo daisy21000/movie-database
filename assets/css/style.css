@@ -1,9 +1,19 @@
+@font-face {
+  font-family: '';
+  src: url('/assets/fonts/DepartureMono-1.500/DepartureMono-Regular.woff2') format('woff2'),
+       url('/assets/fonts/DepartureMono-1.500/DepartureMono-Regular.woff') format('woff'),
+       url('/assets/fonts/DepartureMono-1.500/DepartureMono-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 /* CSS Variables for Theming */
 :root {
   --background-color: #000000;
   --text-color: #00ff00;
   --primary-font: 'Courier New', monospace;
-  --secondary-font: 'Arial', sans-serif;
+  --secondary-font: 'Pixelify Sans', sans-serif;
 }
 
 /* Global Styles */
@@ -30,7 +40,9 @@ header {
   margin-top: 2rem;
   margin-bottom: 0rem;
   z-index: 6;
+ font-family: var(--secondary-font);
 }
+
 
 /* Background Layers- green hues and mix-blend-mode */
 .bg-layer-1 {
@@ -83,6 +95,7 @@ header {
   background: rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(0, 255, 0, 0.3);
   padding: 2rem;
+
   /*Weak blur effect to show background- webkit for safari compatibility*/
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
@@ -92,7 +105,7 @@ header {
 
 /* Form Label Styling */
 form-label {
-  width: 100%;
+  width: 90%;
   color: rgb(0, 255, 0);
   font-family: 'Courier New', monospace;
   font-size: 1rem;
@@ -115,9 +128,8 @@ form-label {
   background-color: transparent !important;
   border: solid 1px var(--text-color) !important;
   margin-bottom: 25px;
-  width: 100%;
-  height: 40px;
-  justify-content: center;
+  
+ 
 }
 
 /* placeholder color (with vendor fallbacks) */
@@ -136,7 +148,7 @@ form-label {
 
 /* Connect Button Styling */
 #submit-btn {
-  width: 100%;
+  width: 90%;
   color: rgb(0, 255, 0);
   font-family: 'Courier New', monospace;
   font-size: 1rem;
