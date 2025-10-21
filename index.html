@@ -215,7 +215,6 @@
     <footer>
     <!--
       Footer:
-      - Update copyright year as needed.
       - Add additional links or info here.
     -->
     <p>&copy; 2025 Cinemind. All rights reserved.</p>
@@ -239,6 +238,15 @@
   </div>
 </template>
 
+
+  <!--
+    Movie Details Modal:
+    - Hidden by default, shown when a movie card is clicked.
+    - Displays detailed info about the selected movie.
+    - Contains placeholders for poster, title, year, overview, director, cast, genre and rating.
+    - Buttons for adding to favorites/watchlist.
+    - Logic for populating and showing/hiding handled in script.js.
+  -->
 <div id="movie-modal" class="modal hidden" role="dialog" aria-modal="true">
   <div class="modal-content">
     <button class="close-btn" aria-label="Close modal">×</button>
