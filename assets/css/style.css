@@ -1,0 +1,276 @@
+/* --- Fonts ------------------------------------------------------------------ */
+/* Custom Font: Departure Mono (fallbacks + display strategy) */
+@font-face {
+  font-family: 'Departure Mono';
+  src: local('Departure Mono'), local('DepartureMono-Regular'),
+    url('/assets/fonts/DepartureMono-1.500/DepartureMono-Regular.woff2')
+      format('woff2'),
+    url('/assets/fonts/DepartureMono-1.500/DepartureMono-Regular.woff')
+      format('woff'),
+    url('/assets/fonts/DepartureMono-1.500/DepartureMono-Regular.otf')
+      format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --- Theming ---------------------------------------------------------------- */
+/* CSS Variables for easy theme adjustments */
+:root {
+  --background-color: #000000;
+  --text-color: #00ff00;
+  --primary-font: 'Courier New', monospace;
+  --secondary-font: 'Departure Mono', monospace;
+}
+
+/* --- Base / Global Styles -------------------------------------------------- */
+body {
+  background-color: var(--background-color) !important;
+  color: var(--text-color) !important;
+  font-family: var(--secondary-font) !important;
+  margin: 0;
+  padding: 0;
+  letter-spacing: 1px;
+}
+.hidden {
+  display: none !important;
+ 
+}
+
+/* Navbar (fixed at top) */
+body .navbar {
+  font-family: var(--font-body);
+  font-size: 20px;
+  font-weight: bolder;
+  text-transform: uppercase;
+  margin-bottom: 60px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+  background-color: transparent !important;
+}
+
+.section-title {
+  position: absolute;
+  font-family: var(--primary-font);
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  padding-left: 0.5rem;
+  border-left: 3px solid #00ff00;
+  text-shadow: 0 0 10px #00ff00;
+}
+
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+/* Matrix rain canvas (background visual) */
+#matrixRain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -5;
+  background: black;
+  opacity: 0.6;
+}
+
+/* Centering helper for main content */
+.container {
+  z-index: 5;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+/* Header typography */
+header {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 0rem;
+  z-index: 6;
+  font-family: var(--secondary-font);
+  color: var(--text-color);
+}
+
+h1 {
+  font-size: 4rem !important;
+  margin: 0;
+  padding-bottom: 0.7rem;
+}
+
+/* --- Background Layers ----------------------------------------------------- */
+/* Layer 1: darker repeating texture */
+.bg-layer-1 {
+  position: fixed;
+  inset: 0;
+  background-image: url(/assets/images/bg_darker.gif);
+  background-repeat: repeat;
+  background-color: #000;
+  opacity: 0.45;
+  filter: hue-rotate(180deg) saturate(1.2) brightness(0.5) contrast(1.05);
+  mix-blend-mode: normal;
+  z-index: 1;
+}
+
+/* Layer 2: animated dark texture with blend */
+.bg-layer-2 {
+  position: fixed;
+  inset: 0;
+  background-image: url(/assets/images/bg_dark_anim_0_08.gif);
+  background-repeat: repeat;
+  background-color: transparent;
+  opacity: 0.28;
+  filter: hue-rotate(180deg) saturate(1.6) brightness(0.9) contrast(1.05);
+  mix-blend-mode: screen;
+  z-index: 2;
+}
+
+/* Subtle green glow overlay */
+.bg-glow {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 255, 0, 0.06);
+  mix-blend-mode: screen;
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Dark vignette to focus center content */
+.dark-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 45%,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.15) 35%,
+    rgba(0, 0, 0, 0.95) 100%
+  );
+  opacity: 0.9;
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* Minor header spacing tweak */
+header {
+  padding-bottom: 50px !important;
+}
+
+/* --- Form area ------------------------------------------------------------- */
+/* Small offset for login form area */
+#login-form {
+  padding-left: 1rem;
+}
+
+/* Glass-like form container (blur + border) */
+.form-container {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 255, 0, 0.3);
+  padding: 32px;
+  position: relative;
+  width: 50% !important;
+  margin: 0 auto;
+  /* Weak blur effect to show background - webkit for Safari compatibility */
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  z-index: 6;
+}
+
+/* Form label (use element selector if custom element, otherwise adjust) */
+form-label {
+  width: 90%;
+  color: rgb(0, 255, 0);
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(0, 255, 0, 0.3);
+  border-image: initial;
+  transition: 0.3s;
+  justify-content: center !important;
+}
+
+/* Password input styling */
+#inputPassword5 {
+  color: #ffffff;
+  justify-content: center;
+  width: 90%;
+  height: 40px;
+  border-radius: 0 !important;
+  background-color: transparent !important;
+  border: solid 1px var(--text-color) !important;
+  margin-bottom: 25px;
+}
+
+/* Placeholder color fallbacks */
+#inputPassword5::placeholder {
+  color: var(--text-color);
+}
+#inputPassword5::-webkit-input-placeholder {
+  color: var(--text-color);
+}
+#inputPassword5:-ms-input-placeholder {
+  color: var(--text-color);
+}
+#inputPassword5::-ms-input-placeholder {
+  color: var(--text-color);
+}
+
+/* Connect / submit button */
+#submit-btn {
+  width: 90%;
+  color: rgb(0, 255, 0);
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.75rem;
+  background: rgba(0, 255, 0, 0.2);
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(0, 255, 0);
+  border-image: initial;
+  transition: 0.3s;
+}
+
+/* Small helper text under form */
+.form-text {
+  text-align: center;
+  font-size: 0.75rem !important;
+  color: var(--text-color) !important;
+  margin-top: 1.5rem !important;
+  opacity: 0.8 !important;
+  text-align: center !important;
+}
+
+/* --- Responsive tweaks ------------------------------------------------------ */
+/* Adjust sizing for narrow viewports */
+@media (max-width: 768px) {
+  header {
+    padding-top: 8rem;
+    margin-top: 1rem;
+    margin-bottom: 0rem;
+    padding-bottom: 0.5rem !important;
+    font-size: 1rem !important;
+  }
+
+  h1 {
+    font-size: 3.5rem !important;
+  }
+
+  .form-container {
+    width: 90% !important;
+  }
+}
