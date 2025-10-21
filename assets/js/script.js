@@ -9,7 +9,7 @@
         connectBtn.addEventListener('click', () => {
           const apiKey = apiKeyInput.value.trim()
           if (apiKey) {
-            // Store it globally if needed
+            
             window.userApiKey = apiKey
 
             // Toggle visibility
