@@ -64,6 +64,7 @@
                 class="form-control"
                 aria-describedby="passwordHelpBlock"
               />
+              <!--API KEY error message-->
               <div id="api-error" class="alert alert-danger d-none" role="alert">
                 Invalid API key. Please try again.
               </div>
@@ -73,6 +74,12 @@
                 - Has id="submit-btn" so script.js or another module can attach an event listener.
               -->
               <button type="submit" id="submit-btn">CONNECT</button>
+              <!-- Loading spinner, hidden by default -->
+              <div id="loading" class="d-none text-center my-4">
+  <div class="spinner-border text-success" role="status" aria-hidden="true"></div>
+  <span class="visually-hidden">Loading...</span>
+</div>
+
 
               <div id="passwordHelpBlock" class="form-text">
                 NOTE: Access restricted to authorized users only
@@ -126,12 +133,22 @@
               <input class="form-control me-2" type="search" placeholder="&gt; SEARCH DATABASE" aria-label="Search" />
               <button class="btn btn-outline-success" type="submit">[ENTER]</button>
               <button class="btn btn-outline-success" type="button" id="disconnect-btn">[DISCONNECT]</button>
+            <!--Feedback if invalid or empty search term-->
+              <div id="search-error" class="alert alert-warning d-none mt-2" role="alert">
+             Please enter a valid search term.
+            </div>
+
             </form>
           </div>
         </div>
       </nav>
-
+    <!-- Loading spinner, hidden by default -->
+    <div id="loading-search" class="d-none text-center my-4">
+  <div class="spinner-border text-success" role="status" aria-hidden="true"></div>
+  <span class="visually-hidden">Loading...</span>
+</div>
       <div id="search-results"></div>
+
 
       <div id="content">
       <section id="trending-section">
