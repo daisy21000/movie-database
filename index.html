@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cinemind</title>
@@ -10,17 +11,14 @@
 
     <!-- Bootstrap CSS from CDN (v5.3.2) -->
     <!-- If you want to work offline or lock a version, replace with a local file or a specific integrity hash. -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      crossorigin="anonymous"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        crossorigin="anonymous" />
 
     <!-- Project stylesheet: custom styles, layout and layering -->
     <link rel="stylesheet" href="assets/css/style.css" />
-  </head>
+</head>
 
-  <body>
+<body>
     <!--
       Matrix rain canvas:
       - Renders the green "matrix" effect behind the UI.
@@ -36,48 +34,43 @@
       - Keep accessibility in mind: labels, aria attributes and contrast.
     -->
     <div class="container">
-      <!-- Background / visual layer elements. These are empty divs styled via CSS. -->
-      <div class="bg-layer-1"></div>
-      <div class="bg-layer-2"></div>
-      <div class="bg-glow"></div>
-      <div class="dark-overlay"></div>
+        <!-- Background / visual layer elements. These are empty divs styled via CSS. -->
+        <div class="bg-layer-1"></div>
+        <div class="bg-layer-2"></div>
+        <div class="bg-glow"></div>
+        <div class="dark-overlay"></div>
 
-      <div id="login-screen">
-      <div class="row">
-        <div class="column">
-          <header>
-            <h1>The Cinemind Network</h1>
-            <p>Access the infinite world of cinema</p>
-          </header>
-        </div>
+        <div id="login-screen">
+            <div class="row">
+                <div class="column">
+                    <header>
+                        <h1>The Cinemind Network</h1>
+                        <p>Access the infinite world of cinema</p>
+                    </header>
+                </div>
 
-        <!-- Form Container -->
-        <div class="column">
-          <div class="form-container">
-            <section id="login-form">
-              <!--API KEY input by user-->
-              <label for="inputPassword5" class="form-label">API KEY:</label>
-              <input
-                type="password"
-                id="inputPassword5"
-                placeholder="Enter your API key"
-                class="form-control"
-                aria-describedby="passwordHelpBlock"
-              />
-              <!--
+                <!-- Form Container -->
+                <div class="column">
+                    <div class="form-container">
+                        <section id="login-form">
+                            <!--API KEY input by user-->
+                            <label for="inputPassword5" class="form-label">API KEY:</label>
+                            <input type="password" id="inputPassword5" placeholder="Enter your API key"
+                                class="form-control" aria-describedby="passwordHelpBlock" />
+                            <!--
                 CONNECT button:
                 - Has id="submit-btn" so script.js or another module can attach an event listener.
               -->
-              <button type="submit" id="submit-btn">CONNECT</button>
+                            <button type="submit" id="submit-btn">CONNECT</button>
 
-              <div id="passwordHelpBlock" class="form-text">
-                NOTE: Access restricted to authorized users only
-              </div>
-            </section>
-          </div>
+                            <div id="passwordHelpBlock" class="form-text">
+                                NOTE: Access restricted to authorized users only
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
     </div>
 
     <!--
@@ -86,155 +79,122 @@
       - Contains navbar, search, disconnect and main app areas (trending/top-rated/etc).
     -->
     <div id="main-ui" class="hidden">
-      <!-- Nav bar, Search and Disconnect Button-->
-      <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">⌈ CINEMIND DATABASE ⌋</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
+        <!-- Nav bar, Search and Disconnect Button-->
+        <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">⌈ CINEMIND DATABASE ⌋</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              
-              <li class="nav-item"></li>
-                <a class="nav-link active" aria-current="page" href="#trending-section">Trending</a>
-              </li>
-              <li class="nav-item"></li>
-                <a class="nav-link" href="#top-rated-section">Top-Rated</a>
-              </li>
-            </ul>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-            <!--
+                        <li class="nav-item"></li>
+                        <a class="nav-link active" aria-current="page" href="#trending-section">Trending</a>
+                        </li>
+                        <li class="nav-item"></li>
+                        <a class="nav-link" href="#top-rated-section">Top-Rated</a>
+                        </li>
+                    </ul>
+
+                    <!--
               Search form and DISCONNECT- Once clicked, the DISCONNECT button should: 
               - Clear any client-side state (e.g., user info, API key).
               - Hide the main content area and show the login form again.
             -->
-            <form class="d-flex gap-2" role="search">
-              <input class="form-control me-2" type="search" placeholder="&gt; SEARCH DATABASE" aria-label="Search" />
-              <button class="btn btn-outline-success" type="submit">[ENTER]</button>
-              <button class="btn btn-outline-success" type="button" id="disconnect-btn">[DISCONNECT]</button>
-            </form>
-          </div>
+                    <form class="d-flex gap-2" role="search">
+                        <input class="form-control me-2" type="search" placeholder="&gt; SEARCH DATABASE"
+                            aria-label="Search" />
+                        <button class="btn btn-outline-success" type="submit">[ENTER]</button>
+                        <button class="btn btn-outline-success" type="button" id="disconnect-btn">[DISCONNECT]</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+
+        <div id="search-results"></div>
+
+        <div id="content">
+            <section id="trending-section">
+                <!-- Trending movies will be displayed here -->
+                <h2 class="section-title">|> Trending Movies</h2>
+                <div id="trending-grid" class="movies-grid"></div>
+
+            </section>
+            <section id="top-rated-section">
+                <!-- Top rated movies will be displayed here -->
+                <h2 class="section-title">|> Top Rated Movies</h2>
+                <div id="top-rated-grid" class="movies-grid"></div>
+            </section>
         </div>
-      </nav>
-
-      <div id="search-results"></div>
-
-      <div id="content">
-      <section id="trending-section">
-        <!-- Trending movies will be displayed here -->
-        <h2 class="section-title">|> Trending Movies</h2>
-        <div id="trending-grid" class="movies-grid"></div>
-
-      </section>
-      <section id="top-rated-section">
-        <!-- Top rated movies will be displayed here -->
-        <h2 class="section-title">|> Top Rated Movies</h2>
-        <div id="top-rated-grid" class="movies-grid"></div>
-      </section>
-      </div> 
-      <footer>
-        <p>&copy; 2025 Cinemind. All rights reserved.</p>
-        <!-- Footer content -->
-      </footer>
+        <footer>
+            <p>&copy; 2025 Cinemind. All rights reserved.</p>
+            <!-- Footer content -->
+        </footer>
     </div>
-     
+
 
     <!-- Matrix Rain Script: -->
-   
+
     <script>
-      // Get canvas and rendering context
-      const canvas = document.getElementById('matrixRain');
-      const ctx = canvas.getContext('2d');
+        // Get canvas and rendering context
+        const canvas = document.getElementById('matrixRain');
+        const ctx = canvas.getContext('2d');
 
-      // Set initial canvas size to viewport size.
-      // If you need to support window resize, add an event listener to recalculate these values.
-      canvas.height = window.innerHeight;
-      canvas.width = window.innerWidth;
+        // Set initial canvas size to viewport size.
+        // If you need to support window resize, add an event listener to recalculate these values.
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
 
-      // Characters used in the rain effect
-      const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%';
-      const fontSize = 16; // px per "cell"
-      // Number of columns is canvas width divided by fontSize (floating -> used as integer via iteration)
-      const columns = canvas.width / fontSize;
-      // Each drop tracks its vertical position (in units of fontSize)
-      const drops = [];
+        // Characters used in the rain effect
+        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%';
+        const fontSize = 16; // px per "cell"
+        // Number of columns is canvas width divided by fontSize (floating -> used as integer via iteration)
+        const columns = canvas.width / fontSize;
+        // Each drop tracks its vertical position (in units of fontSize)
+        const drops = [];
 
-      // Initialize drops array: start each column at row 1
-      for (let x = 0; x < columns; x++) drops[x] = 1;
+        // Initialize drops array: start each column at row 1
+        for (let x = 0; x < columns; x++) drops[x] = 1;
 
-      function draw() {
-        // Semi-transparent black rectangle to create the "trail" effect
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        function draw() {
+            // Semi-transparent black rectangle to create the "trail" effect
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Bright green text for matrix look
-        ctx.fillStyle = '#0F0';
-        ctx.font = fontSize + 'px monospace';
+            // Bright green text for matrix look
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px monospace';
 
-        // Iterate over drops and draw a random character for each column
-        for (let i = 0; i < drops.length; i++) {
-          const text = letters.charAt(Math.floor(Math.random() * letters.length));
-          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+            // Iterate over drops and draw a random character for each column
+            for (let i = 0; i < drops.length; i++) {
+                const text = letters.charAt(Math.floor(Math.random() * letters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-          // Reset drop back to top randomly after it passes the bottom
-          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
-          // Move drop down one row
-          drops[i]++;
+                // Reset drop back to top randomly after it passes the bottom
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                // Move drop down one row
+                drops[i]++;
+            }
         }
-      }
 
-      // Main loop: ~30fps
-      setInterval(draw, 33);
+        // Main loop: ~30fps
+        setInterval(draw, 33);
     </script>
 
-    <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const connectBtn = document.getElementById("submit-btn");
-    const disconnectBtn = document.getElementById("disconnect-btn");
-    const loginScreen = document.getElementById("login-screen");
-    const mainUI = document.getElementById("main-ui");
-    const apiKeyInput = document.getElementById("inputPassword5");
+    <script src="assets/js/script.js"></script>
 
-    connectBtn.addEventListener("click", () => {
-      const apiKey = apiKeyInput.value.trim();
-      if (apiKey) {
-        // Store it globally if needed
-        window.userApiKey = apiKey;
 
-        // Toggle visibility
-        loginScreen.classList.add("hidden");
-        mainUI.classList.remove("hidden");
-      } else {
-        alert("Please enter a valid API key.");
-      }
-    });
-
-    disconnectBtn.addEventListener("click", () => {
-      window.userApiKey = null;
-      apiKeyInput.value = "";
-
-      mainUI.classList.add("hidden");
-      loginScreen.classList.remove("hidden");
-    });
-  });
-</script>
-
-    
 
     <!-- Bootstrap JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
 
     <!--JS File-->
     <script src="assets/js/script.js"></script>
-  </body>
+</body>
+
 </html>
