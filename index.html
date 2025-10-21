@@ -249,37 +249,41 @@
     </footer>
   </div>
   
+  <!--
+    Movie Card Template:
+    - HTML template for individual movie cards.
+    - Used by script.js to dynamically create movie elements.
+    - Contains placeholders for movie ID, poster, title and release year.
+  -->
 <template id="movie-card-template">
-  <div class="movie-card" tabindex="0" role="button" aria-expanded="false">
-    <!-- Movie poster image -->
+  <div class="movie-card" data-id="">
     <img src="" alt="Movie Poster" class="movie-poster" />
-    
-    <!-- Title overlay shown on hover or below poster -->
-    <div class="movie-title-overlay">
-      <h4 class="movie-title">Movie Title</h4>
-    </div>
-
-    <!--
-      Hidden details section:
-      - Initially hidden by the 'hidden' class.
-      - To be shown only when this card is clicked (toggle visibility).
-      - Contains detailed movie info and action buttons.
-    -->
-    <div class="movie-details hidden">
-      <p><strong>Release Year:</strong> <span class="release-year"></span></p>
-      <p><strong>Director:</strong> <span class="movie-director"></span></p>
-      <p><strong>Cast:</strong> <span class="movie-cast"></span></p>
-      <p><strong>Genre:</strong> <span class="movie-genre"></span></p>
-      <p><strong>Rating:</strong> <span class="movie-rating"></span></p>
-      <!-- Short synopsis or overview of the movie -->
-      <p class="movie-overview"></p>
-      
-      <!-- Buttons for user actions -->
-      <button class="btn btn-sm btn-outline-success add-favorite-btn">Add to Favorites</button>
-      <button class="btn btn-sm btn-outline-warning add-watchlist-btn">Add to Watchlist</button>
+    <div class="movie-info-line">
+      <span class="movie-title">Title</span>
+      <span class="release-year">Year</span>
     </div>
   </div>
 </template>
+
+<div id="movie-modal" class="modal hidden" role="dialog" aria-modal="true">
+  <div class="modal-content">
+    <button class="close-btn" aria-label="Close modal">×</button>
+    <div class="modal-body">
+      <img src="" alt="Movie Poster" class="modal-poster" />
+      <h2 class="modal-title">Title</h2>
+      <p class="modal-release-year">Year</p>
+      <p class="modal-overview">Overview</p>
+      <p class="modal-director">Director</p>
+      <p class="modal-cast">Cast</p>
+      <p class="modal-genre">Genres</p>
+      <p class="modal-rating">Rating</p>
+      <button class="btn btn-outline-success">Add to Favorites</button>
+      <button class="btn btn-outline-warning">Add to Watchlist</button>
+    </div>
+  </div>
+</div>
+
+
 
 
 
