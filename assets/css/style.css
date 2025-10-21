@@ -33,7 +33,8 @@ body {
   letter-spacing: 1px;
 }
 .hidden {
-  
+  display: none !important;
+ 
 }
 
 /* Navbar (fixed at top) */
@@ -48,6 +49,25 @@ body .navbar {
   width: 100%;
   z-index: 10;
   background-color: transparent !important;
+}
+
+.section-title {
+  position: absolute;
+  font-family: var(--primary-font);
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  padding-left: 0.5rem;
+  border-left: 3px solid #00ff00;
+  text-shadow: 0 0 10px #00ff00;
+}
+
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
 }
 
 /* Matrix rain canvas (background visual) */
