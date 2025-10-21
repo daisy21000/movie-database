@@ -170,63 +170,37 @@
     </nav>
 
     <div id="content">
-    <div class="search-section">
-      <!--
-      Search form:
-      - User can search for movies by title.
-      - On submit, triggers search logic in assets/js/script.js.
-      - To change placeholder or validation, edit input below.
-      -->
-      <form id="search-form" class="d-flex mb-3" role="search" autocomplete="off">
+   <div class="search-section">
+  <!-- Search form -->
+  <form id="search-form" class="d-flex mb-3" role="search" autocomplete="off">
     <input 
       type="text" 
       class="form-control me-2 search-bar" 
       id="search-input"
-      placeholder="&gt; SEARCH DATABASE [ENTER TO QUERY]..."
+      placeholder="> SEARCH DATABASE [ENTER TO QUERY]..."
       aria-label="Search movies"
       required
     />
-    <button
-        class="btn btn-outline-success"
-        type="button"
-        id="enter-btn"
-      >
-        [ENTER]
-      </button>
-      </form>
-    
+    <button class="btn btn-outline-success" type="submit" id="enter-btn">
+      [ENTER]
+    </button>
+  </form>
 
-      <!--Feedback if invalid or empty search term-->
-      <div
-      id="search-error"
-      class="alert alert-warning d-none mt-2"
-      role="alert"
-      >
-      Please enter a valid search term.
-      </div>
-    </div>
+  <!-- Error message shown if input is empty/invalid -->
+  <div id="search-error" class="alert alert-warning d-none mt-2" role="alert">
+    Please enter a valid search term.
+  </div>
 
-    <div id="search-results"></div>
+  <!-- Loading spinner (hidden by default) -->
+  <div id="loading-search" class="d-none text-center my-4">
+    <div class="spinner-border text-success" role="status" aria-hidden="true"></div>
+    <span class="visually-hidden">Loading...</span>
+  </div>
 
-      <!--Feedback if invalid or empty search term-->
-      <div
-      id="search-error"
-      class="alert alert-warning d-none mt-2"
-      role="alert"
-      >
-      Please enter a valid search term.
-      </div>
-    </form>
-    <!-- Loading spinner, hidden by default -->
-    <div id="loading-search" class="d-none text-center my-4">
-      <div
-      class="spinner-border text-success"
-      role="status"
-      aria-hidden="true"
-      ></div>
-      <span class="visually-hidden">Loading...</span>
-    </div>
-    <div id="search-results"></div>
+  <!-- Search results grid -->
+  <div id="search-results" class="movies-grid"></div>
+</div>
+
     <section id="trending-section">
       <!-- Trending movies will be displayed here -->
       <h2 class="section-title">|> Trending Movies</h2>
