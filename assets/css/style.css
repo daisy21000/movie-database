@@ -57,6 +57,7 @@ body .navbar {
   font-weight: bold;
   font-size: 1.5rem;
   text-transform: uppercase;
+  margin-top: 3rem;
   margin-bottom: 1.5rem;
   padding-left: 0.5rem;
   border-left: 3px solid #00ff00;
@@ -69,7 +70,16 @@ body .navbar {
   gap: 1.5rem;
   margin-bottom: 3rem;
 }
-
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.875rem;
+  color: var(--text-color);
+}
 /* Matrix rain canvas (background visual) */
 #matrixRain {
   position: fixed;
