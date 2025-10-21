@@ -15,20 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
         },
     };
 
-<<<<<<< HEAD
-      document.addEventListener('DOMContentLoaded', () => {
-        const connectBtn = document.getElementById('submit-btn')
-        const disconnectBtn = document.getElementById('disconnect-btn')
-        const loginScreen = document.getElementById('login-screen')
-        const mainUI = document.getElementById('main-ui')
-        const apiKeyInput = document.getElementById('inputPassword5')
-
-        connectBtn.addEventListener('click', () => {
-          const apiKey = apiKeyInput.value.trim()
-          if (apiKey) {
-            
-            window.userApiKey = apiKey
-=======
     if (document.cookie.includes("userApiKey=")) {
         apiKey = document.cookie
             .split("; ")
@@ -57,7 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (isKeyValid) {
             // Store it globally if needed
             document.cookie = `userApiKey=${apiKey}; path=/`;
->>>>>>> main
 
             // Toggle visibility
             loginScreen.classList.add("hidden");
