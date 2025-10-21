@@ -1,4 +1,5 @@
-/* Custom Font: Departure Mono */
+/* --- Fonts ------------------------------------------------------------------ */
+/* Custom Font: Departure Mono (fallbacks + display strategy) */
 @font-face {
   font-family: 'Departure Mono';
   src: local('Departure Mono'), local('DepartureMono-Regular'),
@@ -13,7 +14,8 @@
   font-display: swap;
 }
 
-/* CSS Variables for Theming */
+/* --- Theming ---------------------------------------------------------------- */
+/* CSS Variables for easy theme adjustments */
 :root {
   --background-color: #000000;
   --text-color: #00ff00;
@@ -21,7 +23,7 @@
   --secondary-font: 'Departure Mono', monospace;
 }
 
-/* Global Styles */
+/* --- Base / Global Styles -------------------------------------------------- */
 body {
   background-color: var(--background-color) !important;
   color: var(--text-color) !important;
@@ -30,21 +32,37 @@ body {
   padding: 0;
   letter-spacing: 1px;
 }
+.hidden {
+  
+}
 
-/* Matrix rain canvas */
-      #matrixRain {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -5;
-        background: black;
-        opacity: 0.6;
-        
-      }
+/* Navbar (fixed at top) */
+body .navbar {
+  font-family: var(--font-body);
+  font-size: 20px;
+  font-weight: bolder;
+  text-transform: uppercase;
+  margin-bottom: 60px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+  background-color: transparent !important;
+}
 
-/* Centered Container */
+/* Matrix rain canvas (background visual) */
+#matrixRain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -5;
+  background: black;
+  opacity: 0.6;
+}
+
+/* Centering helper for main content */
 .container {
   z-index: 5;
   align-items: center;
@@ -52,6 +70,7 @@ body {
   margin-top: 3rem;
 }
 
+/* Header typography */
 header {
   text-align: center;
   margin-top: 2rem;
@@ -67,7 +86,8 @@ h1 {
   padding-bottom: 0.7rem;
 }
 
-/* Background Layers- green hues and mix-blend-mode */
+/* --- Background Layers ----------------------------------------------------- */
+/* Layer 1: darker repeating texture */
 .bg-layer-1 {
   position: fixed;
   inset: 0;
@@ -80,6 +100,7 @@ h1 {
   z-index: 1;
 }
 
+/* Layer 2: animated dark texture with blend */
 .bg-layer-2 {
   position: fixed;
   inset: 0;
@@ -92,6 +113,7 @@ h1 {
   z-index: 2;
 }
 
+/* Subtle green glow overlay */
 .bg-glow {
   position: fixed;
   inset: 0;
@@ -102,30 +124,33 @@ h1 {
   z-index: 3;
 }
 
+/* Dark vignette to focus center content */
 .dark-overlay {
   position: fixed;
   inset: 0;
   background: radial-gradient(
     circle at 50% 45%,
-    rgba(0,0,0,0) 0%,
-    rgba(0,0,0,0.15) 35%,
-    rgba(0,0,0,0.95) 100%
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.15) 35%,
+    rgba(0, 0, 0, 0.95) 100%
   );
   opacity: 0.9;
   z-index: 4;
   pointer-events: none;
 }
 
+/* Minor header spacing tweak */
 header {
   padding-bottom: 50px !important;
 }
 
-/* Form Container Styling */
-
+/* --- Form area ------------------------------------------------------------- */
+/* Small offset for login form area */
 #login-form {
   padding-left: 1rem;
 }
 
+/* Glass-like form container (blur + border) */
 .form-container {
   background: rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(0, 255, 0, 0.3);
@@ -139,7 +164,7 @@ header {
   z-index: 6;
 }
 
-/* Form Label Styling */
+/* Form label (use element selector if custom element, otherwise adjust) */
 form-label {
   width: 90%;
   color: rgb(0, 255, 0);
@@ -155,7 +180,7 @@ form-label {
   justify-content: center !important;
 }
 
-/* input text, background and border */
+/* Password input styling */
 #inputPassword5 {
   color: #ffffff;
   justify-content: center;
@@ -167,7 +192,7 @@ form-label {
   margin-bottom: 25px;
 }
 
-/* placeholder color (with vendor fallbacks) */
+/* Placeholder color fallbacks */
 #inputPassword5::placeholder {
   color: var(--text-color);
 }
@@ -181,7 +206,7 @@ form-label {
   color: var(--text-color);
 }
 
-/* Connect Button Styling */
+/* Connect / submit button */
 #submit-btn {
   width: 90%;
   color: rgb(0, 255, 0);
@@ -200,6 +225,7 @@ form-label {
   transition: 0.3s;
 }
 
+/* Small helper text under form */
 .form-text {
   text-align: center;
   font-size: 0.75rem !important;
@@ -209,7 +235,8 @@ form-label {
   text-align: center !important;
 }
 
-/* Responsive Design for Smaller Screens */
+/* --- Responsive tweaks ------------------------------------------------------ */
+/* Adjust sizing for narrow viewports */
 @media (max-width: 768px) {
   header {
     padding-top: 8rem;
@@ -217,25 +244,6 @@ form-label {
     margin-bottom: 0rem;
     padding-bottom: 0.5rem !important;
     font-size: 1rem !important;
-}
-
-  h1 {
-    font-size: 3.5rem !important;
-  }
-
-  .form-container {
-    width: 90% !important;
-  }
-}
-
-/* Responsive design for tablets and bigger screens */
-@media (min-width: 769px) {
-  header {
-    padding-top: 8rem;
-    margin-top: 1rem;
-    margin-bottom: 0rem;
-    padding-bottom: 0.5rem !important;
-    font-size: 1rem !important;
   }
 
   h1 {
@@ -244,22 +252,5 @@ form-label {
 
   .form-container {
     width: 90% !important;
-  }
-}
-
-/* Responsive design for large desktops */
-@media (min-width: 1200px) {
-
-  header {
-    padding-top: 10rem;
-    margin-top: 10rem;
-    margin-bottom: 0rem;
-    padding-bottom: 0.5rem !important;
-    font-size: 1rem !important;
-  }
-  .form-container {
-    width: 90% !important;
-    height: auto !important;
-    font-size: 1rem;
   }
 }

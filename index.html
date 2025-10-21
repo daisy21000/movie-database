@@ -3,43 +3,58 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Movie Database</title>
+    <title>Cinemind</title>
+
+    <!-- Favicon: small film icon shown in browser tab -->
     <link rel="icon" type="image/png" href="assets/images/film3.png" />
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="assets/css/style.css" />
-    <!-- Bootstrap CSS -->
+
+    <!-- Bootstrap CSS from CDN (v5.3.2) -->
+    <!-- If you want to work offline or lock a version, replace with a local file or a specific integrity hash. -->
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous"
     />
-  
+
+    <!-- Project stylesheet: custom styles, layout and layering -->
+    <link rel="stylesheet" href="assets/css/style.css" />
   </head>
+
   <body>
-    <!-- Matrix rain canvas -->
+    <!--
+      Matrix rain canvas:
+      - Renders the green "matrix" effect behind the UI.
+      - Kept as a separate canvas element so we can layer HTML UI on top.
+      - ID used by the inline script below: matrixRain
+    -->
     <canvas id="matrixRain"></canvas>
 
-    <!-- Main Content -->
+    <!--
+      Main form container:
+      - Central login-like UI where the user enters an API key.
+      - Background layers (bg-layer-1, bg-layer-2, bg-glow, dark-overlay) are decorative and defined in CSS.
+      - Keep accessibility in mind: labels, aria attributes and contrast.
+    -->
     <div class="container">
-      <!-- Background layers -->
+      <!-- Background / visual layer elements. These are empty divs styled via CSS. -->
       <div class="bg-layer-1"></div>
       <div class="bg-layer-2"></div>
       <div class="bg-glow"></div>
       <div class="dark-overlay"></div>
 
-      <div class="column">
-        <div class="row">
+      <div class="row">
+        <div class="column">
           <header>
-            <h1>The Movie Database</h1>
-            <p>Access the latest movie information</p>
+            <h1>The Cinemind Network</h1>
+            <p>Access the infinite world of cinema</p>
           </header>
         </div>
 
         <!-- Form Container -->
-        <div class="row">
+        <div class="column">
           <div class="form-container">
             <section id="login-form">
+              <!--API KEY input by user-->
               <label for="inputPassword5" class="form-label">API KEY:</label>
               <input
                 type="password"
@@ -48,7 +63,12 @@
                 class="form-control"
                 aria-describedby="passwordHelpBlock"
               />
+              <!--
+                CONNECT button:
+                - Has id="submit-btn" so script.js or another module can attach an event listener.
+              -->
               <button type="submit" id="submit-btn">CONNECT</button>
+
               <div id="passwordHelpBlock" class="form-text">
                 NOTE: Access restricted to authorized users only
               </div>
@@ -57,47 +77,117 @@
         </div>
       </div>
     </div>
-    <!-- Nav bar, Search and Disconnect Button-->
-     <!-- Trending Section-->
-      <!-- Top Rated Section-->
-       <!--Footer-->
 
-    <!-- Matrix Rain Script -->
+    <!--
+      Main content hidden by default:
+      - This section is intended to become visible after a successful connection/authentication- once connect button is clicked.
+      - Contains navbar, search, disconnect and main app areas (trending/top-rated/etc).
+    -->
+    <div class="hidden">
+      <!-- Nav bar, Search and Disconnect Button-->
+      <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="#">Home</a>
+              </li>
+              <li class="nav-item"></li>
+                <a class="nav-link active" aria-current="page" href="#">Trending</a>
+              </li>
+              <li class="nav-item"></li>
+                <a class="nav-link" href="#">Top-Rated</a>
+              </li>
+            </ul>
+
+            <!--
+              Search form and DISCONNECT- Once clicked, the DISCONNECT button should: 
+              - Clear any client-side state (e.g., user info, API key).
+              - Hide the main content area and show the login form again.
+            -->
+            <form class="d-flex gap-2" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+              <button class="btn btn-outline-success" type="submit">Search</button>
+              <button class="btn btn-outline-success" type="button" id="disconnect-btn">DISCONNECT</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+
+      <!--
+        Placeholder sections for:
+        - Trending Section
+        - Top rated Section
+        - Footer
+        Implement content and components as needed.
+      -->
+    </div>
+
+    <!-- Matrix Rain Script: -->
+   
     <script>
+      // Get canvas and rendering context
       const canvas = document.getElementById('matrixRain');
       const ctx = canvas.getContext('2d');
 
+      // Set initial canvas size to viewport size.
+      // If you need to support window resize, add an event listener to recalculate these values.
       canvas.height = window.innerHeight;
       canvas.width = window.innerWidth;
 
+      // Characters used in the rain effect
       const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%';
-      const fontSize = 16;
+      const fontSize = 16; // px per "cell"
+      // Number of columns is canvas width divided by fontSize (floating -> used as integer via iteration)
       const columns = canvas.width / fontSize;
+      // Each drop tracks its vertical position (in units of fontSize)
       const drops = [];
 
+      // Initialize drops array: start each column at row 1
       for (let x = 0; x < columns; x++) drops[x] = 1;
 
       function draw() {
+        // Semi-transparent black rectangle to create the "trail" effect
         ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+        // Bright green text for matrix look
         ctx.fillStyle = '#0F0';
         ctx.font = fontSize + 'px monospace';
 
+        // Iterate over drops and draw a random character for each column
         for (let i = 0; i < drops.length; i++) {
           const text = letters.charAt(Math.floor(Math.random() * letters.length));
           ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975)
-            drops[i] = 0;
+          // Reset drop back to top randomly after it passes the bottom
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+          // Move drop down one row
           drops[i]++;
         }
       }
 
+      // Main loop: ~30fps
       setInterval(draw, 33);
     </script>
 
-    <!-- Your existing JS -->
+    <!-- Bootstrap JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+    <!--JS File-->
     <script src="assets/js/script.js"></script>
   </body>
 </html>
