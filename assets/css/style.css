@@ -150,7 +150,7 @@ h1 {
 .bg-layer-1 {
     position: fixed;
     inset: 0;
-    background-image: url(/assets/images/bg_darker.gif);
+    background-image: url(../images/bg_darker.gif);
     background-repeat: repeat;
     background-color: #000;
     opacity: 0.45;
@@ -163,7 +163,7 @@ h1 {
 .bg-layer-2 {
     position: fixed;
     inset: 0;
-    background-image: url(/assets/images/bg_dark_anim_0_08.gif);
+    background-image: url(../images/bg_dark_anim_0_08.gif);
     background-repeat: repeat;
     background-color: transparent;
     opacity: 0.28;

@@ -2,290 +2,358 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cinemind</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cinemind</title>
 
-    <!-- Favicon: small film icon shown in browser tab -->
-    <link rel="icon" type="image/png" href="assets/favicon/film3.gif" />
+  <!-- Favicon: small film icon shown in browser tab -->
+  <link rel="icon" type="image/png" href="assets/favicon/film3.gif" />
 
-    <!-- Bootstrap CSS from CDN (v5.3.2) -->
-    <!-- If you want to work offline or lock a version, replace with a local file or a specific integrity hash. -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        crossorigin="anonymous" />
+  <!-- Bootstrap CSS from CDN (v5.3.2) -->
+  <!-- If you want to work offline or lock a version, replace with a local file or a specific integrity hash. -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    crossorigin="anonymous" />
 
-    <!-- Project stylesheet: custom styles, layout and layering -->
-    <link rel="stylesheet" href="assets/css/style.css" />
+  <!-- Project stylesheet: custom styles, layout and layering -->
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 
 <body>
-    <!--
-      Matrix rain canvas:
-      - Renders the green "matrix" effect behind the UI.
-      - Kept as a separate canvas element so we can layer HTML UI on top.
-      - ID used by the inline script below: matrixRain
-    -->
-    <canvas id="matrixRain"></canvas>
+  <!--
+    Matrix rain canvas:
+    - Renders the green "matrix" effect behind the UI.
+    - Kept as a separate canvas element so we can layer HTML UI on top.
+    - ID used by the inline script below: matrixRain
+    - If you want to disable the effect, comment out this canvas and the script at the bottom.
+  -->
+  <canvas id="matrixRain"></canvas>
 
-    <!--
-      Main form container:
-      - Central login-like UI where the user enters an API key.
-      - Background layers (bg-layer-1, bg-layer-2, bg-glow, dark-overlay) are decorative and defined in CSS.
-      - Keep accessibility in mind: labels, aria attributes and contrast.
-    -->
-    <div class="container">
-      <!-- Background / visual layer elements. These are empty divs styled via CSS. -->
-      <div class="bg-layer-1"></div>
-      <div class="bg-layer-2"></div>
-      <div class="bg-glow"></div>
-      <div class="dark-overlay"></div>
+  <!--
+    Main form container:
+    - Central login-like UI where the user enters an API key.
+    - Background layers (bg-layer-1, bg-layer-2, bg-glow, dark-overlay) are decorative and defined in CSS.
+    - Keep accessibility in mind: labels, aria attributes and contrast.
+    - To change the login logic, see assets/js/script.js.
+  -->
+  <div class="container">
+    <!-- Background / visual layer elements. These are empty divs styled via CSS. -->
+    <div class="bg-layer-1"></div>
+    <div class="bg-layer-2"></div>
+    <div class="bg-glow"></div>
+    <div class="dark-overlay"></div>
 
-      <div id="login-screen">
-        <div class="row">
-          <div class="column">
-            <header>
-              <h1>The Cinemind Network</h1>
-              <p>Access the infinite world of cinema</p>
-            </header>
-          </div>
-
-          <!-- Form Container -->
-          <div class="column">
-            <div class="form-container">
-              <section id="login-form">
-                <!--API KEY input by user-->
-                <label for="inputPassword5" class="form-label">API KEY:</label>
-                <input
-                  type="password"
-                  id="inputPassword5"
-                  placeholder="Enter your API key"
-                  class="form-control"
-                  aria-describedby="passwordHelpBlock"
-                />
-                <!--API KEY error message-->
-                <div
-                  id="api-error"
-                  class="alert alert-danger d-none"
-                  role="alert"
-                >
-                  Invalid API key. Please try again.
-                </div>
-
-                <!--
-                CONNECT button:
-                - Has id="submit-btn" so script.js or another module can attach an event listener.
-              -->
-                <button type="submit" id="submit-btn">CONNECT</button>
-                <!-- Loading spinner, hidden by default -->
-                <div id="loading" class="d-none text-center my-4">
-                  <div
-                    class="spinner-border text-success"
-                    role="status"
-                    aria-hidden="true"
-                  ></div>
-                  <span class="visually-hidden">Loading...</span>
-                </div>
-
-                <div id="passwordHelpBlock" class="form-text">
-                  NOTE: Access restricted to authorized users only
-                </div>
-              </section>
-            </div>
-          </div>
-        </div>
+    <div id="login-screen">
+    <div class="row">
+      <div class="column">
+      <header>
+        <h1>The Cinemind Network</h1>
+        <p>Access the infinite world of cinema</p>
+      </header>
       </div>
-    </div>
 
-    <!--
-      Main content hidden by default:
-      - This section is intended to become visible after a successful connection/authentication- once connect button is clicked.
-      - Contains navbar, search, disconnect and main app areas (trending/top-rated/etc).
-    -->
-    <div id="main-ui" class="hidden">
-      <!-- Nav bar, Search and Disconnect Button-->
-      <nav
-        class="navbar navbar-expand-lg bg-body-tertiary"
-        data-bs-theme="dark"
-      >
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">⌈ CINEMIND DATABASE ⌋</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  aria-current="page"
-                  href="#trending-section"
-                  >Trending</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#top-rated-section">Top-Rated</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#top-rated-section">Favourites</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#top-rated-section">Watchlist</a>
-              </li>
-              
-            </ul>
-
-            <!--
-              DISCONNECT- Once clicked, the DISCONNECT button should: 
-              - Clear any client-side state (e.g., user info, API key).
-              - Hide the main content area and show the login form again.
-            -->
-            <button
-              class="btn btn-outline-success"
-              type="button"
-              id="disconnect-btn"
-            >
-              [DISCONNECT]
-            </button>
-          </div>
-        </div>
-      </nav>
-
-      <div id="content">
-        <div class="search-section">
-          <form id="search-form" class="d-flex mb-3" role="search" autocomplete="off">
-        <input 
-          type="text" 
-          class="form-control me-2 search-bar" 
-          id="search-input"
-          placeholder="&gt; SEARCH DATABASE [ENTER TO QUERY]..."
-          aria-label="Search movies"
-          required
+      <!-- Form Container -->
+      <div class="column">
+      <div class="form-container">
+        <section id="login-form">
+        <!--API KEY input by user-->
+        <label for="inputPassword5" class="form-label">API KEY:</label>
+        <input
+          type="password"
+          id="inputPassword5"
+          placeholder="Enter your API key"
+          class="form-control"
+          aria-describedby="passwordHelpBlock"
         />
-        <button
-              class="btn btn-outline-success"
-              type="button"
-              id="enter-btn"
-            >
-              [ENTER]
-            </button>
-          </form>
-      
-
-          <!--Feedback if invalid or empty search term-->
-          <div
-            id="search-error"
-            class="alert alert-warning d-none mt-2"
-            role="alert"
-          >
-            Please enter a valid search term.
-          </div>
+        <!--API KEY error message-->
+        <div
+          id="api-error"
+          class="alert alert-danger d-none"
+          role="alert"
+        >
+          Invalid API key. Please try again.
         </div>
 
-        <div id="search-results"></div>
-
-          <!--Feedback if invalid or empty search term-->
-          <div
-            id="search-error"
-            class="alert alert-warning d-none mt-2"
-            role="alert"
-          >
-            Please enter a valid search term.
-          </div>
-        </form>
+        <!--
+        CONNECT button:
+        - Has id="submit-btn" so script.js or another module can attach an event listener.
+        - On click, triggers authentication logic (see assets/js/script.js).
+        -->
+        <button type="submit" id="submit-btn">CONNECT</button>
         <!-- Loading spinner, hidden by default -->
-        <div id="loading-search" class="d-none text-center my-4">
+        <div id="loading" class="d-none text-center my-4">
           <div
-            class="spinner-border text-success"
-            role="status"
-            aria-hidden="true"
+          class="spinner-border text-success"
+          role="status"
+          aria-hidden="true"
           ></div>
           <span class="visually-hidden">Loading...</span>
         </div>
-        <div id="search-results"></div>
-        <section id="trending-section">
-          <!-- Trending movies will be displayed here -->
-          <h2 class="section-title">|> Trending Movies</h2>
-          <div id="trending-grid" class="movies-grid"></div>
-        </section>
-        <section id="top-rated-section">
-          <!-- Top rated movies will be displayed here -->
-          <h2 class="section-title">|> Top Rated Movies</h2>
-          <div id="top-rated-grid" class="movies-grid"></div>
+
+        <div id="passwordHelpBlock" class="form-text">
+          NOTE: Access restricted to authorized users only
+        </div>
         </section>
       </div>
-      <footer>
-        <p>&copy; 2025 Cinemind. All rights reserved.</p>
-        <!-- Footer content -->
-      </footer>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <!--
+    Main content hidden by default:
+    - This section is intended to become visible after a successful connection/authentication- once connect button is clicked.
+    - Contains navbar, search, disconnect and main app areas (trending/top-rated/etc).
+    - To show/hide this section, toggle the "hidden" class via JS.
+  -->
+  <div id="main-ui" class="hidden">
+    <!-- Nav bar, Search and Disconnect Button-->
+    <nav
+    class="navbar navbar-expand-lg bg-body-tertiary"
+    data-bs-theme="dark"
+    >
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">⌈ CINEMIND DATABASE ⌋</a>
+      <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      >
+      <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <!--
+        Nav links:
+        - Add/remove sections here as needed.
+        - Update hrefs to match section IDs below.
+        -->
+        <li class="nav-item">
+        <a
+          class="nav-link active"
+          aria-current="page"
+          href="#trending-section"
+          >Trending</a
+        >
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="#top-rated-section">Top-Rated</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="#top-rated-section">Favourites</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="#top-rated-section">Watchlist</a>
+        </li>
+        
+      </ul>
+
+      <!--
+        DISCONNECT- Once clicked, the DISCONNECT button should: 
+        - Clear any client-side state (e.g., user info, API key).
+        - Hide the main content area and show the login form again.
+        - Logic handled in assets/js/script.js.
+      -->
+      <button
+        class="btn btn-outline-success"
+        type="button"
+        id="disconnect-btn"
+      >
+        [DISCONNECT]
+      </button>
+      </div>
+    </div>
+    </nav>
+
+    <div id="content">
+    <div class="search-section">
+      <!--
+      Search form:
+      - User can search for movies by title.
+      - On submit, triggers search logic in assets/js/script.js.
+      - To change placeholder or validation, edit input below.
+      -->
+      <form id="search-form" class="d-flex mb-3" role="search" autocomplete="off">
+    <input 
+      type="text" 
+      class="form-control me-2 search-bar" 
+      id="search-input"
+      placeholder="&gt; SEARCH DATABASE [ENTER TO QUERY]..."
+      aria-label="Search movies"
+      required
+    />
+    <button
+        class="btn btn-outline-success"
+        type="button"
+        id="enter-btn"
+      >
+        [ENTER]
+      </button>
+      </form>
+    
+
+      <!--Feedback if invalid or empty search term-->
+      <div
+      id="search-error"
+      class="alert alert-warning d-none mt-2"
+      role="alert"
+      >
+      Please enter a valid search term.
+      </div>
     </div>
 
-    <!-- Matrix Rain Script: -->
+    <div id="search-results"></div>
 
-    <script>
-      // Get canvas and rendering context
-      const canvas = document.getElementById('matrixRain')
-      const ctx = canvas.getContext('2d')
+      <!--Feedback if invalid or empty search term-->
+      <div
+      id="search-error"
+      class="alert alert-warning d-none mt-2"
+      role="alert"
+      >
+      Please enter a valid search term.
+      </div>
+    </form>
+    <!-- Loading spinner, hidden by default -->
+    <div id="loading-search" class="d-none text-center my-4">
+      <div
+      class="spinner-border text-success"
+      role="status"
+      aria-hidden="true"
+      ></div>
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <div id="search-results"></div>
+    <section id="trending-section">
+      <!-- Trending movies will be displayed here -->
+      <h2 class="section-title">|> Trending Movies</h2>
+      <div id="trending-grid" class="movies-grid"></div>
+    </section>
+    <section id="top-rated-section">
+      <!-- Top rated movies will be displayed here -->
+      <h2 class="section-title">|> Top Rated Movies</h2>
+      <div id="top-rated-grid" class="movies-grid"></div>
+    </section>
+    </div>
+    <footer>
+    <!--
+      Footer:
+      - Update copyright year as needed.
+      - Add additional links or info here.
+    -->
+    <p>&copy; 2025 Cinemind. All rights reserved.</p>
+    <!-- Footer content -->
+    </footer>
+  </div>
+  
+<template id="movie-card-template">
+  <div class="movie-card" tabindex="0" role="button" aria-expanded="false">
+    <!-- Movie poster image -->
+    <img src="" alt="Movie Poster" class="movie-poster" />
+    
+    <!-- Title overlay shown on hover or below poster -->
+    <div class="movie-title-overlay">
+      <h4 class="movie-title">Movie Title</h4>
+    </div>
 
-      // Set initial canvas size to viewport size.
-      // If you need to support window resize, add an event listener to recalculate these values.
-      canvas.height = window.innerHeight
-      canvas.width = window.innerWidth
-
-      // Characters used in the rain effect
-      const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%'
-      const fontSize = 16 // px per "cell"
-      // Number of columns is canvas width divided by fontSize (floating -> used as integer via iteration)
-      const columns = canvas.width / fontSize
-      // Each drop tracks its vertical position (in units of fontSize)
-      const drops = []
-
-      // Initialize drops array: start each column at row 1
-      for (let x = 0; x < columns; x++) drops[x] = 1
-
-      function draw() {
-        // Semi-transparent black rectangle to create the "trail" effect
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'
-        ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-        // Bright green text for matrix look
-        ctx.fillStyle = '#0F0'
-        ctx.font = fontSize + 'px monospace'
-
-        // Iterate over drops and draw a random character for each column
-        for (let i = 0; i < drops.length; i++) {
-          const text = letters.charAt(
-            Math.floor(Math.random() * letters.length)
-          )
-          ctx.fillText(text, i * fontSize, drops[i] * fontSize)
-
-          // Reset drop back to top randomly after it passes the bottom
-          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975)
-            drops[i] = 0
-          // Move drop down one row
-          drops[i]++
-        }
-      }
-      // Main loop: ~30fps
-      setInterval(draw, 33)
-      </script>
+    <!--
+      Hidden details section:
+      - Initially hidden by the 'hidden' class.
+      - To be shown only when this card is clicked (toggle visibility).
+      - Contains detailed movie info and action buttons.
+    -->
+    <div class="movie-details hidden">
+      <p><strong>Release Year:</strong> <span class="release-year"></span></p>
+      <p><strong>Director:</strong> <span class="movie-director"></span></p>
+      <p><strong>Cast:</strong> <span class="movie-cast"></span></p>
+      <p><strong>Genre:</strong> <span class="movie-genre"></span></p>
+      <p><strong>Rating:</strong> <span class="movie-rating"></span></p>
+      <!-- Short synopsis or overview of the movie -->
+      <p class="movie-overview"></p>
+      
+      <!-- Buttons for user actions -->
+      <button class="btn btn-sm btn-outline-success add-favorite-btn">Add to Favorites</button>
+      <button class="btn btn-sm btn-outline-warning add-watchlist-btn">Add to Watchlist</button>
+    </div>
+  </div>
+</template>
 
 
-    <!-- Bootstrap JS-->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      crossorigin="anonymous"
-    ></script>
 
-    <!--JS File-->
-    <script src="assets/js/script.js"></script>
+  <!--
+    Matrix Rain Script:
+    - Handles the animated background effect.
+    - If you want to disable, comment out this script and the canvas above.
+    - For performance, runs at ~30fps.
+    - To adjust speed or appearance, tweak fontSize, interval, or color values.
+  -->
+  <script>
+    // Get canvas and rendering context
+    const canvas = document.getElementById('matrixRain')
+    const ctx = canvas.getContext('2d')
+
+    // Set initial canvas size to viewport size.
+    // If you need to support window resize, add an event listener to recalculate these values.
+    canvas.height = window.innerHeight
+    canvas.width = window.innerWidth
+
+    // Characters used in the rain effect
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%'
+    const fontSize = 16 // px per "cell"
+    // Number of columns is canvas width divided by fontSize (floating -> used as integer via iteration)
+    const columns = canvas.width / fontSize
+    // Each drop tracks its vertical position (in units of fontSize)
+    const drops = []
+
+    // Initialize drops array: start each column at row 1
+    for (let x = 0; x < columns; x++) drops[x] = 1
+
+    function draw() {
+    // Semi-transparent black rectangle to create the "trail" effect
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'
+    ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+    // Bright green text for matrix look
+    ctx.fillStyle = '#0F0'
+    ctx.font = fontSize + 'px monospace'
+
+    // Iterate over drops and draw a random character for each column
+    for (let i = 0; i < drops.length; i++) {
+      const text = letters.charAt(
+      Math.floor(Math.random() * letters.length)
+      )
+      ctx.fillText(text, i * fontSize, drops[i] * fontSize)
+
+      // Reset drop back to top randomly after it passes the bottom
+      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975)
+      drops[i] = 0
+      // Move drop down one row
+      drops[i]++
+    }
+    }
+    // Main loop: ~30fps
+    setInterval(draw, 33)
+    </script>
+
+
+  <!--
+    Bootstrap JS:
+    - Required for navbar collapse and other Bootstrap components.
+    - If working offline, download and reference locally.
+  -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"
+  ></script>
+
+  <!--
+    Main JS File:
+    - Handles authentication, search, UI toggling, and API requests.
+    - See assets/js/script.js for logic.
+  -->
+  <script src="assets/js/script.js"></script>
   </body>
 </html>
