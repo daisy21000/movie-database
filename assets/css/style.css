@@ -3,11 +3,11 @@
 @font-face {
   font-family: 'Departure Mono';
   src: local('Departure Mono'), local('DepartureMono-Regular'),
-    url('/assets/fonts/DepartureMono-1.500/DepartureMono-Regular.woff2')
+    url('../fonts/DepartureMono-1.500/DepartureMono-Regular.woff2')
       format('woff2'),
-    url('/assets/fonts/DepartureMono-1.500/DepartureMono-Regular.woff')
+    url('../fonts/DepartureMono-1.500/DepartureMono-Regular.woff')
       format('woff'),
-    url('/assets/fonts/DepartureMono-1.500/DepartureMono-Regular.otf')
+    url('../fonts/DepartureMono-1.500/DepartureMono-Regular.otf')
       format('opentype');
   font-weight: normal;
   font-style: normal;
@@ -63,6 +63,36 @@ body .navbar {
   border-left: 3px solid #00ff00;
   text-shadow: 0 0 10px #00ff00;
 }
+
+.search-section {
+        margin-bottom: 1rem;
+        z-index: 17;
+      }
+
+      .search-bar {
+        margin-top: 2rem;
+        width: 90%;
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(0, 255, 0, 0.3);
+        color: #00ff00;
+        font-family: 'Courier New', monospace;
+        font-size: 1rem;
+        transition: all 0.3s;
+        z-index: 17;
+      }
+
+      .search-bar:focus {
+        outline: none;
+        border-color: #00ff00;
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        z-index: 17;
+      }
+
+      .search-bar::placeholder {
+        color: rgba(0, 255, 0, 0.3);
+        z-index: 17;
+      }
 
 .movies-grid {
   display: grid;
