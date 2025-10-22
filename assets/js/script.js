@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const apiKeyInput = document.getElementById("inputPassword5");
     const searchInput = document.getElementById("search-input");
     const searchForm = document.getElementById("search-form");
+    const searchResults = document.getElementById("search-results");
+    const movieCardTemplate = document.getElementById("movie-card-template");
     let apiKey = null;
     const options = {
         method: "GET",
@@ -64,6 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     searchForm.addEventListener("submit", async (e) => {
         e.preventDefault();
+        searchResults.innerHTML = ""; // Clear previous results
         // Encode and trim input
         let query = encodeURIComponent(searchInput.value.trim());
         try {
@@ -110,6 +113,18 @@ document.addEventListener("DOMContentLoaded", () => {
                         break;
                     }
                 }
+                let movieCard = movieCardTemplate.content.cloneNode(true);
+                movieCard.id += movie.id;
+                console.log(movieCard);
+                movieCard.querySelector(".movie-card").dataset.id = movie.id;
+                movieCard.querySelector(".movie-poster").src = imageUrl;
+                movieCard.querySelector(".movie-poster").alt =
+                    title + " Poster";
+                movieCard.querySelector(".movie-title").innerText = title;
+                movieCard.querySelector(".release-year").innerText =
+                    releaseYear;
+
+                searchResults.appendChild(movieCard);
 
                 // Console log for testing
                 console.log(
