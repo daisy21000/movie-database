@@ -23,6 +23,7 @@
   --text-color: #00ff00;
   --primary-font: "Courier New", monospace;
   --secondary-font: "Departure Mono", monospace;
+  --border-shadow: 0 0 10px #00ff00;
 }
 
 /* --- Shared / Consolidated Utilities --------------------------------------- */
@@ -44,7 +45,7 @@
 
 /* Consolidated font-family used by several controls */
 .search-bar,
-form-label,
+.form-label,
 #submit-btn {
   font-family: "Courier New", monospace;
 }
@@ -83,6 +84,7 @@ body {
   border: 1px solid rgba(0, 255, 0, 0.3);
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: var(--border-shadow);
   z-index: 10;
 }
 
@@ -92,7 +94,7 @@ body {
 
 /* Navbar (fixed at top) */
 body .navbar {
-  font-family: var(--font-body);
+  font-family: var(--secondary-font);
   font-size: 20px;
   font-weight: bolder;
   text-transform: uppercase;
@@ -101,7 +103,7 @@ body .navbar {
   top: 0;
   width: 100%;
   z-index: 10;
-  background-color: transparent !important;
+  background-color: black !important;
 }
 
 .section-title {
@@ -109,29 +111,30 @@ body .navbar {
     font-weight: bold;
     font-size: 1.5rem;
     text-transform: uppercase;
-    margin-top: 3rem;
     margin-bottom: 1.5rem;
     padding-left: 0.5rem;
     border-left: 3px solid #00ff00;
     text-shadow: 0 0 10px #00ff00;
+    z-index: 9;
 }
 
 .search-section {
-    margin-bottom: 1rem;
     z-index: 17;
 }
 
 .search-bar {
     margin-top: 2rem;
     width: 90%;
+    height: 90%;
     padding: 1rem;
     background: rgba(0, 0, 0, 0.5);
     border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 0;
     color: #00ff00;
     font-family: "Courier New", monospace;
     font-size: 1rem;
     transition: all 0.3s;
-    z-index: 17;
+    z-index: 9;
 }
 
 .search-bar:focus {
@@ -146,11 +149,102 @@ body .navbar {
     z-index: 17;
 }
 
+
+/* === Shared Base Styles for All Filters === */
+#genre-filter,
+#year-filter,
+.rating-filter {
+  font-family: var(--primary-font);
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 255, 0, 0.3);
+  color: rgba(0, 255, 0, 0.8);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  z-index: 10;
+  border-radius: 0;
+  margin-top: 2rem;
+  padding: 0.6rem 1rem;
+}
+
+/* === Genre & Year Filters === */
+#genre-filter,
+#year-filter {
+  height: 2.5rem;
+  width: 8rem;
+  background: rgba(0, 0, 0, 0.5);
+  appearance: none; /* cleaner look for select */
+}
+
+#genre-filter:focus,
+#year-filter:focus {
+  outline: none;
+  border-color: #00ff00;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+}
+
+#year-filter::placeholder {
+  color: rgba(0, 255, 0, 0.4);
+}
+
+/* === Rating Filter (Slider) === */
+.rating-filter {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 25rem;
+  height: 2.5rem;
+  padding: 0.8rem 1rem;
+}
+
+/* Slider input inside rating filter */
+.rating-filter input[type="range"] {
+  flex: 1;
+  height: 4px;
+  background: linear-gradient(to right, #00ff00, #003300);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  accent-color: #00ff00;
+}
+
+/* Value next to slider */
+.rating-filter #rating-value {
+  font-family: monospace;
+  font-weight: bold;
+  color: #00ff00;
+  font-size: 1rem;
+  min-width: 2.5rem;
+  text-align: right;
+}
+
+/* Focus state */
+.rating-filter:focus-within {
+  border-color: #00ff00;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+}
+
+/* Enter button next to filters */
+#enter-btn {
+  margin-left: 1rem;
+  margin-top: 2rem;
+  height: 2.5rem;
+  padding: 0 1.5rem;
+  background-color: rgba(0, 255, 0, 0.2);
+  color: #00ff00;
+  border: 1px solid rgba(0, 255, 0, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+
 .movies-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1.5rem;
   margin-bottom: 3rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .movie-card {
@@ -284,6 +378,8 @@ footer {
 
 /* Centering helper for main content */
 .container {
+  display: flex;
+  flex-direction: column;
   z-index: 5;
   align-items: center;
   justify-content: center;
@@ -378,20 +474,7 @@ h1 {
   z-index: 6;
 }
 
-/* Form label (use element selector if custom element, otherwise adjust) */
-form-label {
-  width: 90%;
-  color: rgb(0, 255, 0);
-  font-size: 1rem;
-  padding: 1rem;
-  background: rgba(0, 0, 0, 0.5);
-  border-width: 1px;
-  border-style: solid;
-  border-color: rgba(0, 255, 0, 0.3);
-  border-image: initial;
-  transition: 0.3s;
-  justify-content: center !important;
-}
+
 
 /* Password input styling */
 #inputPassword5 {
