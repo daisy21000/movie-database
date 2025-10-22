@@ -115,7 +115,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const createMovieCard = (movieDetails) => {
         let cardClone = movieCardTemplate.content.cloneNode(true);
         let movieCard = cardClone.querySelector(".movie-card");
-        movieCard.dataset.id = movieDetails.id;
         movieCard.querySelector(".movie-poster").src = movieDetails.imageUrl;
         movieCard.querySelector(".movie-poster").alt =
             movieDetails.title + " Poster";
