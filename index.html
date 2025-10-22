@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cinemind</title>
@@ -11,14 +10,17 @@
 
     <!-- Bootstrap CSS from CDN (v5.3.2) -->
     <!-- If you want to work offline or lock a version, replace with a local file or a specific integrity hash. -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        crossorigin="anonymous" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
 
     <!-- Project stylesheet: custom styles, layout and layering -->
     <link rel="stylesheet" href="assets/css/style.css" />
-</head>
+  </head>
 
-<body>
+  <body>
     <!--
     Matrix rain canvas:
     - Renders the green "matrix" effect behind the UI.
@@ -36,54 +38,67 @@
     - To change the login logic, see assets/js/script.js.
   -->
     <div class="container">
-        <!-- Background / visual layer elements. These are empty divs styled via CSS. -->
-        <div class="bg-layer-1"></div>
-        <div class="bg-layer-2"></div>
-        <div class="bg-glow"></div>
-        <div class="dark-overlay"></div>
+      <!-- Background / visual layer elements. These are empty divs styled via CSS. -->
+      <div class="bg-layer-1"></div>
+      <div class="bg-layer-2"></div>
+      <div class="bg-glow"></div>
+      <div class="dark-overlay"></div>
 
-        <div id="login-screen">
-            <div class="row">
-                <div class="column">
-                    <header>
-                        <h1>The Cinemind Network</h1>
-                        <p>Access the infinite world of cinema</p>
-                    </header>
+      <div id="login-screen">
+        <div class="row">
+          <div class="column">
+            <header>
+              <h1>The Cinemind Network</h1>
+              <p>Access the infinite world of cinema</p>
+            </header>
+          </div>
+
+          <!-- Form Container -->
+          <div class="column">
+            <div class="form-container">
+              <section id="login-form">
+                <!--API KEY input by user-->
+                <label for="inputPassword5" class="form-label">API KEY:</label>
+                <input
+                  type="password"
+                  id="inputPassword5"
+                  placeholder="Enter your API key"
+                  class="form-control"
+                  aria-describedby="passwordHelpBlock"
+                />
+                <!--API KEY error message-->
+                <div
+                  id="api-error"
+                  class="alert alert-danger d-none"
+                  role="alert"
+                >
+                  Invalid API key. Please try again.
                 </div>
 
-                <!-- Form Container -->
-                <div class="column">
-                    <div class="form-container">
-                        <section id="login-form">
-                            <!--API KEY input by user-->
-                            <label for="inputPassword5" class="form-label">API KEY:</label>
-                            <input type="password" id="inputPassword5" placeholder="Enter your API key"
-                                class="form-control" aria-describedby="passwordHelpBlock" />
-                            <!--API KEY error message-->
-                            <div id="api-error" class="alert alert-danger d-none" role="alert">
-                                Invalid API key. Please try again.
-                            </div>
-
-                            <!--
+                <!--
         CONNECT button:
         - Has id="submit-btn" so script.js or another module can attach an event listener.
         - On click, triggers authentication logic (see assets/js/script.js).
         -->
-                            <button type="submit" id="submit-btn">CONNECT</button>
-                            <!-- Loading spinner, hidden by default -->
-                            <div id="loading" class="d-none text-center my-4">
-                                <div class="spinner-border text-success" role="status" aria-hidden="true"></div>
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-
-                            <div id="passwordHelpBlock" class="form-text">
-                                NOTE: Access restricted to authorized users only
-                            </div>
-                        </section>
-                    </div>
+                <button type="submit" id="submit-btn">CONNECT</button>
+                <!-- Loading spinner, hidden by default -->
+                <div id="loading" class="d-none text-center my-4">
+                  <div
+                    class="spinner-border text-success"
+                    role="status"
+                    aria-hidden="true"
+                  ></div>
+                  <span class="visually-hidden">Loading...</span>
                 </div>
+
+                <div id="passwordHelpBlock" class="form-text">
+                  NOTE: Access restricted to authorized users only
+                </div>
+              </section>
             </div>
+          </div>
         </div>
+      </div>
     </div>
 
     <!--
@@ -93,142 +108,206 @@
     - To show/hide this section, toggle the "hidden" class via JS.
   -->
     <div id="main-ui" class="hidden">
-        <!-- Nav bar, Search and Disconnect Button-->
-        <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">⌈ CINEMIND DATABASE ⌋</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+      <!-- Nav bar, Search and Disconnect Button-->
+      <nav
+        class="navbar navbar-expand-lg bg-body-tertiary"
+        data-bs-theme="dark"
+      >
+        <div class="container-fluid">
+          <a class="navbar-brand" href="index.html">⌈ CINEMIND DATABASE ⌋</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <!--
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <!--
         Nav links:
         - Add/remove sections here as needed.
         - Update hrefs to match section IDs below.
         -->
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#trending-section">Trending</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#top-rated-section">Top-Rated</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#top-rated-section">Favourites</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#top-rated-section">Watchlist</a>
-                        </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  href="index.html#trending-section"
+                  >Trending</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="index.html#top-rated-section"
+                  >Top-Rated</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="watchlist.html#favourites-section"
+                  >Favourites</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="watchlist.html#watchlist-section"
+                  >Watchlist</a
+                >
+              </li>
+            </ul>
 
-                    </ul>
-
-                    <!--
+            <!--
         DISCONNECT- Once clicked, the DISCONNECT button should: 
         - Clear any client-side state (e.g., user info, API key).
         - Hide the main content area and show the login form again.
         - Logic handled in assets/js/script.js.
       -->
-                    <button class="btn btn-outline-success" type="button" id="disconnect-btn">
-                        [DISCONNECT]
-                    </button>
-                </div>
-            </div>
-        </nav>
-
-    <div id="content">
-   <div class="search-section">
-  <!-- Search form -->
-  <form id="search-form" class="d-flex mb-3" role="search" autocomplete="off">
-    <input 
-      type="text" 
-      class="form-control me-2 search-bar" 
-      id="search-input"
-      placeholder="> SEARCH DATABASE [ENTER TO QUERY]..."
-      aria-label="Search movies"
-      required
-    />
-    <!--Filter dropdown-->
-    <select id="genre-filter" class="form-select" aria-label="Genre filter" title="Select Genre">
-      <option value="" selected>All Genres</option>
-      <option value="action">Action</option>
-      <option value="comedy">Comedy</option>
-      <option value="drama">Drama</option>
-      <option value="horror">Horror</option>
-      <option value="romance">Romance</option>
-      <option value="sci-fi">Sci-Fi</option>
-      <option value="thriller">Thriller</option>
-    </select>
-    <!-- Year Filter -->
-  <input
-    type="number"
-    id="year-filter"
-    class="form-control"
-    placeholder="Year"
-    min="1900"
-    max="2025"
-    aria-label="Filter by year"
-    title="Filter by Release Year"
-  />
-  <!-- Rating Filter Slider -->
-<div class="rating-filter d-flex align-items-center gap-2" title="Filter by minimum rating">
-  <label for="rating-slider" class="form-label mb-0 text-success">Rating:</label>
-  <input
-    type="range"
-    class="form-range"
-    min="0"
-    max="10"
-    step="0.1"
-    id="rating-slider"
-    value="0"
-    aria-label="Minimum rating"
-  />
-  <span id="rating-value" class="text-success">0</span>
-</div>
-
-
-
-    <button class="btn btn-outline-success" type="submit" id="enter-btn">
-      [ENTER]
-    </button>
-  </form>
-
-                <!-- Error message shown if input is empty/invalid -->
-                <div id="search-error" class="alert alert-warning d-none mt-2" role="alert">
-                    Please enter a valid search term.
-                </div>
-
-                <!-- Loading spinner (hidden by default) -->
-                <div id="loading-search" class="d-none text-center my-4">
-                    <div class="spinner-border text-success" role="status" aria-hidden="true"></div>
-                    <span class="visually-hidden">Loading...</span>
-                </div>
-
-                <!-- Search results grid -->
-                <div id="search-results" class="movies-grid"></div>
-            </div>
-
-            <section id="trending-section">
-                <!-- Trending movies will be displayed here -->
-                <h2 class="section-title">|> Trending Movies</h2>
-                <div id="trending-grid" class="movies-grid"></div>
-            </section>
-            <section id="top-rated-section">
-                <!-- Top rated movies will be displayed here -->
-                <h2 class="section-title">|> Top Rated Movies</h2>
-                <div id="top-rated-grid" class="movies-grid"></div>
-            </section>
+            <button
+              class="btn btn-outline-success"
+              type="button"
+              id="disconnect-btn"
+            >
+              [DISCONNECT]
+            </button>
+          </div>
         </div>
-        <footer>
-            <!--
-      Footer:
-      - Add additional links or info here.
-    -->
-            <p>&copy; 2025 Cinemind. All rights reserved.</p>
-            <!-- Footer content -->
-        </footer>
+      </nav>
+
+      <div id="content">
+        <div class="search-section">
+          <!-- Search form -->
+          <form
+            id="search-form"
+            class="d-flex mb-3"
+            role="search"
+            autocomplete="off"
+          >
+            <input
+              type="text"
+              class="form-control me-2 search-bar"
+              id="search-input"
+              placeholder="> SEARCH DATABASE [ENTER TO QUERY]..."
+              aria-label="Search movies"
+              required
+            />
+            <!--Filter dropdown-->
+            <select
+              id="genre-filter"
+              class="form-select"
+              aria-label="Genre filter"
+              title="Select Genre"
+            >
+              <option value="" selected>All Genres</option>
+              <option value="action">Action</option>
+              <option value="comedy">Comedy</option>
+              <option value="drama">Drama</option>
+              <option value="horror">Horror</option>
+              <option value="romance">Romance</option>
+              <option value="sci-fi">Sci-Fi</option>
+              <option value="thriller">Thriller</option>
+            </select>
+            <!-- Year Filter -->
+            <input
+              type="number"
+              id="year-filter"
+              class="form-control"
+              placeholder="Year"
+              min="1900"
+              max="2025"
+              aria-label="Filter by year"
+              title="Filter by Release Year"
+            />
+            <!-- Rating Filter Slider -->
+
+            <div
+              class="rating-filter d-flex align-items-center gap-2"
+              title="Filter by minimum rating"
+            >
+              <label for="rating-slider" class="form-label mb-0 text-success"
+                >Rating:</label
+              >
+              <input
+                type="range"
+                class="form-range"
+                min="0"
+                max="10"
+                step="0.1"
+                id="rating-slider"
+                value="0"
+                aria-label="Minimum rating"
+              />
+              <span id="rating-value" class="text-success">0</span>
+            </div>
+
+            <button
+              class="btn btn-outline-success"
+              type="submit"
+              id="enter-btn"
+            >
+              [ENTER]
+            </button>
+          </form>
+
+          <!-- Error message shown if input is empty/invalid -->
+          <div
+            id="search-error"
+            class="alert alert-warning d-none mt-2"
+            role="alert"
+          >
+            Please enter a valid search term.
+          </div>
+
+          <!-- Loading spinner (hidden by default) -->
+          <div id="loading-search" class="d-none text-center my-4">
+            <div
+              class="spinner-border text-success"
+              role="status"
+              aria-hidden="true"
+            ></div>
+            <span class="visually-hidden">Loading...</span>
+          </div>
+
+          <!-- Search results grid -->
+          <div id="search-results" class="movies-grid"></div>
+        </div>
+
+        <section id="trending-section">
+          <!-- Trending movies will be displayed here -->
+          <h2 class="section-title">|> Trending Movies</h2>
+          <div id="trending-grid" class="movies-grid"></div>
+        </section>
+        <section id="top-rated-section">
+          <!-- Top rated movies will be displayed here -->
+          <h2 class="section-title">|> Top Rated Movies</h2>
+          <div id="top-rated-grid" class="movies-grid"></div>
+        </section>
+      </div>
+      <footer class="site-footer text-center py-4">
+        <div class="container">
+          <p>&copy; 2025 Cinemind. All rights reserved.</p>
+
+          <p class="mb-1"><strong>Credits</strong></p>
+          <ul class="list-inline small mb-2">
+            <li class="list-inline-item">
+              Data provided by
+              <a
+                href="https://www.themoviedb.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+                >The Movie Database (TMDb)</a
+              >
+            </li>
+          </ul>
+
+          <p class="small text-muted mb-0">
+            This product uses the TMDb API but is not endorsed or certified by
+            TMDb.
+          </p>
+        </div>
+      </footer>
     </div>
 
     <!--
@@ -238,15 +317,14 @@
     - Contains placeholders for movie ID, poster, title and release year.
   -->
     <template id="movie-card-template">
-        <div class="movie-card" data-id="">
-            <img src="" alt="Movie Poster" class="movie-poster" />
-            <div class="movie-info-line">
-                <span class="movie-title">Title</span>
-                <span class="release-year">Year</span>
-            </div>
+      <div class="movie-card" data-id="">
+        <img src="" alt="Movie Poster" class="movie-poster" />
+        <div class="movie-info-line">
+          <span class="movie-title">Title</span>
+          <span class="release-year"> Year</span>
         </div>
+      </div>
     </template>
-
 
     <!--
     Movie Details Modal:
@@ -257,26 +335,147 @@
     - Logic for populating and showing/hiding handled in script.js.
   -->
     <div id="movie-modal" class="modal hidden" role="dialog" aria-modal="true">
-        <div class="modal-content">
-            <button class="close-btn" aria-label="Close modal">×</button>
-            <div class="modal-body">
-                <img src="" alt="Movie Poster" class="modal-poster" />
-                <h2 class="modal-title">Title</h2>
-                <p class="modal-release-year">Release Year</p>
-                <p class="modal-overview">Overview</p>
-                <p class="modal-director">Director</p>
-                <p class="modal-cast">Cast</p>
-                <p class="modal-genre">Genres</p>
-                <p class="modal-rating">Rating</p>
-                <button class="btn btn-outline-success">Add to Favorites</button>
-                <button class="btn btn-outline-warning">Add to Watchlist</button>
+      <div class="modal-content">
+        <button class="close-btn" aria-label="Close modal">×</button>
+        <div class="modal-body">
+          <h2 class="modal-title">Title</h2>
+          <img src="" alt="Movie Poster" class="modal-poster" />
+          <p class="modal-overview">Overview</p>
+          <div class="accordion" id="movieDetailsAccordion" role="tablist">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingYear">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseYear"
+                  aria-expanded="false"
+                  aria-controls="collapseYear"
+                >
+                  Release Year
+                </button>
+              </h2>
+              <div
+                id="collapseYear"
+                class="accordion-collapse collapse"
+                aria-labelledby="headingYear"
+                data-bs-parent="#movieDetailsAccordion"
+              >
+                <div class="accordion-body">
+                  <p class="modal-release-year mb-0"></p>
+                </div>
+              </div>
             </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingGenres">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseGenres"
+                  aria-expanded="false"
+                  aria-controls="collapseGenres"
+                >
+                  Genres
+                </button>
+              </h2>
+              <div
+                id="collapseGenres"
+                class="accordion-collapse collapse"
+                aria-labelledby="headingGenres"
+                data-bs-parent="#movieDetailsAccordion"
+              >
+                <div class="accordion-body">
+                  <p class="modal-genre mb-0"></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingCast">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseCast"
+                  aria-expanded="false"
+                  aria-controls="collapseCast"
+                >
+                  Cast
+                </button>
+              </h2>
+              <div
+                id="collapseCast"
+                class="accordion-collapse collapse"
+                aria-labelledby="headingCast"
+                data-bs-parent="#movieDetailsAccordion"
+              >
+                <div class="accordion-body">
+                  <p class="modal-cast mb-0"></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingDirector">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseDirector"
+                  aria-expanded="false"
+                  aria-controls="collapseDirector"
+                >
+                  Director
+                </button>
+              </h2>
+              <div
+                id="collapseDirector"
+                class="accordion-collapse collapse"
+                aria-labelledby="headingDirector"
+                data-bs-parent="#movieDetailsAccordion"
+              >
+                <div class="accordion-body">
+                  <p class="modal-director mb-0"></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingRating">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseRating"
+                  aria-expanded="false"
+                  aria-controls="collapseRating"
+                >
+                  Rating
+                </button>
+              </h2>
+              <div
+                id="collapseRating"
+                class="accordion-collapse collapse"
+                aria-labelledby="headingRating"
+                data-bs-parent="#movieDetailsAccordion"
+              >
+                <div class="accordion-body">
+                  <p class="modal-rating mb-0"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-outline-success">
+            Add to Favorites<i class="fa-solid fa-star"></i>
+          </button>
+          <button class="btn btn-outline-warning">
+            Add to Watchlist<i class="fa-solid fa-plus"></i>
+          </button>
         </div>
+      </div>
     </div>
-
-
-
-
 
     <!--
     Matrix Rain Script:
@@ -286,68 +485,73 @@
     - To adjust speed or appearance, tweak fontSize, interval, or color values.
   -->
     <script>
-        // Get canvas and rendering context
-        const canvas = document.getElementById('matrixRain')
-        const ctx = canvas.getContext('2d')
+      // Get canvas and rendering context
+      const canvas = document.getElementById('matrixRain')
+      const ctx = canvas.getContext('2d')
 
-        // Set initial canvas size to viewport size.
-        // If you need to support window resize, add an event listener to recalculate these values.
-        canvas.height = window.innerHeight
-        canvas.width = window.innerWidth
+      // Set initial canvas size to viewport size.
+      // If you need to support window resize, add an event listener to recalculate these values.
+      canvas.height = window.innerHeight
+      canvas.width = window.innerWidth
 
-        // Characters used in the rain effect
-        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%'
-        const fontSize = 16 // px per "cell"
-        // Number of columns is canvas width divided by fontSize (floating -> used as integer via iteration)
-        const columns = canvas.width / fontSize
-        // Each drop tracks its vertical position (in units of fontSize)
-        const drops = []
+      // Characters used in the rain effect
+      const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%'
+      const fontSize = 16 // px per "cell"
+      // Number of columns is canvas width divided by fontSize (floating -> used as integer via iteration)
+      const columns = canvas.width / fontSize
+      // Each drop tracks its vertical position (in units of fontSize)
+      const drops = []
 
-        // Initialize drops array: start each column at row 1
-        for (let x = 0; x < columns; x++) drops[x] = 1
+      // Initialize drops array: start each column at row 1
+      for (let x = 0; x < columns; x++) drops[x] = 1
 
-        function draw() {
-            // Semi-transparent black rectangle to create the "trail" effect
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'
-            ctx.fillRect(0, 0, canvas.width, canvas.height)
+      function draw() {
+        // Semi-transparent black rectangle to create the "trail" effect
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-            // Bright green text for matrix look
-            ctx.fillStyle = '#0F0'
-            ctx.font = fontSize + 'px monospace'
+        // Bright green text for matrix look
+        ctx.fillStyle = '#0F0'
+        ctx.font = fontSize + 'px monospace'
 
-            // Iterate over drops and draw a random character for each column
-            for (let i = 0; i < drops.length; i++) {
-                const text = letters.charAt(
-                    Math.floor(Math.random() * letters.length)
-                )
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize)
+        // Iterate over drops and draw a random character for each column
+        for (let i = 0; i < drops.length; i++) {
+          const text = letters.charAt(
+            Math.floor(Math.random() * letters.length)
+          )
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize)
 
-                // Reset drop back to top randomly after it passes the bottom
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975)
-                    drops[i] = 0
-                // Move drop down one row
-                drops[i]++
-            }
+          // Reset drop back to top randomly after it passes the bottom
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975)
+            drops[i] = 0
+          // Move drop down one row
+          drops[i]++
         }
-        // Main loop: ~30fps
-        setInterval(draw, 33)
+      }
+      // Main loop: ~30fps
+      setInterval(draw, 33)
     </script>
-
 
     <!--
     Bootstrap JS:
     - Required for navbar collapse and other Bootstrap components.
     - If working offline, download and reference locally.
   -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        crossorigin="anonymous"></script>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Font Awesome for icons -->
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
     <!--
     Main JS File:
     - Handles authentication, search, UI toggling, and API requests.
     - See assets/js/script.js for logic.
   -->
-    <script src="assets/js/script.js"></script>
-</body>
 
+    <script src="assets/js/script.js"></script>
+  </body>
 </html>
