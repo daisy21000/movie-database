@@ -32,7 +32,7 @@
 .search-bar,
 .search-bar:focus,
 .search-bar::placeholder {
-  z-index: 17;
+  z-index: 10;
 }
 
 /* Consolidated identical green border used across multiple components */
@@ -107,46 +107,48 @@ body .navbar {
 }
 
 .section-title {
+  z-index: 11;
     font-family: var(--primary-font);
     font-weight: bold;
-    font-size: 1.5rem;
+    margin-left: 1rem;
+    font-size: 2rem;
     text-transform: uppercase;
     margin-bottom: 1.5rem;
     padding-left: 0.5rem;
     border-left: 3px solid #00ff00;
-    text-shadow: 0 0 10px #00ff00;
-    z-index: 9;
+    text-shadow: var(--border-shadow);
 }
 
 .search-section {
-    z-index: 17;
+  z-index: 17;
 }
 
 .search-bar {
-    margin-top: 2rem;
-    width: 90%;
-    height: 90%;
-    padding: 1rem;
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(0, 255, 0, 0.3);
-    border-radius: 0;
-    color: #00ff00;
-    font-family: "Courier New", monospace;
-    font-size: 1rem;
-    transition: all 0.3s;
-    z-index: 9;
+  margin-left: 1rem;
+  margin-top: 2rem;
+  width: 90%;
+  height: 90%;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 255, 0, 0.3);
+  border-radius: 0;
+  color: #00ff00;
+  font-family: "Courier New", monospace;
+  font-size: 1rem;
+  transition: all 0.3s;
+  z-index: 9;
 }
 
 .search-bar:focus {
-    outline: none;
-    border-color: #00ff00;
-    box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
-    z-index: 17;
+  outline: none;
+  border-color: #00ff00;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+  z-index: 17;
 }
 
 .search-bar::placeholder {
-    color: rgba(0, 255, 0, 0.3);
-    z-index: 17;
+  color: rgba(0, 255, 0, 0.3);
+  z-index: 17;
 }
 
 
@@ -160,7 +162,7 @@ body .navbar {
   color: rgba(0, 255, 0, 0.8);
   font-size: 1rem;
   transition: all 0.3s ease;
-  z-index: 10;
+  z-index: 9;
   border-radius: 0;
   margin-top: 2rem;
   padding: 0.6rem 1rem;
@@ -226,15 +228,17 @@ body .navbar {
 /* Enter button next to filters */
 #enter-btn {
   margin-left: 1rem;
+  margin-right: 1rem;
   margin-top: 2rem;
   height: 2.5rem;
+  border-radius: 0;
   padding: 0 1.5rem;
   background-color: rgba(0, 255, 0, 0.2);
   color: #00ff00;
   border: 1px solid rgba(0, 255, 0, 0.3);
   cursor: pointer;
   transition: all 0.3s ease;
-  z-index: 10;
+  z-index: 9;
 }
 
 
@@ -276,8 +280,25 @@ body .navbar {
     padding: 0.5rem 1rem;
     background-color: rgba(0, 0, 0, 0.8);
     font-family: var(--secondary-font);
-    font-size: 0.95rem;
+    font-size: 0.8rem;
     color: var(--text-color);
+}
+.movie-title {
+  display: block;
+  width: 100%;
+  text-align: left;
+  margin-left: 0;
+  padding-left: 0;
+  justify-self: start;
+  align-self: flex-start;
+}
+
+.release-year {
+  text-transform: bold;
+  font-size: 0.8rem;
+  margin-left: auto;
+  text-align: right;
+  align-self: center;
 }
 
 #movie-modal {
@@ -300,7 +321,7 @@ body .navbar {
     max-width: 800px;
     width: 90%;
     color: var(--text-color);
-    font-family: var(--secondary-font);
+    font-family: var(--primary-font);
     position: relative;
     box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
     overflow-y: auto;
@@ -324,10 +345,19 @@ body .navbar {
 }
 
 .modal-body img.modal-poster {
-    width: 100%;
-    max-width: 300px;
+  display: block;
+  margin: 0 auto 1rem;
+  max-width: 300px;
+  width: 100%;
+  border: 2px solid rgba(0, 255, 0, 0.3);
+  align-self: center;
+}
+.modal-body h2.modal-title {
+  font-family: var(--secondary-font);
+    text-align: center;
     margin-bottom: 1rem;
-    border: 2px solid rgba(0, 255, 0, 0.3);
+    font-size: 2rem;
+    text-transform: uppercase;
 }
 
 .modal-body h2,
@@ -351,6 +381,19 @@ body .navbar {
     background-color: rgba(0, 255, 0, 0.1);
     box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
 }
+
+
+.accordion-item, .accordion-header, .accordion-button, .accordion-body {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: var(--text-color);
+      border: #00ff00 1px solid;
+}
+
+.accordion-item {
+    border: none;
+    margin-bottom: 1rem;
+}
+
 
 /* Footer (fixed at bottom) */
 footer {
@@ -532,6 +575,14 @@ h1 {
   text-align: center !important;
 }
 
+footer {
+  background-color: black !important;
+  font-size: 0.75rem !important;
+  z-index: 20;
+  position: static;
+  text-shadow: var(--border-shadow);
+}
+
 /* --- Responsive tweaks ------------------------------------------------------ */
 /* Adjust sizing for narrow viewports */
 @media (max-width: 768px) {
@@ -550,4 +601,16 @@ h1 {
   .form-container {
    width: 90% !important;
   }
+  #genre-filter,
+#year-filter,
+.rating-filter {
+ display: none;
 }
+.rating-filter {
+ display: none!important;
+}
+.section-title {
+    font-size: 2rem;
+  }
+}
+
