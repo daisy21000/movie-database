@@ -333,6 +333,7 @@
                     <span class="movie-title">Title</span>
                     <span class="release-year"> Year</span>
                 </div>
+                
             </div>
         </template>
 
@@ -351,7 +352,7 @@
                     <p class="modal-overview">Overview</p>
 
                     <!-- Accordion shows extra movie metadata -->
-                    <div class="accordion" id="movieDetailsAccordion" role="tablist">
+                    <div class="accordion" id="movieDetailsAccordion">
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingYear">
                                 <button
@@ -477,6 +478,18 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- User Interaction Section -->
+                    <div class="user-interaction">
+  <label for="rating" class="rating-label">Your Rating:</label>
+  <input id="rating" type="range" min="1" max="5" step="1" class="rating-slider" data-id="" title="Your rating (1-5)" aria-label="Your rating from 1 to 5" placeholder="1-5" />
+
+  <label for="comment" class="comment-label">Thoughts:</label>
+  <textarea class="comment-box" rows="2" maxlength="100" placeholder="Say something..."></textarea>
+
+  <button class="btn btn-outline-success save-rating-btn">Save</button>
+
+
 
                     <!-- Buttons inside modal:
                              - Script should wire these to add-to-favorites/watchlist actions.
@@ -488,6 +501,8 @@
                     <button class="btn btn-outline-warning">
                         Add to Watchlist<i class="fa-solid fa-plus"></i>
                     </button>
+                    </div>
+
                 </div>
             </div>
         </div>
