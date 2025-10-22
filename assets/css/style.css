@@ -23,6 +23,7 @@
   --text-color: #00ff00;
   --primary-font: "Courier New", monospace;
   --secondary-font: "Departure Mono", monospace;
+  --border-shadow: 0 0 10px #00ff00;
 }
 
 /* --- Shared / Consolidated Utilities --------------------------------------- */
@@ -83,6 +84,7 @@ body {
   border: 1px solid rgba(0, 255, 0, 0.3);
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: var(--border-shadow);
   z-index: 10;
 }
 
@@ -99,23 +101,9 @@ body .navbar {
   margin-bottom: 60px;
   position: fixed;
   top: 0;
-  left: 0;
-  right: 0;
   width: 100%;
-  z-index: 50;
-
-  /* Glass background (fallback + blur for supported browsers) */
-  background-color: rgba(0, 0, 0, 0.45); /* fallback when backdrop-filter unsupported */
-  background-image: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.35));
-  -webkit-backdrop-filter: blur(8px) saturate(120%);
-  backdrop-filter: blur(8px) saturate(120%);
-
-  /* Subtle green accent to match theme and improve contrast */
-  border-bottom: 1px solid rgba(0, 255, 0, 0.12);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 8px rgba(0, 255, 0, 0.03);
-
-  padding: 0.6rem 1rem;
-  transition: background-color 0.2s ease, backdrop-filter 0.2s ease, box-shadow 0.2s ease;
+  z-index: 10;
+  background-color: black !important;
 }
 
 .section-title {
@@ -124,29 +112,30 @@ body .navbar {
     font-weight: bold;
     font-size: 1.5rem;
     text-transform: uppercase;
-    margin-top: 3rem;
     margin-bottom: 1.5rem;
     padding-left: 0.5rem;
     border-left: 3px solid #00ff00;
     text-shadow: 0 0 10px #00ff00;
+    z-index: 9;
 }
 
 .search-section {
-    margin-bottom: 1rem;
     z-index: 17;
 }
 
 .search-bar {
     margin-top: 2rem;
     width: 90%;
+    height: 90%;
     padding: 1rem;
     background: rgba(0, 0, 0, 0.5);
     border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 0;
     color: #00ff00;
     font-family: "Courier New", monospace;
     font-size: 1rem;
     transition: all 0.3s;
-    z-index: 17;
+    z-index: 9;
 }
 
 .search-bar:focus {
