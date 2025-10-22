@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchForm = document.getElementById("search-form");
     const searchResults = document.getElementById("search-results");
     const movieCardTemplate = document.getElementById("movie-card-template");
+    const movieModal = document.getElementById("movie-modal");
     let apiKey = null;
     const options = {
         method: "GET",
@@ -113,16 +114,65 @@ document.addEventListener("DOMContentLoaded", () => {
                         break;
                     }
                 }
-                let movieCard = movieCardTemplate.content.cloneNode(true);
-                movieCard.id += movie.id;
-                console.log(movieCard);
-                movieCard.querySelector(".movie-card").dataset.id = movie.id;
+                let cardClone = movieCardTemplate.content.cloneNode(true);
+                console.log(cardClone);
+                let movieCard = cardClone.querySelector(".movie-card");
+                movieCard.dataset.id = movie.id;
                 movieCard.querySelector(".movie-poster").src = imageUrl;
                 movieCard.querySelector(".movie-poster").alt =
                     title + " Poster";
                 movieCard.querySelector(".movie-title").innerText = title;
                 movieCard.querySelector(".release-year").innerText =
                     releaseYear;
+
+                movieCard.addEventListener("click", () => {
+                    movieModal.querySelector(".modal-poster").src = imageUrl;
+                    movieModal.querySelector(".modal-poster").alt =
+                        title + " Poster";
+                    movieModal.querySelector(".modal-title").innerText = title;
+                    movieModal.querySelector(
+                        ".modal-release-year"
+                    ).innerText += `: ${releaseYear}`;
+                    movieModal.querySelector(
+                        ".modal-overview"
+                    ).innerText += `: ${overview}`;
+                    movieModal.querySelector(
+                        ".modal-director"
+                    ).innerText += `: ${director}`;
+                    movieModal.querySelector(
+                        ".modal-cast"
+                    ).innerText += `: ${cast.join(", ")}`;
+                    movieModal.querySelector(
+                        ".modal-genre"
+                    ).innerText += `: ${genres.join(", ")}`;
+                    movieModal.querySelector(
+                        ".modal-rating"
+                    ).innerText += `: ${rating}`;
+                    movieModal.classList.remove("hidden");
+                    // Close button handler
+                    movieModal
+                        .querySelector(".close-btn")
+                        .addEventListener("click", () => {
+                            movieModal.classList.add("hidden");
+                            // Reset modal content
+                            movieModal.querySelector(
+                                ".modal-release-year"
+                            ).innerText = "Release Year";
+                            movieModal.querySelector(
+                                ".modal-overview"
+                            ).innerText = "Overview";
+                            movieModal.querySelector(
+                                ".modal-director"
+                            ).innerText = "Director";
+                            movieModal.querySelector(".modal-cast").innerText =
+                                "Cast";
+                            movieModal.querySelector(".modal-genre").innerText =
+                                "Genre";
+                            movieModal.querySelector(
+                                ".modal-rating"
+                            ).innerText = "Rating";
+                        });
+                });
 
                 searchResults.appendChild(movieCard);
 
