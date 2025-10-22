@@ -109,121 +109,44 @@
       </nav>
 
       <div id="content">
-        <div class="search-section">
-          <!-- Search form -->
-          <form
-            id="search-form"
-            class="d-flex mb-3"
-            role="search"
-            autocomplete="off"
-          >
-            <input
-              type="text"
-              class="form-control me-2 search-bar"
-              id="search-input"
-              placeholder="> SEARCH DATABASE [ENTER TO QUERY]..."
-              aria-label="Search movies"
-              required
-            />
-            <!--Filter dropdown-->
-            <select
-              id="genre-filter"
-              class="form-select"
-              aria-label="Genre filter"
-              title="Select Genre"
-            >
-              <option value="" selected>All Genres</option>
-              <option value="action">Action</option>
-              <option value="comedy">Comedy</option>
-              <option value="drama">Drama</option>
-              <option value="horror">Horror</option>
-              <option value="romance">Romance</option>
-              <option value="sci-fi">Sci-Fi</option>
-              <option value="thriller">Thriller</option>
-            </select>
-            <!-- Year Filter -->
-            <input
-              type="number"
-              id="year-filter"
-              class="form-control"
-              placeholder="Year"
-              min="1900"
-              max="2025"
-              aria-label="Filter by year"
-              title="Filter by Release Year"
-            />
-            <!-- Rating Filter Slider -->
-            <div
-              class="rating-filter d-flex align-items-center gap-2"
-              title="Filter by minimum rating"
-            >
-              <label for="rating-slider" class="form-label mb-0 text-success"
-                >Rating:</label
-              >
-              <input
-                type="range"
-                class="form-range"
-                min="0"
-                max="10"
-                step="0.1"
-                id="rating-slider"
-                value="0"
-                aria-label="Minimum rating"
-              />
-              <span id="rating-value" class="text-success">0</span>
-            </div>
-
-            <button
-              class="btn btn-outline-success"
-              type="submit"
-              id="enter-btn"
-            >
-              [ENTER]
-            </button>
-          </form>
-
-          <!-- Error message shown if input is empty/invalid -->
-          <div
-            id="search-error"
-            class="alert alert-warning d-none mt-2"
-            role="alert"
-          >
-            Please enter a valid search term.
-          </div>
-
-          <!-- Loading spinner (hidden by default) -->
-          <div id="loading-search" class="d-none text-center my-4">
-            <div
-              class="spinner-border text-success"
-              role="status"
-              aria-hidden="true"
-            ></div>
-            <span class="visually-hidden">Loading...</span>
-          </div>
-
-          <!-- Search results grid -->
-          <div id="search-results" class="movies-grid"></div>
-        </div>
-
+      
         <section id="Favourites-section">
           <!-- Favourite movies will be displayed here -->
           <h2 class="section-title">|> Favourites</h2>
-          <div id="favourites-grid" class="movies-grid"></div>
+          <div id="favourites-grid" class="movies-grid">
+            <!-- Empty state message when no favourites are added -->
+            
+            <p class="empty-state">Nothing here yet. Add some movies to your favourites!</p>
+</div>
         </section>
 
         <section id="Watchlist-section">
           <!-- Watchlist movies will be displayed here -->
           <h2 class="section-title">|> Watchlist</h2>
-          <div id="watchlist-grid" class="movies-grid"></div>
+          <div id="watchlist-grid" class="movies-grid">
+            <!-- Empty state message when no Watchlist are added -->
+            <p class="empty-state">Nothing here yet. Add some movies to your watchlist!</p>
+          </div>
         </section>
       </div>
-      <footer>
-        <!--
-      Footer:
-      - Add additional links or info here.
-    -->
-        <p>&copy; 2025 Cinemind. All rights reserved.</p>
-        <!-- Footer content -->
+     <footer class="site-footer text-center py-4">
+        <div class="container">
+          <p>&copy; 2025 Cinemind. All rights reserved.</p>
+
+          <p class="mb-1"><strong>Credits</strong></p>
+          <ul class="list-inline small mb-2">
+            <li class="list-inline-item">
+              Data provided by
+              <a
+                href="https://www.themoviedb.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+                >The Movie Database (TMDb)</a
+              >
+            </li>
+          </ul>
+
+        </div>
       </footer>
     </div>
 
@@ -268,6 +191,8 @@
         </div>
       </div>
     </div>
+
+    
 
     <!--
     Matrix Rain Script:

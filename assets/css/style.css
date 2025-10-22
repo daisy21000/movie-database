@@ -88,9 +88,17 @@ body {
   z-index: 10;
 }
 
+header h1, p{
+  text-shadow: var(--border-shadow);
+  
+}
+
+
 .hidden {
   display: none !important;
 }
+
+
 
 /* Navbar (fixed at top) */
 body .navbar {
@@ -393,6 +401,74 @@ body .navbar {
     border: none;
     margin-bottom: 1rem;
 }
+
+.user-interaction {
+  margin-top: 1rem;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 0.5rem;
+  border: 1px solid rgba(0, 255, 0, 0.1);
+}
+
+.rating-label,
+.comment-label {
+  font-family: var(--primary-font);
+  font-size: 0.9rem;
+  color: rgba(0, 255, 0, 0.6);
+  display: block;
+  margin-top: 0.5rem;
+}
+
+.rating-slider {
+  width: 100%;
+  margin-top: 0.3rem;
+  background: transparent;
+  accent-color: #00ff00;
+  cursor: pointer;
+}
+
+.comment-box {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  color: #0f0;
+  font-family: var(--primary-font);
+  font-size: 0.9rem;
+  border: 1px solid rgba(0, 255, 0, 0.3);
+  padding: 0.4rem;
+  margin-top: 0.3rem;
+  resize: none;
+  transition: border 0.2s ease;
+}
+
+.comment-box:focus {
+  outline: none;
+  border-color: #00ff00;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+}
+
+.save-rating-btn {
+  display: block;
+  margin: 0.6rem auto;
+  font-size: 0.9rem;
+  font-family: var(--primary-font);
+  border: 1px solid rgba(0, 255, 0, 0.4);
+  color: #00ff00;
+  background: transparent;
+  transition: all 0.2s;
+  width: 90%;
+  max-width: 320px;
+  text-align: center;
+  align-self: center; 
+  justify-self: center; 
+}
+
+.save-rating-btn:hover {
+  background-color: rgba(0, 255, 0, 0.1);
+  border-color: #00ff00;
+  box-shadow: 0 0 8px rgba(0, 255, 0, 0.4);
+}
+
+
+
 
 
 /* Footer (fixed at bottom) */
