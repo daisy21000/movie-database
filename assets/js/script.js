@@ -137,8 +137,8 @@ document.addEventListener("DOMContentLoaded", () => {
             movieDetails.releaseYear;
 
         movieCard.addEventListener("click", async () => {
-            let movieRating = await getMovieRating(movieDetails.movieId);
-            console.log(movieRating);
+            let movieRating = await getMovieAccountStates(movieDetails.movieId);
+
             movieModal.querySelector(".modal-poster").src =
                 movieDetails.imageUrl;
             movieModal.querySelector(".modal-poster").alt =
@@ -163,15 +163,23 @@ document.addEventListener("DOMContentLoaded", () => {
             movieModal.querySelector(
                 ".modal-rating"
             ).innerText += `: ${movieDetails.rating}`;
-            movieModal.querySelector(
-                ".modal-user-rating"
-            ).innerText += `: Not Rated`;
+
+            // Check if the user has rated the movie through the movieRating object
+            if (movieRating && movieRating.rated.value) {
+                movieModal.querySelector(
+                    ".modal-user-rating"
+                ).innerText += `: ${movieRating.rated.value}`;
+            } else {
+                movieModal.querySelector(
+                    ".modal-user-rating"
+                ).innerText += `: Not Rated`;
+            }
+
             movieModal.classList.remove("hidden");
             // Close button handler
             movieModal
                 .querySelector(".btn.btn-outline-primary")
                 .addEventListener("click", async () => {
-                    console.log(data);
                     let movieRating = prompt("Rate this movie (1-10):");
 
                     if (movieRating && movieRating >= 1 && movieRating <= 10) {
