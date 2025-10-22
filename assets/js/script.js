@@ -112,6 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
             rating,
             cast,
             director,
+            movieId,
         };
     };
 
@@ -126,6 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
             movieDetails.releaseYear;
 
         movieCard.addEventListener("click", () => {
+            console.log(movieDetails);
             movieModal.querySelector(".modal-poster").src =
                 movieDetails.imageUrl;
             movieModal.querySelector(".modal-poster").alt =
@@ -150,6 +152,9 @@ document.addEventListener("DOMContentLoaded", () => {
             movieModal.querySelector(
                 ".modal-rating"
             ).innerText += `: ${movieDetails.rating}`;
+            movieModal.querySelector(
+                ".modal-user-rating"
+            ).innerText += `: Not Rated`;
             movieModal.classList.remove("hidden");
             // Close button handler
             movieModal
@@ -168,6 +173,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         "Genre";
                     movieModal.querySelector(".modal-rating").innerText =
                         "Rating";
+                    movieModal.querySelector(".modal-user-rating").innerText =
+                        "User Rating";
                 });
         });
         return movieCard;
