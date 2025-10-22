@@ -6,6 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const apiKeyInput = document.getElementById("inputPassword5");
     const searchInput = document.getElementById("search-input");
     const searchForm = document.getElementById("search-form");
+    const searchResults = document.getElementById("search-results");
+    const movieCardTemplate = document.getElementById("movie-card-template");
+    const movieModal = document.getElementById("movie-modal");
     let apiKey = null;
     const options = {
         method: "GET",
@@ -62,7 +65,113 @@ document.addEventListener("DOMContentLoaded", () => {
         loginScreen.classList.remove("hidden");
     });
 
+    const getMovieDetails = async (movieId) => {
+        // Get more details of the movie
+        const detailsResponse = await fetch(
+            `https://api.themoviedb.org/3/movie/${movieId}?language=en-US`,
+            options
+        );
+        const detailsData = await detailsResponse.json();
+        // Store info in variables
+        let title = detailsData.title;
+        let imageUrl = `https://image.tmdb.org/t/p/w500${detailsData.poster_path}`;
+        let overview = detailsData.overview;
+        let releaseYear = detailsData.release_date.split("-")[0];
+        let genres = [];
+        for (let genre of detailsData.genres) {
+            genres.push(genre.name);
+        }
+        let rating = detailsData.vote_average;
+
+        // Get cast info
+        const creditsResponse = await fetch(
+            `https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US`,
+            options
+        );
+        const creditsData = await creditsResponse.json();
+        let cast = [];
+        for (let castMember of creditsData.cast) {
+            cast.push(castMember.name);
+        }
+        let director = "";
+        for (let crewMember of creditsData.crew) {
+            if (crewMember.job === "Director") {
+                director = crewMember.name;
+                break;
+            }
+        }
+        return {
+            title,
+            imageUrl,
+            overview,
+            releaseYear,
+            genres,
+            rating,
+            cast,
+            director,
+        };
+    };
+
+    const createMovieCard = (movieDetails) => {
+        let cardClone = movieCardTemplate.content.cloneNode(true);
+        let movieCard = cardClone.querySelector(".movie-card");
+        movieCard.querySelector(".movie-poster").src = movieDetails.imageUrl;
+        movieCard.querySelector(".movie-poster").alt =
+            movieDetails.title + " Poster";
+        movieCard.querySelector(".movie-title").innerText = movieDetails.title;
+        movieCard.querySelector(".release-year").innerText =
+            movieDetails.releaseYear;
+
+        movieCard.addEventListener("click", () => {
+            movieModal.querySelector(".modal-poster").src =
+                movieDetails.imageUrl;
+            movieModal.querySelector(".modal-poster").alt =
+                movieDetails.title + " Poster";
+            movieModal.querySelector(".modal-title").innerText =
+                movieDetails.title;
+            movieModal.querySelector(
+                ".modal-release-year"
+            ).innerText += `: ${movieDetails.releaseYear}`;
+            movieModal.querySelector(
+                ".modal-overview"
+            ).innerText += `: ${movieDetails.overview}`;
+            movieModal.querySelector(
+                ".modal-director"
+            ).innerText += `: ${movieDetails.director}`;
+            movieModal.querySelector(
+                ".modal-cast"
+            ).innerText += `: ${movieDetails.cast.join(", ")}`;
+            movieModal.querySelector(
+                ".modal-genre"
+            ).innerText += `: ${movieDetails.genres.join(", ")}`;
+            movieModal.querySelector(
+                ".modal-rating"
+            ).innerText += `: ${movieDetails.rating}`;
+            movieModal.classList.remove("hidden");
+            // Close button handler
+            movieModal
+                .querySelector(".close-btn")
+                .addEventListener("click", () => {
+                    movieModal.classList.add("hidden");
+                    // Reset modal content
+                    movieModal.querySelector(".modal-release-year").innerText =
+                        "Release Year";
+                    movieModal.querySelector(".modal-overview").innerText =
+                        "Overview";
+                    movieModal.querySelector(".modal-director").innerText =
+                        "Director";
+                    movieModal.querySelector(".modal-cast").innerText = "Cast";
+                    movieModal.querySelector(".modal-genre").innerText =
+                        "Genre";
+                    movieModal.querySelector(".modal-rating").innerText =
+                        "Rating";
+                });
+        });
+        searchResults.appendChild(movieCard);
+    };
+
     searchForm.addEventListener("submit", async (e) => {
+        searchResults.innerHTML = ""; // Clear previous results
         e.preventDefault();
         // Encode and trim input
         let query = encodeURIComponent(searchInput.value.trim());
@@ -76,49 +185,8 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(data);
             // Iterate over results
             for (let movie of data.results) {
-                // Get more details of the movie
-                const detailsResponse = await fetch(
-                    `https://api.themoviedb.org/3/movie/${movie.id}?language=en-US`,
-                    options
-                );
-                const detailsData = await detailsResponse.json();
-                // Store info in variables
-                let title = detailsData.title;
-                let imageUrl = `https://image.tmdb.org/t/p/w500${detailsData.poster_path}`;
-                let overview = detailsData.overview;
-                let releaseYear = detailsData.release_date.split("-")[0];
-                let genres = [];
-                for (let genre of detailsData.genres) {
-                    genres.push(genre.name);
-                }
-                let rating = detailsData.vote_average;
-
-                // Get cast info
-                const creditsResponse = await fetch(
-                    `https://api.themoviedb.org/3/movie/${movie.id}/credits?language=en-US`,
-                    options
-                );
-                const creditsData = await creditsResponse.json();
-                let cast = [];
-                for (let castMember of creditsData.cast) {
-                    cast.push(castMember.name);
-                }
-                let director = "";
-                for (let crewMember of creditsData.crew) {
-                    if (crewMember.job === "Director") {
-                        director = crewMember.name;
-                        break;
-                    }
-                }
-
-                // Console log for testing
-                console.log(
-                    `Title: ${title}, Image URL: ${imageUrl}, Overview: ${overview}, Release Year: ${releaseYear}, Genres: ${genres.join(
-                        ", "
-                    )}, Rating: ${rating}, Cast: ${cast.join(
-                        ", "
-                    )}, Director: ${director}`
-                );
+                let movieDetails = await getMovieDetails(movie.id);
+                createMovieCard(movieDetails);
             }
         } catch (err) {
             console.error(err);
