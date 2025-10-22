@@ -11,6 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const movieModal = document.getElementById("movie-modal");
     const trendingMoviesSection = document.getElementById("trending-grid");
     const topRatedMoviesSection = document.getElementById("top-rated-grid");
+    const ratingSlider = document.getElementById("rating-slider");
+    const ratingValue = document.getElementById("rating-value");
 
     let apiKey = null;
     const options = {
@@ -199,10 +201,12 @@ document.addEventListener("DOMContentLoaded", () => {
             // Rate button handler
             const ratebuttonHandler = async () => {
                 let userRating = prompt("Rate this movie (1-10):");
+
                 if (userRating && userRating >= 1 && userRating <= 10) {
                     movieModal.querySelector(
                         ".modal-user-rating"
                     ).innerText = `User Rating: ${userRating}`;
+
                     await setMovieRating(movieDetails.movieId, userRating);
                 }
             };
@@ -296,6 +300,10 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (err) {
             console.error(err);
         }
+    });
+
+    ratingSlider.addEventListener('input', function() {
+        ratingValue.textContent = parseFloat(this.value).toFixed(1);
     });
 
     generateTrendingMovies();
