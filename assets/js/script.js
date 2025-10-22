@@ -11,6 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const movieModal = document.getElementById("movie-modal");
     const trendingMoviesSection = document.getElementById("trending-grid");
     const topRatedMoviesSection = document.getElementById("top-rated-grid");
+    const ratingSlider = document.getElementById("rating-slider");
+    const ratingValue = document.getElementById("rating-value");
 
     let apiKey = null;
     const options = {
@@ -68,6 +70,35 @@ document.addEventListener("DOMContentLoaded", () => {
         loginScreen.classList.remove("hidden");
     });
 
+    // Function to get account states for a movie
+    const getMovieAccountStates = async (movieId) => {
+        const accountStatesResponse = await fetch(
+            `https://api.themoviedb.org/3/movie/${movieId}/account_states`,
+            options
+        );
+
+        const accountStatesData = await accountStatesResponse.json();
+        return accountStatesData;
+    };
+
+    // Function to set a movie's rating
+    const setMovieRating = async (movieId, rating) => {
+        const ratingResponse = await fetch(
+            `https://api.themoviedb.org/3/movie/${movieId}/rating`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + apiKey,
+                },
+                body: JSON.stringify({ value: rating }),
+            }
+        );
+
+        const ratingData = await ratingResponse.json();
+        return ratingData;
+    };
+
     const getMovieDetails = async (movieId) => {
         // Get more details of the movie
         const detailsResponse = await fetch(
@@ -112,6 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
             rating,
             cast,
             director,
+            movieId,
         };
     };
 
@@ -125,7 +157,13 @@ document.addEventListener("DOMContentLoaded", () => {
         movieCard.querySelector(".release-year").innerText =
             movieDetails.releaseYear;
 
-        movieCard.addEventListener("click", () => {
+        movieCard.addEventListener("click", async () => {
+            let movieRating = await getMovieAccountStates(movieDetails.movieId);
+            let ratingDisplay = movieModal.querySelector(".rating-label");
+
+            document.getElementById("rating").value = movieRating.rated.value;
+            ratingDisplay.innerText = `Your Rating: ${document.getElementById("rating").value}`;
+
             movieModal.querySelector(".modal-poster").src =
                 movieDetails.imageUrl;
             movieModal.querySelector(".modal-poster").alt =
@@ -134,23 +172,55 @@ document.addEventListener("DOMContentLoaded", () => {
                 movieDetails.title;
             movieModal.querySelector(
                 ".modal-release-year"
-            ).innerText += `: ${movieDetails.releaseYear}`;
+            ).innerText += `${movieDetails.releaseYear}`;
             movieModal.querySelector(
                 ".modal-overview"
-            ).innerText += `: ${movieDetails.overview}`;
+            ).innerText += `${movieDetails.overview}`;
             movieModal.querySelector(
                 ".modal-director"
-            ).innerText += `: ${movieDetails.director}`;
+            ).innerText += `${movieDetails.director}`;
             movieModal.querySelector(
                 ".modal-cast"
-            ).innerText += `: ${movieDetails.cast.join(", ")}`;
+            ).innerText += `${movieDetails.cast.join(", ")}`;
             movieModal.querySelector(
                 ".modal-genre"
-            ).innerText += `: ${movieDetails.genres.join(", ")}`;
+            ).innerText += `${movieDetails.genres.join(", ")}`;
             movieModal.querySelector(
                 ".modal-rating"
-            ).innerText += `: ${movieDetails.rating}`;
+            ).innerText += `${movieDetails.rating}`;
+
+            // Check if the user has rated the movie through the movieRating object
+            if (movieRating && movieRating.rated.value) {
+                movieModal.querySelector(
+                    ".modal-user-rating"
+                ).innerText += `${movieRating.rated.value}`;
+            } else {
+                movieModal.querySelector(
+                    ".modal-user-rating"
+                ).innerText += `Not Rated`;
+            }
+
             movieModal.classList.remove("hidden");
+
+            // Rate slider handler
+            const rateSliderHandler = () => {
+                const slider = movieModal.querySelector(".rating-slider");
+                ratingDisplay.innerText = `Your Rating: ${slider.value}`;
+            };
+
+            movieModal.querySelector(".rating-slider").addEventListener('input', rateSliderHandler);
+
+            // Save Rating handler
+            const saveRatingHandler = async () => {
+                const userRating = document.getElementById("rating").value;
+                const UserRatingDisplay = movieModal.querySelector(".modal-user-rating");
+                UserRatingDisplay.innerText = `${userRating}`;
+
+                await setMovieRating(movieDetails.movieId, userRating);
+            };
+
+            movieModal.querySelector(".save-rating-btn").addEventListener("click", saveRatingHandler);
+
             // Close button handler
             movieModal
                 .querySelector(".close-btn")
@@ -158,16 +228,21 @@ document.addEventListener("DOMContentLoaded", () => {
                     movieModal.classList.add("hidden");
                     // Reset modal content
                     movieModal.querySelector(".modal-release-year").innerText =
-                        "Release Year";
+                        "";
                     movieModal.querySelector(".modal-overview").innerText =
-                        "Overview";
+                        "";
                     movieModal.querySelector(".modal-director").innerText =
-                        "Director";
-                    movieModal.querySelector(".modal-cast").innerText = "Cast";
+                        "";
+                    movieModal.querySelector(".modal-cast").innerText =
+                        "";
                     movieModal.querySelector(".modal-genre").innerText =
-                        "Genre";
+                        "";
                     movieModal.querySelector(".modal-rating").innerText =
-                        "Rating";
+                        "";
+                    movieModal.querySelector(".modal-user-rating").innerText =
+                        "";
+
+                    movieModal.querySelector(".save-rating-btn").removeEventListener("click", saveRatingHandler);
                 });
         });
         return movieCard;
@@ -223,16 +298,28 @@ document.addEventListener("DOMContentLoaded", () => {
                 options
             );
             const data = await response.json();
-            console.log(data);
             // Iterate over results
             for (let movie of data.results) {
+                let filterRating = parseFloat(ratingValue.textContent);
+                let movieRating = movie.vote_average;
                 let movieDetails = await getMovieDetails(movie.id);
                 let movieCard = createMovieCard(movieDetails);
-                appendCard(movieCard, searchResults);
+
+                // If the user has a set rating filter, apply it and then check if the movie rating is lower then their set value
+                if (filterRating > 0 && movieRating > filterRating) {
+                    continue;
+                } else {
+                    appendCard(movieCard, searchResults);
+                }
             }
         } catch (err) {
             console.error(err);
         }
+    });
+
+    // Rating slider event listener to update rating value display
+    ratingSlider.addEventListener('input', function() {
+        ratingValue.textContent = parseFloat(this.value).toFixed(1);
     });
 
     generateTrendingMovies();
