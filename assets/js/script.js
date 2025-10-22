@@ -195,21 +195,21 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             movieModal.classList.remove("hidden");
+
+            // Rate button handler
+            const ratebuttonHandler = async () => {
+                let userRating = prompt("Rate this movie (1-10):");
+                if (userRating && userRating >= 1 && userRating <= 10) {
+                    movieModal.querySelector(
+                        ".modal-user-rating"
+                    ).innerText = `User Rating: ${userRating}`;
+                    await setMovieRating(movieDetails.movieId, userRating);
+                }
+            };
+
+            movieModal.querySelector(".btn.btn-outline-primary").addEventListener("click", ratebuttonHandler);
+
             // Close button handler
-            movieModal
-                .querySelector(".btn.btn-outline-primary")
-                .addEventListener("click", async () => {
-                    let movieRating = prompt("Rate this movie (1-10):");
-
-                    if (movieRating && movieRating >= 1 && movieRating <= 10) {
-                        movieModal.querySelector(
-                            ".modal-user-rating"
-                        ).innerText = `User Rating: ${movieRating}`;
-
-                        await setMovieRating(movieDetails.movieId, movieRating);
-                    }
-                });
-
             movieModal
                 .querySelector(".close-btn")
                 .addEventListener("click", () => {
@@ -221,7 +221,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         "Overview";
                     movieModal.querySelector(".modal-director").innerText =
                         "Director";
-                    movieModal.querySelector(".modal-cast").innerText = "Cast";
+                    movieModal.querySelector(".modal-cast").innerText = 
+                        "Cast";
                     movieModal.querySelector(".modal-genre").innerText =
                         "Genre";
                     movieModal.querySelector(".modal-rating").innerText =
@@ -229,11 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     movieModal.querySelector(".modal-user-rating").innerText =
                         "User Rating";
 
-                    // Remove event listener to prevent multiple prompts
-                    movieModal
-                        .querySelector(".modal-user-rating")
-                        .removeEventListener("click", () => {}, true);
-                    console.log("test");
+                    movieModal.querySelector(".btn.btn-outline-primary").removeEventListener("click", ratebuttonHandler);
                 });
         });
         return movieCard;
