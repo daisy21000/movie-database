@@ -150,6 +150,46 @@
       aria-label="Search movies"
       required
     />
+    <!--Filter dropdown-->
+    <select id="genre-filter" class="form-select" aria-label="Genre filter" title="Select Genre">
+      <option value="" selected>All Genres</option>
+      <option value="action">Action</option>
+      <option value="comedy">Comedy</option>
+      <option value="drama">Drama</option>
+      <option value="horror">Horror</option>
+      <option value="romance">Romance</option>
+      <option value="sci-fi">Sci-Fi</option>
+      <option value="thriller">Thriller</option>
+    </select>
+    <!-- Year Filter -->
+  <input
+    type="number"
+    id="year-filter"
+    class="form-control"
+    placeholder="Year"
+    min="1900"
+    max="2025"
+    aria-label="Filter by year"
+    title="Filter by Release Year"
+  />
+  <!-- Rating Filter Slider -->
+<div class="rating-filter d-flex align-items-center gap-2" title="Filter by minimum rating">
+  <label for="rating-slider" class="form-label mb-0 text-success">Rating:</label>
+  <input
+    type="range"
+    class="form-range"
+    min="0"
+    max="10"
+    step="0.1"
+    id="rating-slider"
+    value="0"
+    aria-label="Minimum rating"
+  />
+  <span id="rating-value" class="text-success">0</span>
+</div>
+
+
+
     <button class="btn btn-outline-success" type="submit" id="enter-btn">
       [ENTER]
     </button>
