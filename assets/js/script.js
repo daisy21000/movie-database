@@ -68,6 +68,16 @@ document.addEventListener("DOMContentLoaded", () => {
         loginScreen.classList.remove("hidden");
     });
 
+    const getMovieAccountStates = async (movieId) => {
+        const accountStatesResponse = await fetch(
+            `https://api.themoviedb.org/3/movie/${movieId}/account_states`,
+            options
+        );
+        const accountStatesData = await accountStatesResponse.json();
+
+        return accountStatesData;
+    };
+
     const getMovieDetails = async (movieId) => {
         // Get more details of the movie
         const detailsResponse = await fetch(
@@ -126,8 +136,9 @@ document.addEventListener("DOMContentLoaded", () => {
         movieCard.querySelector(".release-year").innerText =
             movieDetails.releaseYear;
 
-        movieCard.addEventListener("click", () => {
-            console.log(movieDetails);
+        movieCard.addEventListener("click", async () => {
+            let movieRating = await getMovieRating(movieDetails.movieId);
+            console.log(movieRating);
             movieModal.querySelector(".modal-poster").src =
                 movieDetails.imageUrl;
             movieModal.querySelector(".modal-poster").alt =
@@ -157,6 +168,19 @@ document.addEventListener("DOMContentLoaded", () => {
             ).innerText += `: Not Rated`;
             movieModal.classList.remove("hidden");
             // Close button handler
+            movieModal
+                .querySelector(".btn.btn-outline-primary")
+                .addEventListener("click", async () => {
+                    console.log(data);
+                    let movieRating = prompt("Rate this movie (1-10):");
+
+                    if (movieRating && movieRating >= 1 && movieRating <= 10) {
+                        movieModal.querySelector(
+                            ".modal-user-rating"
+                        ).innerText = `User Rating: ${movieRating}`;
+                    }
+                });
+
             movieModal
                 .querySelector(".close-btn")
                 .addEventListener("click", () => {
