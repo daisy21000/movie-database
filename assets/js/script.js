@@ -159,6 +159,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         movieCard.addEventListener("click", async () => {
             let movieRating = await getMovieAccountStates(movieDetails.movieId);
+            let ratingDisplay = movieModal.querySelector(".rating-label");
+
+            document.getElementById("rating").value = movieRating.rated.value;
+            ratingDisplay.innerText = `Your Rating: ${document.getElementById("rating").value}`;
 
             movieModal.querySelector(".modal-poster").src =
                 movieDetails.imageUrl;
@@ -168,50 +172,54 @@ document.addEventListener("DOMContentLoaded", () => {
                 movieDetails.title;
             movieModal.querySelector(
                 ".modal-release-year"
-            ).innerText += `: ${movieDetails.releaseYear}`;
+            ).innerText += `${movieDetails.releaseYear}`;
             movieModal.querySelector(
                 ".modal-overview"
-            ).innerText += `: ${movieDetails.overview}`;
+            ).innerText += `${movieDetails.overview}`;
             movieModal.querySelector(
                 ".modal-director"
-            ).innerText += `: ${movieDetails.director}`;
+            ).innerText += `${movieDetails.director}`;
             movieModal.querySelector(
                 ".modal-cast"
-            ).innerText += `: ${movieDetails.cast.join(", ")}`;
+            ).innerText += `${movieDetails.cast.join(", ")}`;
             movieModal.querySelector(
                 ".modal-genre"
-            ).innerText += `: ${movieDetails.genres.join(", ")}`;
+            ).innerText += `${movieDetails.genres.join(", ")}`;
             movieModal.querySelector(
                 ".modal-rating"
-            ).innerText += `: ${movieDetails.rating}`;
+            ).innerText += `${movieDetails.rating}`;
 
             // Check if the user has rated the movie through the movieRating object
             if (movieRating && movieRating.rated.value) {
                 movieModal.querySelector(
                     ".modal-user-rating"
-                ).innerText += `: ${movieRating.rated.value}`;
+                ).innerText += `${movieRating.rated.value}`;
             } else {
                 movieModal.querySelector(
                     ".modal-user-rating"
-                ).innerText += `: Not Rated`;
+                ).innerText += `Not Rated`;
             }
 
             movieModal.classList.remove("hidden");
 
-            // Rate button handler
-            const ratebuttonHandler = async () => {
-                let userRating = prompt("Rate this movie (1-10):");
-
-                if (userRating && userRating >= 1 && userRating <= 10) {
-                    movieModal.querySelector(
-                        ".modal-user-rating"
-                    ).innerText = `User Rating: ${userRating}`;
-
-                    await setMovieRating(movieDetails.movieId, userRating);
-                }
+            // Rate slider handler
+            const rateSliderHandler = () => {
+                const slider = movieModal.querySelector(".rating-slider");
+                ratingDisplay.innerText = `Your Rating: ${slider.value}`;
             };
 
-            movieModal.querySelector(".btn.btn-outline-primary").addEventListener("click", ratebuttonHandler);
+            movieModal.querySelector(".rating-slider").addEventListener('input', rateSliderHandler);
+
+            // Save Rating handler
+            const saveRatingHandler = async () => {
+                const userRating = document.getElementById("rating").value;
+                const UserRatingDisplay = movieModal.querySelector(".modal-user-rating");
+                UserRatingDisplay.innerText = `${userRating}`;
+
+                await setMovieRating(movieDetails.movieId, userRating);
+            };
+
+            movieModal.querySelector(".save-rating-btn").addEventListener("click", saveRatingHandler);
 
             // Close button handler
             movieModal
@@ -220,21 +228,21 @@ document.addEventListener("DOMContentLoaded", () => {
                     movieModal.classList.add("hidden");
                     // Reset modal content
                     movieModal.querySelector(".modal-release-year").innerText =
-                        "Release Year";
+                        "";
                     movieModal.querySelector(".modal-overview").innerText =
-                        "Overview";
+                        "";
                     movieModal.querySelector(".modal-director").innerText =
-                        "Director";
-                    movieModal.querySelector(".modal-cast").innerText = 
-                        "Cast";
+                        "";
+                    movieModal.querySelector(".modal-cast").innerText =
+                        "";
                     movieModal.querySelector(".modal-genre").innerText =
-                        "Genre";
+                        "";
                     movieModal.querySelector(".modal-rating").innerText =
-                        "Rating";
+                        "";
                     movieModal.querySelector(".modal-user-rating").innerText =
-                        "User Rating";
+                        "";
 
-                    movieModal.querySelector(".btn.btn-outline-primary").removeEventListener("click", ratebuttonHandler);
+                    movieModal.querySelector(".save-rating-btn").removeEventListener("click", saveRatingHandler);
                 });
         });
         return movieCard;
