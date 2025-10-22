@@ -292,13 +292,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await response.json();
             // Iterate over results
             for (let movie of data.results) {
+                let filterRating = parseFloat(ratingValue.textContent);
                 let movieRating = movie.vote_average;
                 let movieDetails = await getMovieDetails(movie.id);
                 let movieCard = createMovieCard(movieDetails);
 
                 // If the user has a set rating filter, apply it and then check if the movie rating is lower then their set value
-                if (parseFloat(ratingValue.textContent) > 0 && movieRating > parseFloat(ratingValue.textContent)) {
-                    console.log(`Filtered out ${movieDetails.title} with rating ${movieRating}`);
+                if (filterRating > 0 && movieRating > filterRating) {
                     continue;
                 } else {
                     appendCard(movieCard, searchResults);
@@ -309,6 +309,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    // Rating slider event listener to update rating value display
     ratingSlider.addEventListener('input', function() {
         ratingValue.textContent = parseFloat(this.value).toFixed(1);
     });
