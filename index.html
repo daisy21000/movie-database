@@ -346,7 +346,7 @@
         <button class="close-btn" aria-label="Close modal">×</button>
         <div class="modal-body">
           <h2 class="modal-title">Title</h2>
-          <img src="" alt="Movie Poster" class="modal-poster" />
+          <img src="assets/images/placeholder-movie.png" alt="Movie Poster" class="modal-poster" loading="lazy" />
           <p class="modal-overview">Overview</p>
 
           <!-- Accordion shows extra movie metadata -->
@@ -490,15 +490,15 @@
               data-id=""
               title="Your rating (1-5)"
               aria-label="Your rating from 1 to 5"
-              placeholder="1-5"
             />
 
             <label for="comment" class="comment-label">Thoughts:</label>
             <textarea
-              class="comment-box"
-              rows="2"
-              maxlength="100"
-              placeholder="Say something..."
+                id="comment"
+                class="comment-box"
+                rows="2"
+                maxlength="100"
+                placeholder="Say something..."
             ></textarea>
 
             <button class="btn btn-outline-success save-rating-btn">

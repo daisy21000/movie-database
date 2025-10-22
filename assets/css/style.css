@@ -318,7 +318,7 @@ body .navbar {
 }
 
 .release-year {
-  text-transform: bold;
+  font-weight: bold;
   font-size: 0.8rem;
   margin-left: auto;
   text-align: right;
