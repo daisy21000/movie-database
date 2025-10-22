@@ -92,16 +92,30 @@ body {
 
 /* Navbar (fixed at top) */
 body .navbar {
-  font-family: var(--primary-font);
+  font-family: var(--secondary-font);
   font-size: 20px;
   font-weight: bolder;
   text-transform: uppercase;
   margin-bottom: 60px;
   position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   width: 100%;
-  z-index: 10;
-  background-color: transparent !important;
+  z-index: 50;
+
+  /* Glass background (fallback + blur for supported browsers) */
+  background-color: rgba(0, 0, 0, 0.45); /* fallback when backdrop-filter unsupported */
+  background-image: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.35));
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+  backdrop-filter: blur(8px) saturate(120%);
+
+  /* Subtle green accent to match theme and improve contrast */
+  border-bottom: 1px solid rgba(0, 255, 0, 0.12);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 8px rgba(0, 255, 0, 0.03);
+
+  padding: 0.6rem 1rem;
+  transition: background-color 0.2s ease, backdrop-filter 0.2s ease, box-shadow 0.2s ease;
 }
 
 .section-title {
@@ -146,6 +160,95 @@ body .navbar {
     color: rgba(0, 255, 0, 0.3);
     z-index: 17;
 }
+
+
+/* === Shared Base Styles for All Filters === */
+#genre-filter,
+#year-filter,
+.rating-filter {
+  font-family: var(--primary-font);
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 255, 0, 0.3);
+  color: rgba(0, 255, 0, 0.8);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  z-index: 10;
+  border-radius: 0;
+  margin-top: 2rem;
+  padding: 0.6rem 1rem;
+}
+
+/* === Genre & Year Filters === */
+#genre-filter,
+#year-filter {
+  height: 2.5rem;
+  width: 8rem;
+  background: rgba(0, 0, 0, 0.5);
+  appearance: none; /* cleaner look for select */
+}
+
+#genre-filter:focus,
+#year-filter:focus {
+  outline: none;
+  border-color: #00ff00;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+}
+
+#year-filter::placeholder {
+  color: rgba(0, 255, 0, 0.4);
+}
+
+/* === Rating Filter (Slider) === */
+.rating-filter {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 25rem;
+  height: 2.5rem;
+  padding: 0.8rem 1rem;
+}
+
+/* Slider input inside rating filter */
+.rating-filter input[type="range"] {
+  flex: 1;
+  height: 4px;
+  background: linear-gradient(to right, #00ff00, #003300);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  accent-color: #00ff00;
+}
+
+/* Value next to slider */
+.rating-filter #rating-value {
+  font-family: monospace;
+  font-weight: bold;
+  color: #00ff00;
+  font-size: 1rem;
+  min-width: 2.5rem;
+  text-align: right;
+}
+
+/* Focus state */
+.rating-filter:focus-within {
+  border-color: #00ff00;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+}
+
+/* Enter button next to filters */
+#enter-btn {
+  margin-left: 1rem;
+  margin-top: 2rem;
+  height: 2.5rem;
+  padding: 0 1.5rem;
+  background-color: rgba(0, 255, 0, 0.2);
+  color: #00ff00;
+  border: 1px solid rgba(0, 255, 0, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
 
 .movies-grid {
   display: grid;
@@ -381,20 +484,7 @@ h1 {
   z-index: 6;
 }
 
-/* Form label (use element selector if custom element, otherwise adjust) */
-.form-label {
-  width: 90%;
-  color: rgb(0, 255, 0);
-  font-size: 1rem;
-  padding: 1rem;
-  background: rgba(0, 0, 0, 0.5);
-  border-width: 1px;
-  border-style: solid;
-  border-color: rgba(0, 255, 0, 0.3);
-  border-image: initial;
-  transition: 0.3s;
-  justify-content: center !important;
-}
+
 
 /* Password input styling */
 #inputPassword5 {
