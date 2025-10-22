@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const movieCardTemplate = document.getElementById("movie-card-template");
     const movieModal = document.getElementById("movie-modal");
     const trendingMoviesSection = document.getElementById("trending-grid");
+    const topRatedMoviesSection = document.getElementById("top-rated-grid");
+
     let apiKey = null;
     const options = {
         method: "GET",
@@ -192,6 +194,23 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
+    const generateTopRatedMovies = async () => {
+        try {
+            const response = await fetch(
+                "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1",
+                options
+            );
+            const data = await response.json();
+            for (let movie of data.results) {
+                let movieDetails = await getMovieDetails(movie.id);
+                let movieCard = createMovieCard(movieDetails);
+                appendCard(movieCard, topRatedMoviesSection);
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
     searchForm.addEventListener("submit", async (e) => {
         searchResults.innerHTML = ""; // Clear previous results
         e.preventDefault();
@@ -217,4 +236,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     generateTrendingMovies();
+    generateTopRatedMovies();
 });
