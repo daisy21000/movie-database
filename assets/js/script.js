@@ -290,12 +290,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 options
             );
             const data = await response.json();
-            console.log(data);
             // Iterate over results
             for (let movie of data.results) {
+                let movieRating = movie.vote_average;
                 let movieDetails = await getMovieDetails(movie.id);
                 let movieCard = createMovieCard(movieDetails);
-                appendCard(movieCard, searchResults);
+
+                // If the user has a set rating filter, apply it and then check if the movie rating is lower then their set value
+                if (parseFloat(ratingValue.textContent) > 0 && movieRating > parseFloat(ratingValue.textContent)) {
+                    console.log(`Filtered out ${movieDetails.title} with rating ${movieRating}`);
+                    continue;
+                } else {
+                    appendCard(movieCard, searchResults);
+                }
             }
         } catch (err) {
             console.error(err);
