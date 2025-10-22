@@ -109,13 +109,13 @@ body .navbar {
 .section-title {
     font-family: var(--primary-font);
     font-weight: bold;
-    font-size: 1.5rem;
+    margin-left: 1rem;
+    font-size: 2rem;
     text-transform: uppercase;
     margin-bottom: 1.5rem;
     padding-left: 0.5rem;
     border-left: 3px solid #00ff00;
-    text-shadow: 0 0 10px #00ff00;
-    z-index: 9;
+    text-shadow: var(--border-shadow);
 }
 
 .search-section {
@@ -123,6 +123,7 @@ body .navbar {
 }
 
 .search-bar {
+  margin-left: 1rem;
     margin-top: 2rem;
     width: 90%;
     height: 90%;
@@ -226,8 +227,10 @@ body .navbar {
 /* Enter button next to filters */
 #enter-btn {
   margin-left: 1rem;
+  margin-right: 1rem;
   margin-top: 2rem;
   height: 2.5rem;
+  border-radius: 0;
   padding: 0 1.5rem;
   background-color: rgba(0, 255, 0, 0.2);
   color: #00ff00;
