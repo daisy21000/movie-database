@@ -68,14 +68,33 @@ document.addEventListener("DOMContentLoaded", () => {
         loginScreen.classList.remove("hidden");
     });
 
+    // Function to get account states for a movie
     const getMovieAccountStates = async (movieId) => {
         const accountStatesResponse = await fetch(
             `https://api.themoviedb.org/3/movie/${movieId}/account_states`,
             options
         );
-        const accountStatesData = await accountStatesResponse.json();
 
+        const accountStatesData = await accountStatesResponse.json();
         return accountStatesData;
+    };
+
+    // Function to set a movie's rating
+    const setMovieRating = async (movieId, rating) => {
+        const ratingResponse = await fetch(
+            `https://api.themoviedb.org/3/movie/${movieId}/rating`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + apiKey,
+                },
+                body: JSON.stringify({ value: rating }),
+            }
+        );
+
+        const ratingData = await ratingResponse.json();
+        return ratingData;
     };
 
     const getMovieDetails = async (movieId) => {
@@ -186,6 +205,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         movieModal.querySelector(
                             ".modal-user-rating"
                         ).innerText = `User Rating: ${movieRating}`;
+
+                        await setMovieRating(movieDetails.movieId, movieRating);
                     }
                 });
 
@@ -207,6 +228,12 @@ document.addEventListener("DOMContentLoaded", () => {
                         "Rating";
                     movieModal.querySelector(".modal-user-rating").innerText =
                         "User Rating";
+
+                    // Remove event listener to prevent multiple prompts
+                    movieModal
+                        .querySelector(".modal-user-rating")
+                        .removeEventListener("click", () => {}, true);
+                    console.log("test");
                 });
         });
         return movieCard;
