@@ -72,6 +72,16 @@ body {
   padding: 0;
   letter-spacing: 1px;
 }
+#disconnect-btn {
+  color: #00ff00;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: 1px solid rgba(0, 255, 0, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
 
 .hidden {
   display: none !important;
@@ -104,13 +114,12 @@ body .navbar {
   text-shadow: 0 0 10px #00ff00;
 }
 
-.search-section {
-  margin-bottom: 1rem;
-}
+/* Search bar styling */
 
 .search-bar {
   margin-top: 2rem;
-  width: 90%;
+  width: 55%;
+  height: 95%;
   padding: 1rem;
   background: rgba(0, 0, 0, 0.5);
   color: #00ff00;
@@ -127,6 +136,96 @@ body .navbar {
 .search-bar::placeholder {
   color: rgba(0, 255, 0, 0.3);
 }
+
+/* === Shared Base Styles for All Filters === */
+#genre-filter,
+#year-filter,
+.rating-filter {
+  font-family: var(--primary-font);
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 255, 0, 0.3);
+  color: rgba(0, 255, 0, 0.8);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  z-index: 10;
+  border-radius: 0;
+  margin-top: 2rem;
+  padding: 0.6rem 1rem;
+}
+
+/* === Genre & Year Filters === */
+#genre-filter,
+#year-filter {
+  height: 2.5rem;
+  width: 8rem;
+  background: rgba(0, 0, 0, 0.5);
+  appearance: none; /* cleaner look for select */
+}
+
+#genre-filter:focus,
+#year-filter:focus {
+  outline: none;
+  border-color: #00ff00;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+}
+
+#year-filter::placeholder {
+  color: rgba(0, 255, 0, 0.4);
+}
+
+/* === Rating Filter (Slider) === */
+.rating-filter {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 20rem;
+  height: 2.5rem;
+  padding: 0.8rem 1rem;
+}
+
+/* Slider input inside rating filter */
+.rating-filter input[type="range"] {
+  flex: 1;
+  height: 4px;
+  background: linear-gradient(to right, #00ff00, #003300);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  accent-color: #00ff00;
+}
+
+/* Value next to slider */
+.rating-filter #rating-value {
+  font-family: monospace;
+  font-weight: bold;
+  color: #00ff00;
+  font-size: 1rem;
+  min-width: 2.5rem;
+  text-align: right;
+}
+
+/* Focus state */
+.rating-filter:focus-within {
+  border-color: #00ff00;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+}
+
+/* Enter button next to filters */
+#enter-btn {
+  margin-left: 1rem;
+  margin-top: 2rem;
+  height: 2.5rem;
+  padding: 0 1.5rem;
+  background-color: rgba(0, 255, 0, 0.2);
+  color: #00ff00;
+  border: 1px solid rgba(0, 255, 0, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+
+/* Movie grid and cards */
 
 .movies-grid {
   display: grid;
