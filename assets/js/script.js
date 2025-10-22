@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchResults = document.getElementById("search-results");
     const movieCardTemplate = document.getElementById("movie-card-template");
     const movieModal = document.getElementById("movie-modal");
+    const trendingMoviesSection = document.getElementById("trending-grid");
     let apiKey = null;
     const options = {
         method: "GET",
@@ -167,7 +168,28 @@ document.addEventListener("DOMContentLoaded", () => {
                         "Rating";
                 });
         });
-        searchResults.appendChild(movieCard);
+        return movieCard;
+    };
+
+    const appendCard = (movieCard, container) => {
+        container.appendChild(movieCard);
+    };
+
+    const generateTrendingMovies = async () => {
+        try {
+            const response = await fetch(
+                "https://api.themoviedb.org/3/trending/movie/day?language=en-US",
+                options
+            );
+            const data = await response.json();
+            for (let movie of data.results) {
+                let movieDetails = await getMovieDetails(movie.id);
+                let movieCard = createMovieCard(movieDetails);
+                appendCard(movieCard, trendingMoviesSection);
+            }
+        } catch (err) {
+            console.error(err);
+        }
     };
 
     searchForm.addEventListener("submit", async (e) => {
@@ -186,10 +208,13 @@ document.addEventListener("DOMContentLoaded", () => {
             // Iterate over results
             for (let movie of data.results) {
                 let movieDetails = await getMovieDetails(movie.id);
-                createMovieCard(movieDetails);
+                let movieCard = createMovieCard(movieDetails);
+                appendCard(movieCard, searchResults);
             }
         } catch (err) {
             console.error(err);
         }
     });
+
+    generateTrendingMovies();
 });
