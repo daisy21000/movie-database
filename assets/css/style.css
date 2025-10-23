@@ -308,6 +308,7 @@ body .navbar {
   color: var(--text-color);
 }
 .movie-title {
+  font-size: 0.7rem;
   display: block;
   width: 100%;
   text-align: left;
@@ -319,7 +320,7 @@ body .navbar {
 
 .release-year {
   font-weight: bold;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   margin-left: auto;
   text-align: right;
   align-self: center;
