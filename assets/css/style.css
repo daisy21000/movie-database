@@ -547,58 +547,6 @@ h1 {
   padding-bottom: 0.7rem;
 }
 
-/* --- Background Layers ----------------------------------------------------- */
-/* Layer 1: darker repeating texture */
-.bg-layer-1 {
-  position: fixed;
-  inset: 0;
-  background-image: url(../images/bg_darker.gif);
-  background-repeat: repeat;
-  background-color: #000;
-  opacity: 0.45;
-  filter: hue-rotate(180deg) saturate(1.2) brightness(0.5) contrast(1.05);
-  mix-blend-mode: normal;
-  z-index: 1;
-}
-
-/* Layer 2: animated dark texture with blend */
-.bg-layer-2 {
-  position: fixed;
-  inset: 0;
-  background-image: url(../images/bg_dark_anim_0_08.gif);
-  background-repeat: repeat;
-  background-color: transparent;
-  opacity: 0.28;
-  filter: hue-rotate(180deg) saturate(1.6) brightness(0.9) contrast(1.05);
-  mix-blend-mode: screen;
-  z-index: 2;
-}
-
-/* Subtle green glow overlay */
-.bg-glow {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 255, 0, 0.06);
-  mix-blend-mode: screen;
-  opacity: 0.06;
-  pointer-events: none;
-  z-index: 3;
-}
-
-/* Dark vignette to focus center content */
-.dark-overlay {
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(
-    circle at 50% 45%,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.15) 35%,
-    rgba(0, 0, 0, 0.95) 100%
-  );
-  opacity: 0.9;
-  z-index: 4;
-  pointer-events: none;
-}
 
 /* --- Form area ------------------------------------------------------------- */
 /* Small offset for login form area */
