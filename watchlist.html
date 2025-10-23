@@ -42,95 +42,72 @@
     <div class="bg-glow"></div>
     <div class="dark-overlay"></div>
 
-    </div>
+  </div>
 
-   
-    
 
-    <div id="login-screen">
-        <div class="row">
-          <div class="column">
-            <header>
-              <h1>The Cinemind Network</h1>
-              <p>Access the infinite world of cinema</p>
-            </header>
-          </div>
 
-          <!-- Form Container -->
-          <div class="column">
-            <div class="form-container">
-              <section id="login-form">
-                <!--
+
+  <div id="login-screen">
+    <div class="row">
+      <div class="column">
+        <header>
+          <h1>The Cinemind Network</h1>
+          <p>Access the infinite world of cinema</p>
+        </header>
+      </div>
+
+      <!-- Form Container -->
+      <div class="column">
+        <div class="form-container">
+          <section id="login-form">
+            <!--
                                     API KEY input:
                                     - type="password" to hide typed characters.
                                     - ID inputPassword5 referenced by script.js for authentication.
                                     - aria-describedby links to helper text below for accessibility.
                                 -->
-                <label for="inputPassword5" class="form-label">API KEY:</label>
-                <input
-                  type="password"
-                  id="inputPassword5"
-                  placeholder="Enter your API key"
-                  class="form-control"
-                  aria-describedby="passwordHelpBlock"
-                />
+            <label for="inputPassword5" class="form-label">API KEY:</label>
+            <input type="password" id="inputPassword5" placeholder="Enter your API key" class="form-control"
+              aria-describedby="passwordHelpBlock" />
 
-                <!--API KEY error message (hidden by default with d-none).
+            <!--API KEY error message (hidden by default with d-none).
                                         Script toggles d-none to show validation/auth errors. -->
-                <div
-                  id="api-error"
-                  class="alert alert-danger d-none"
-                  role="alert"
-                >
-                  Invalid API key. Please try again.
-                </div>
+            <div id="api-error" class="alert alert-danger d-none" role="alert">
+              Invalid API key. Please try again.
+            </div>
 
-                <!--
+            <!--
                                     CONNECT button:
                                     - id="submit-btn" is used by script.js to attach click handler.
                                     - type="submit" is acceptable inside a section; the script can prevent default.
                                 -->
-                <button type="submit" id="submit-btn">CONNECT</button>
+            <button type="submit" id="submit-btn">CONNECT</button>
 
-                <!-- Loading spinner shown while validating API key or loading resources -->
-                <div id="loading" class="d-none text-center my-4">
-                  <div
-                    class="spinner-border text-success"
-                    role="status"
-                    aria-hidden="true"
-                  ></div>
-                  <span class="visually-hidden">Loading...</span>
-                </div>
-
-                <div id="passwordHelpBlock" class="form-text">
-                  NOTE: Access restricted to authorized users only
-                </div>
-              </section>
+            <!-- Loading spinner shown while validating API key or loading resources -->
+            <div id="loading" class="d-none text-center my-4">
+              <div class="spinner-border text-success" role="status" aria-hidden="true"></div>
+              <span class="visually-hidden">Loading...</span>
             </div>
-          </div>
+
+            <div id="passwordHelpBlock" class="form-text">
+              NOTE: Access restricted to authorized users only
+            </div>
+          </section>
         </div>
       </div>
+    </div>
+  </div>
   </div>
 
-    <div id="main-ui">
-      <!-- Nav bar, Search and Disconnect Button-->
-      <nav
-        class="navbar navbar-expand-lg bg-body-tertiary"
-        data-bs-theme="dark"
-      >
-        <div class="container-fluid">
-          <a class="navbar-brand" href="index.html">⌈ CINEMIND DATABASE ⌋</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
+  <div id="main-ui">
+    <!-- Nav bar, Search and Disconnect Button-->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">⌈ CINEMIND DATABASE ⌋</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -139,24 +116,19 @@
         - Add/remove sections here as needed.
         - Update hrefs to match section IDs below.
         -->
-              <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  aria-current="page"
-                  href="index.html#trending-section"
-                  >Trending</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="index.html#top-rated-section">Top-Rated</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="watchlist.html#Favourites-section">Favourites</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="watchlist.html#Watchlist-section">Watchlist</a>
-              </li>
-            </ul>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="index.html#trending-section">Trending</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html#top-rated-section">Top-Rated</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="watchlist.html#Favourites-section">Favourites</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="watchlist.html#Watchlist-section">Watchlist</a>
+            </li>
+          </ul>
 
           <!--
         DISCONNECT- Once clicked, the DISCONNECT button should: 
@@ -220,7 +192,7 @@
       <img src="" alt="Movie Poster" class="movie-poster" />
       <div class="movie-info-line">
         <span class="movie-title">Title</span>
-        <span class="release-year">Year</span>
+        <span class="release-year hidden">Year</span>
       </div>
     </div>
   </template>
