@@ -381,44 +381,65 @@ document.addEventListener("DOMContentLoaded", () => {
 
             movieModal.querySelector(".save-rating-btn").addEventListener("click", saveRatingHandler);
 
+            const addFavoritesBtnListener = async () => {
+                let inFavorites = await isInFavorites(movieDetails.movieId);
+                if (inFavorites) {
+                    alert(`${movieDetails.title} is already in Favorites!`);
+                } else {
+                    await addToFavorites(movieDetails.movieId);
+                    alert(`${movieDetails.title} added to Favorites!`);
+                }
+            };
+            const addWatchlistBtnListener = async () => {
+                let inWatchlist = await isInWatchlist(movieDetails.movieId);
+                if (inWatchlist) {
+                    alert(`${movieDetails.title} is already in Watchlist!`);
+                } else {
+                    await addToWatchlist(movieDetails.movieId);
+                    alert(`${movieDetails.title} added to Watchlist!`);
+                }
+            };
+            const removeFavoritesBtnListener = async () => {
+                await removeFromFavorites(movieDetails.movieId);
+                alert(`${movieDetails.title} removed from Favorites!`);
+                location.reload();
+            };
+            const removeWatchlistBtnListener = async () => {
+                await removeFromWatchlist(movieDetails.movieId);
+                alert(`${movieDetails.title} removed from Watchlist!`);
+                location.reload();
+            };
             let inFavorites = await isInFavorites(movieDetails.movieId);
             if (inFavorites) {
                 addFavoritesBtn.classList.add("hidden");
                 // Remove from Favorites handler
-                removeFavoritesBtn?.addEventListener("click", async () => {
-                    await removeFromFavorites(movieDetails.movieId);
-                    alert(`${movieDetails.title} removed from Favorites!`);
-                    location.reload();
-                });
+                removeFavoritesBtn?.addEventListener(
+                    "click",
+                    removeFavoritesBtnListener
+                );
             } else {
                 removeFavoritesBtn.classList.add("hidden");
                 // Add to Favorites handler
-                addFavoritesBtn?.addEventListener("click", async () => {
-                    await addToFavorites(movieDetails.movieId);
-                    alert(`${movieDetails.title} added to Favorites!`);
-                });
+                addFavoritesBtn?.addEventListener(
+                    "click",
+                    addFavoritesBtnListener
+                );
             }
             let inWatchlist = await isInWatchlist(movieDetails.movieId);
             if (inWatchlist) {
                 addWatchlistBtn.classList.add("hidden");
                 // Remove from Watchlist handler
-                removeWatchlistBtn?.addEventListener("click", async () => {
-                    await removeFromWatchlist(movieDetails.movieId);
-                    alert(`${movieDetails.title} removed from Watchlist!`);
-                    location.reload();
-                });
+                removeWatchlistBtn?.addEventListener(
+                    "click",
+                    removeWatchlistBtnListener
+                );
             } else {
                 removeWatchlistBtn.classList.add("hidden");
                 // Add to Watchlist handler
-                addWatchlistBtn?.addEventListener("click", async () => {
-                    let inWatchlist = await isInWatchlist(movieDetails.movieId);
-                    if (inWatchlist) {
-                        alert(`${movieDetails.title} is already in Watchlist!`);
-                    } else {
-                        await addToWatchlist(movieDetails.movieId);
-                        alert(`${movieDetails.title} added to Watchlist!`);
-                    }
-                });
+                addWatchlistBtn?.addEventListener(
+                    "click",
+                    addWatchlistBtnListener
+                );
             }
             // Close button handler
             movieModal
