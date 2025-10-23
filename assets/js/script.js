@@ -13,14 +13,26 @@ document.addEventListener("DOMContentLoaded", () => {
     const topRatedMoviesSection = document.getElementById("top-rated-grid");
     const ratingSlider = document.getElementById("rating-slider");
     const ratingValue = document.getElementById("rating-value");
+    const addFavoriteBtn = document.getElementById("add-favorite-btn");
+    const addWatchlistBtn = document.getElementById("add-watchlist-btn");
 
     let apiKey = null;
+    let account_id = null;
     const options = {
         method: "GET",
         headers: {
             accept: "application/json",
             Authorization: "Bearer " + apiKey, // Will be set later
         },
+    };
+
+    const getAccountDetails = async () => {
+        const response = await fetch(
+            "https://api.themoviedb.org/3/account",
+            options
+        );
+        const data = await response.json();
+        account_id = data.id;
     };
 
     if (document.cookie.includes("userApiKey=")) {
@@ -31,6 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
         loginScreen.classList.add("hidden");
         mainUI.classList.remove("hidden");
         options.headers.Authorization = "Bearer " + apiKey;
+        getAccountDetails();
     }
     connectBtn.addEventListener("click", async () => {
         apiKey = apiKeyInput.value.trim();
@@ -51,6 +64,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (isKeyValid) {
             // Store it globally if needed
             document.cookie = `userApiKey=${apiKey}; path=/`;
+
+            await getAccountDetails();
 
             // Toggle visibility
             loginScreen.classList.add("hidden");
@@ -162,7 +177,9 @@ document.addEventListener("DOMContentLoaded", () => {
             let ratingDisplay = movieModal.querySelector(".rating-label");
 
             document.getElementById("rating").value = movieRating.rated.value;
-            ratingDisplay.innerText = `Your Rating: ${document.getElementById("rating").value}`;
+            ratingDisplay.innerText = `Your Rating: ${
+                document.getElementById("rating").value
+            }`;
 
             movieModal.querySelector(".modal-poster").src =
                 movieDetails.imageUrl;
@@ -208,18 +225,33 @@ document.addEventListener("DOMContentLoaded", () => {
                 ratingDisplay.innerText = `Your Rating: ${slider.value}`;
             };
 
-            movieModal.querySelector(".rating-slider").addEventListener('input', rateSliderHandler);
+            movieModal
+                .querySelector(".rating-slider")
+                .addEventListener("input", rateSliderHandler);
 
             // Save Rating handler
             const saveRatingHandler = async () => {
                 const userRating = document.getElementById("rating").value;
-                const UserRatingDisplay = movieModal.querySelector(".modal-user-rating");
+                const UserRatingDisplay =
+                    movieModal.querySelector(".modal-user-rating");
                 UserRatingDisplay.innerText = `${userRating}`;
 
                 await setMovieRating(movieDetails.movieId, userRating);
             };
 
-            movieModal.querySelector(".save-rating-btn").addEventListener("click", saveRatingHandler);
+            movieModal
+                .querySelector(".save-rating-btn")
+                .addEventListener("click", saveRatingHandler);
+
+            // Add to Favorites handler
+            addFavoriteBtn.addEventListener("click", async () => {
+                await addToFavorites(movieDetails.movieId);
+            });
+
+            // Add to Watchlist handler
+            addWatchlistBtn.addEventListener("click", async () => {
+                await addToWatchlist(movieDetails.movieId);
+            });
 
             // Close button handler
             movieModal
@@ -229,20 +261,17 @@ document.addEventListener("DOMContentLoaded", () => {
                     // Reset modal content
                     movieModal.querySelector(".modal-release-year").innerText =
                         "";
-                    movieModal.querySelector(".modal-overview").innerText =
-                        "";
-                    movieModal.querySelector(".modal-director").innerText =
-                        "";
-                    movieModal.querySelector(".modal-cast").innerText =
-                        "";
-                    movieModal.querySelector(".modal-genre").innerText =
-                        "";
-                    movieModal.querySelector(".modal-rating").innerText =
-                        "";
+                    movieModal.querySelector(".modal-overview").innerText = "";
+                    movieModal.querySelector(".modal-director").innerText = "";
+                    movieModal.querySelector(".modal-cast").innerText = "";
+                    movieModal.querySelector(".modal-genre").innerText = "";
+                    movieModal.querySelector(".modal-rating").innerText = "";
                     movieModal.querySelector(".modal-user-rating").innerText =
                         "";
 
-                    movieModal.querySelector(".save-rating-btn").removeEventListener("click", saveRatingHandler);
+                    movieModal
+                        .querySelector(".save-rating-btn")
+                        .removeEventListener("click", saveRatingHandler);
                 });
         });
         return movieCard;
@@ -318,7 +347,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Rating slider event listener to update rating value display
-    ratingSlider.addEventListener('input', function() {
+    ratingSlider.addEventListener("input", function () {
         ratingValue.textContent = parseFloat(this.value).toFixed(1);
     });
 
