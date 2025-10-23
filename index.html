@@ -150,12 +150,12 @@
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="watchlist.html#favourites-section"
+                <a class="nav-link" href="watchlist.html#Favourites-section"
                   >Favourites</a
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="watchlist.html#watchlist-section"
+                <a class="nav-link" href="watchlist.html#Watchlist-section"
                   >Watchlist</a
                 >
               </li>
@@ -201,57 +201,53 @@
             />
 
             <!-- Filter dropdown (client-side filter prior or after API results) -->
-            <select
-              id="genre-filter"
-              class="form-select"
-              aria-label="Genre filter"
-              title="Select Genre"
-            >
-              <option value="" selected>All Genres</option>
-              <option value="action">Action</option>
-              <option value="comedy">Comedy</option>
-              <option value="drama">Drama</option>
-              <option value="horror">Horror</option>
-              <option value="romance">Romance</option>
-              <option value="sci-fi">Sci-Fi</option>
-              <option value="thriller">Thriller</option>
-            </select>
-
-            <!-- Year Filter: numeric input constrained by min/max -->
-            <input
-              type="number"
-              id="year-filter"
-              class="form-control"
-              placeholder="Year"
-              min="1900"
-              max="2025"
-              aria-label="Filter by year"
-              title="Filter by Release Year"
-            />
-
-            <!-- Rating Filter Slider:
-                                 - id="rating-slider" value displayed in #rating-value.
-                                 - Script should listen for input events to update the visible number.
-                        -->
-            <div
-              class="rating-filter d-flex align-items-center gap-2"
-              title="Filter by minimum rating"
-            >
-              <label for="rating-slider" class="form-label mb-0 text-success"
-                >Rating:</label
-              >
-              <input
-                type="range"
-                class="form-range"
-                min="0"
-                max="10"
-                step="0.1"
-                id="rating-slider"
-                value="0"
-                aria-label="Minimum rating"
-              />
-              <span id="rating-value" class="text-success">0</span>
+            <div class="desktop-filters">
+                <!--Filter dropdown-->
+    <select id="genre-filter" class="form-select" aria-label="Genre filter" title="Select Genre">
+      <option value="" selected>All Genres</option>
+      <option value="action">Action</option>
+      <option value="comedy">Comedy</option>
+      <option value="drama">Drama</option>
+      <option value="horror">Horror</option>
+      <option value="romance">Romance</option>
+      <option value="sci-fi">Sci-Fi</option>
+      <option value="thriller">Thriller</option>
+    </select>
+    <!-- Year Filter -->
+  <input
+    type="number"
+    id="year-filter"
+    class="form-control"
+    placeholder="Year"
+    min="1900"
+    max="2025"
+    aria-label="Filter by year"
+    title="Filter by Release Year"
+  />
+  <!-- Rating Filter Slider -->
+<div class="rating-filter d-flex align-items-center gap-2" title="Filter by minimum rating">
+  <label for="rating-slider" class="form-label mb-0 text-success">Min Rating:</label>
+  <input
+    type="range"
+    class="form-range"
+    min="0"
+    max="10"
+    step="0.1"
+    id="rating-slider"
+    value="0"
+    aria-label="Minimum rating"
+  />
+  <span id="rating-value" class="text-success">0</span>
+</div>9
             </div>
+              
+
+             <!--dropdown button for mobile filters-->
+<button class="btn btn-outline-success mb-2" type="button" id="dropdown-btn" data-bs-toggle="collapse" data-bs-target="#filters-collapse" aria-expanded="false" aria-controls="filters-collapse">
+  ▼
+</button>
+
+
 
             <!-- Submit button for search; script likely prevents default and handles async query -->
             <button
@@ -262,6 +258,33 @@
               [ENTER]
             </button>
           </form>
+
+          <!-- Filter dropdown (client-side filter prior or after API results) -->
+           <div class="mobile-filters">
+          <div class="collapse" id="filters-collapse">
+  <div class="card card-body bg-dark text-light p-3">
+    <!-- Filters go here -->
+    <select id="genre-filter-mobile" class="form-select mb-2" aria-label="Genre filter" title="Select Genre">
+      <option value="" selected>All Genres</option>
+      <option value="action">Action</option>
+      <option value="comedy">Comedy</option>
+      <option value="drama">Drama</option>
+      <option value="horror">Horror</option>
+      <option value="romance">Romance</option>
+      <option value="sci-fi">Sci-Fi</option>
+      <option value="thriller">Thriller</option>
+    </select>
+
+    <input type="number" id="year-filter-mobile" class="form-control mb-2" placeholder="Year" min="1900" max="2025" aria-label="Filter by year" title="Filter by Release Year" />
+
+    <div class="rating-filter d-flex align-items-center gap-2">
+      <label for="rating-slider-mobile" class="form-label mb-0 text-success">Rating:</label>
+      <input type="range" class="form-range" min="0" max="10" step="0.1" id="rating-slider-mobile" value="0" aria-label="Minimum rating" />
+      <span id="rating-value-mobile" class="text-success">0</span>
+    </div>
+  </div>
+</div>
+</div>
 
           <!-- Error message shown if input is empty/invalid -->
           <div
@@ -330,7 +353,7 @@
         <img src="" alt="Movie Poster" class="movie-poster" />
         <div class="movie-info-line">
           <span class="movie-title">Title</span>
-          <span class="release-year"> Year</span>
+          <span class="release-year hidden"></span>
         </div>
       </div>
     </template>
@@ -343,7 +366,7 @@
         -->
     <div id="movie-modal" class="modal hidden" role="dialog" aria-modal="true">
       <div class="modal-content">
-        <button class="close-btn" aria-label="Close modal">×</button>
+        <button type="button" class="close-btn" aria-label="Close modal">×</button>
         <div class="modal-body">
           <h2 class="modal-title">Title</h2>
           <img src="assets/images/placeholder-movie.png" alt="Movie Poster" class="modal-poster" loading="lazy" />
@@ -501,7 +524,7 @@
                 placeholder="Say something..."
             ></textarea>
 
-            <button class="btn btn-outline-success save-rating-btn">
+            <button type="button" class="btn btn-outline-success save-rating-btn">
               Save
             </button>
 
@@ -509,10 +532,10 @@
                              - Script should wire these to add-to-favorites/watchlist actions.
                              - Font Awesome icons are used for visual hints.
                     -->
-            <button class="btn btn-outline-success">
+            <button type="button" class="btn btn-outline-success">
               Add to Favorites<i class="fa-solid fa-star"></i>
             </button>
-            <button class="btn btn-outline-warning">
+            <button type="button" class="btn btn-outline-warning">
               Add to Watchlist<i class="fa-solid fa-plus"></i>
             </button>
           </div>
@@ -523,74 +546,71 @@
     <!--
             Matrix Rain Script:
             - Handles the animated background effect drawn on the canvas above.
-            - Note: currently sets canvas size once to viewport size. If you want to handle resizing,
-                add a window.resize listener to recalculate canvas.width/height and columns/drops arrays.
+            - Uses a resize handler and initializes columns correctly.
             - Runs at approx 30 FPS via setInterval(draw, 33).
         -->
     <script>
-      // Get canvas and rendering context
-      const canvas = document.getElementById('matrixRain')
-      const ctx = canvas.getContext('2d')
+      (function () {
+        const canvas = document.getElementById('matrixRain');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
 
-      // Set initial canvas size to viewport size.
-      // If you need to support window resize, add an event listener to recalculate these values.
-      canvas.height = window.innerHeight
-      canvas.width = window.innerWidth
+        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%';
+        const fontSize = 16; // px per "cell"
+        let columns = 0;
+        let drops = [];
 
-      // Characters used in the rain effect
-      const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%'
-      const fontSize = 16 // px per "cell"
-      // Number of columns is canvas width divided by fontSize (floating -> used as integer via iteration)
-      const columns = canvas.width / fontSize
-      // Each drop tracks its vertical position (in units of fontSize)
-      const drops = []
-
-      // Initialize drops array: start each column at row 1
-      for (let x = 0; x < columns; x++) drops[x] = 1
-
-      function draw() {
-        // Semi-transparent black rectangle to create the "trail" effect
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'
-        ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-        // Bright green text for matrix look
-        ctx.fillStyle = '#0F0'
-        ctx.font = fontSize + 'px monospace'
-
-        // Iterate over drops and draw a random character for each column
-        for (let i = 0; i < drops.length; i++) {
-          const text = letters.charAt(
-            Math.floor(Math.random() * letters.length)
-          )
-          // x = column index * fontSize, y = drop row * fontSize
-          ctx.fillText(text, i * fontSize, drops[i] * fontSize)
-
-          // Reset drop back to top randomly after it passes the bottom
-          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975)
-            drops[i] = 0
-          // Move drop down one row
-          drops[i]++
+        function resize() {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+          columns = Math.floor(canvas.width / fontSize);
+          drops = [];
+          for (let x = 0; x < columns; x++) drops[x] = 1;
         }
-      }
-      // Main loop: ~30fps
-      setInterval(draw, 33)
+
+        window.addEventListener('resize', resize);
+        resize();
+
+        function draw() {
+          // Semi-transparent black rectangle to create the "trail" effect
+          ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+          // Bright green text for matrix look
+          ctx.fillStyle = '#0F0';
+          ctx.font = fontSize + 'px monospace';
+
+          // Iterate over drops and draw a random character for each column
+          for (let i = 0; i < drops.length; i++) {
+            const text = letters.charAt(Math.floor(Math.random() * letters.length));
+            // x = column index * fontSize, y = drop row * fontSize
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+            // Reset drop back to top randomly after it passes the bottom
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+            // Move drop down one row
+            drops[i]++;
+          }
+        }
+
+        // Main loop: ~30fps
+        setInterval(draw, 33);
+      })();
     </script>
 
     <!--
             Bootstrap JS:
             - Required for navbar collapse and accordion behavior.
             - Using the bundle provides Popper and Bootstrap together.
+    <!--
+            Bootstrap JS:
+            - Required for navbar collapse and accordion behavior.
+            - Using the bundle provides Popper and Bootstrap together.
         -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
     <!-- Font Awesome for icons (used in modal buttons and elsewhere) -->
-    <script
-      src="https://kit.fontawesome.com/a076d05399.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
     <!--
             Main JS File:
