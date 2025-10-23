@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const emptyWatchlist = document.getElementById("empty-watchlist");
     const removeFavoritesBtn = document.getElementById("remove-favorites-btn");
     const removeWatchlistBtn = document.getElementById("remove-watchlist-btn");
+    const genreFilter = document.getElementById("genre-filter");
 
     let apiKey = null;
     let accountId = null;
@@ -580,11 +581,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 let movieCard = createMovieCard(movieDetails);
 
                 // If the user has a set rating filter, apply it and then check if the movie rating is lower then their set value
-                if (filterRating > 0 && movieRating > filterRating) {
+                if (filterRating > 0 && movieRating < filterRating) {
                     continue;
-                } else {
-                    appendCard(movieCard, searchResults);
                 }
+
+                // If the user has selected a genre filter, apply it and then check if the movie genres include the selected genre
+                if (
+                    genreFilter.value &&
+                    !movieDetails.genres.includes(
+                        genreFilter.value[0].toUpperCase() +
+                            genreFilter.value.slice(1)
+                    )
+                ) {
+                    continue;
+                }
+                appendCard(movieCard, searchResults);
             }
         } catch (err) {
             console.error(err);
