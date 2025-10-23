@@ -13,8 +13,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const topRatedMoviesSection = document.getElementById("top-rated-grid");
     const ratingSlider = document.getElementById("rating-slider");
     const ratingValue = document.getElementById("rating-value");
+    const addFavoritesBtn = document.getElementById("add-favorites-btn");
+    const addWatchlistBtn = document.getElementById("add-watchlist-btn");
+    const favoritesSection = document.getElementById("favorites-grid");
+    const watchlistSection = document.getElementById("watchlist-grid");
+    const emptyFavorites = document.getElementById("empty-favorites");
+    const emptyWatchlist = document.getElementById("empty-watchlist");
+    const removeFavoritesBtn = document.getElementById("remove-favorites-btn");
+    const removeWatchlistBtn = document.getElementById("remove-watchlist-btn");
 
     let apiKey = null;
+    let accountId = null;
     const options = {
         method: "GET",
         headers: {
@@ -23,16 +32,29 @@ document.addEventListener("DOMContentLoaded", () => {
         },
     };
 
+    const getAccountDetails = async () => {
+        const response = await fetch(
+            "https://api.themoviedb.org/3/account",
+            options
+        );
+        const data = await response.json();
+        accountId = data.id;
+    };
+
     if (document.cookie.includes("userApiKey=")) {
         apiKey = document.cookie
             .split("; ")
             .find((row) => row.startsWith("userApiKey="))
             .split("=")[1];
-        loginScreen.classList.add("hidden");
-        mainUI.classList.remove("hidden");
+
+        // Question mark operator to avoid null errors in watchlist/favorites page
+        loginScreen?.classList.add("hidden");
+        mainUI?.classList.remove("hidden");
         options.headers.Authorization = "Bearer " + apiKey;
+        getAccountDetails();
     }
-    connectBtn.addEventListener("click", async () => {
+
+    connectBtn?.addEventListener("click", async () => {
         apiKey = apiKeyInput.value.trim();
         let isKeyValid = false;
         options.headers.Authorization = "Bearer " + apiKey;
@@ -51,6 +73,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (isKeyValid) {
             // Store it globally if needed
             document.cookie = `userApiKey=${apiKey}; path=/`;
+
+            await getAccountDetails();
 
             // Toggle visibility
             loginScreen.classList.add("hidden");
@@ -97,6 +121,130 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const ratingData = await ratingResponse.json();
         return ratingData;
+    };
+
+    const getFavorites = async () => {
+        // Fetch favorite movies from API
+        const response = await fetch(
+            `https://api.themoviedb.org/3/account/${accountId}/favorite/movies`,
+            options
+        );
+        const data = await response.json();
+        return data;
+    };
+
+    const addToFavorites = async (movieId) => {
+        const response = await fetch(
+            `https://api.themoviedb.org/3/account/${accountId}/favorite`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + apiKey,
+                },
+                body: JSON.stringify({
+                    media_type: "movie",
+                    media_id: movieId,
+                    favorite: true,
+                }),
+            }
+        );
+
+        const data = await response.json();
+        return data;
+    };
+
+    const isInFavorites = async (movieId) => {
+        const data = await getFavorites();
+        for (let movie of data.results) {
+            if (movie.id === movieId) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    const removeFromFavorites = async (movieId) => {
+        const response = await fetch(
+            `https://api.themoviedb.org/3/account/${accountId}/favorite`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + apiKey,
+                },
+                body: JSON.stringify({
+                    media_type: "movie",
+                    media_id: movieId,
+                    favorite: false,
+                }),
+            }
+        );
+
+        const data = await response.json();
+        return data;
+    };
+
+    const getWatchlist = async () => {
+        // Fetch watchlist movies from API
+        const response = await fetch(
+            `https://api.themoviedb.org/3/account/${accountId}/watchlist/movies`,
+            options
+        );
+        const data = await response.json();
+        return data;
+    };
+
+    const addToWatchlist = async (movieId) => {
+        const response = await fetch(
+            `https://api.themoviedb.org/3/account/${accountId}/watchlist`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + apiKey,
+                },
+                body: JSON.stringify({
+                    media_type: "movie",
+                    media_id: movieId,
+                    watchlist: true,
+                }),
+            }
+        );
+
+        const data = await response.json();
+        return data;
+    };
+
+    const isInWatchlist = async (movieId) => {
+        const data = await getWatchlist();
+        for (let movie of data.results) {
+            if (movie.id === movieId) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    const removeFromWatchlist = async (movieId) => {
+        const response = await fetch(
+            `https://api.themoviedb.org/3/account/${accountId}/watchlist`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + apiKey,
+                },
+                body: JSON.stringify({
+                    media_type: "movie",
+                    media_id: movieId,
+                    watchlist: false,
+                }),
+            }
+        );
+
+        const data = await response.json();
+        return data;
     };
 
     const getMovieDetails = async (movieId) => {
@@ -162,7 +310,9 @@ document.addEventListener("DOMContentLoaded", () => {
             let ratingDisplay = movieModal.querySelector(".rating-label");
 
             document.getElementById("rating").value = movieRating.rated.value;
-            ratingDisplay.innerText = `Your Rating: ${document.getElementById("rating").value}`;
+            ratingDisplay.innerText = `Your Rating: ${
+                document.getElementById("rating").value
+            }`;
 
             movieModal.querySelector(".modal-poster").src =
                 movieDetails.imageUrl;
@@ -208,19 +358,63 @@ document.addEventListener("DOMContentLoaded", () => {
                 ratingDisplay.innerText = `Your Rating: ${slider.value}`;
             };
 
-            movieModal.querySelector(".rating-slider").addEventListener('input', rateSliderHandler);
+            movieModal
+                .querySelector(".rating-slider")
+                .addEventListener("input", rateSliderHandler);
 
             // Save Rating handler
             const saveRatingHandler = async () => {
                 const userRating = document.getElementById("rating").value;
-                const UserRatingDisplay = movieModal.querySelector(".modal-user-rating");
+                const UserRatingDisplay =
+                    movieModal.querySelector(".modal-user-rating");
                 UserRatingDisplay.innerText = `${userRating}`;
 
                 await setMovieRating(movieDetails.movieId, userRating);
             };
 
-            movieModal.querySelector(".save-rating-btn").addEventListener("click", saveRatingHandler);
+            movieModal
+                .querySelector(".save-rating-btn")
+                .addEventListener("click", saveRatingHandler);
 
+            let inFavorites = await isInFavorites(movieDetails.movieId);
+            if (inFavorites) {
+                addFavoritesBtn.classList.add("hidden");
+                // Remove from Favorites handler
+                removeFavoritesBtn?.addEventListener("click", async () => {
+                    await removeFromFavorites(movieDetails.movieId);
+                    alert(`${movieDetails.title} removed from Favorites!`);
+                    location.reload();
+                });
+            } else {
+                removeFavoritesBtn.classList.add("hidden");
+                // Add to Favorites handler
+                addFavoritesBtn?.addEventListener("click", async () => {
+                    await addToFavorites(movieDetails.movieId);
+                    alert(`${movieDetails.title} added to Favorites!`);
+                });
+            }
+            let inWatchlist = await isInWatchlist(movieDetails.movieId);
+            if (inWatchlist) {
+                addWatchlistBtn.classList.add("hidden");
+                // Remove from Watchlist handler
+                removeWatchlistBtn?.addEventListener("click", async () => {
+                    await removeFromWatchlist(movieDetails.movieId);
+                    alert(`${movieDetails.title} removed from Watchlist!`);
+                    location.reload();
+                });
+            } else {
+                removeWatchlistBtn.classList.add("hidden");
+                // Add to Watchlist handler
+                addWatchlistBtn?.addEventListener("click", async () => {
+                    let inWatchlist = await isInWatchlist(movieDetails.movieId);
+                    if (inWatchlist) {
+                        alert(`${movieDetails.title} is already in Watchlist!`);
+                    } else {
+                        await addToWatchlist(movieDetails.movieId);
+                        alert(`${movieDetails.title} added to Watchlist!`);
+                    }
+                });
+            }
             // Close button handler
             movieModal
                 .querySelector(".close-btn")
@@ -229,20 +423,17 @@ document.addEventListener("DOMContentLoaded", () => {
                     // Reset modal content
                     movieModal.querySelector(".modal-release-year").innerText =
                         "";
-                    movieModal.querySelector(".modal-overview").innerText =
-                        "";
-                    movieModal.querySelector(".modal-director").innerText =
-                        "";
-                    movieModal.querySelector(".modal-cast").innerText =
-                        "";
-                    movieModal.querySelector(".modal-genre").innerText =
-                        "";
-                    movieModal.querySelector(".modal-rating").innerText =
-                        "";
+                    movieModal.querySelector(".modal-overview").innerText = "";
+                    movieModal.querySelector(".modal-director").innerText = "";
+                    movieModal.querySelector(".modal-cast").innerText = "";
+                    movieModal.querySelector(".modal-genre").innerText = "";
+                    movieModal.querySelector(".modal-rating").innerText = "";
                     movieModal.querySelector(".modal-user-rating").innerText =
                         "";
 
-                    movieModal.querySelector(".save-rating-btn").removeEventListener("click", saveRatingHandler);
+                    movieModal
+                        .querySelector(".save-rating-btn")
+                        .removeEventListener("click", saveRatingHandler);
                 });
         });
         return movieCard;
@@ -286,7 +477,31 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    searchForm.addEventListener("submit", async (e) => {
+    const displayFavorites = async () => {
+        const data = await getFavorites();
+        if (data.results.length !== 0) {
+            emptyFavorites.classList.add("hidden");
+            for (let movie of data.results) {
+                let movieDetails = await getMovieDetails(movie.id);
+                let movieCard = createMovieCard(movieDetails);
+                appendCard(movieCard, favoritesSection);
+            }
+        }
+    };
+
+    const displayWatchlist = async () => {
+        const data = await getWatchlist();
+        if (data.results.length !== 0) {
+            emptyWatchlist.classList.add("hidden");
+            for (let movie of data.results) {
+                let movieDetails = await getMovieDetails(movie.id);
+                let movieCard = createMovieCard(movieDetails);
+                appendCard(movieCard, watchlistSection);
+            }
+        }
+    };
+
+    searchForm?.addEventListener("submit", async (e) => {
         searchResults.innerHTML = ""; // Clear previous results
         e.preventDefault();
         // Encode and trim input
@@ -318,10 +533,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Rating slider event listener to update rating value display
-    ratingSlider.addEventListener('input', function() {
+    ratingSlider?.addEventListener("input", function () {
         ratingValue.textContent = parseFloat(this.value).toFixed(1);
     });
 
-    generateTrendingMovies();
-    generateTopRatedMovies();
+    if (favoritesSection && watchlistSection) {
+        displayFavorites();
+        displayWatchlist();
+    } else {
+        generateTrendingMovies();
+        generateTopRatedMovies();
+    }
 });
