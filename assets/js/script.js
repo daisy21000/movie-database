@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const watchlistSection = document.getElementById("watchlist-grid");
     const emptyFavorites = document.getElementById("empty-favorites");
     const emptyWatchlist = document.getElementById("empty-watchlist");
+    const removeFavoritesBtn = document.getElementById("remove-favorites-btn");
+    const removeWatchlistBtn = document.getElementById("remove-watchlist-btn");
 
     let apiKey = null;
     let accountId = null;
@@ -160,6 +162,27 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
         return false;
+    };
+
+    const removeFromFavorites = async (movieId) => {
+        const response = await fetch(
+            `https://api.themoviedb.org/3/account/${accountId}/favorite`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + apiKey,
+                },
+                body: JSON.stringify({
+                    media_type: "movie",
+                    media_id: movieId,
+                    favorite: false,
+                }),
+            }
+        );
+
+        const data = await response.json();
+        return data;
     };
 
     const getWatchlist = async () => {
@@ -332,28 +355,45 @@ document.addEventListener("DOMContentLoaded", () => {
                 .querySelector(".save-rating-btn")
                 .addEventListener("click", saveRatingHandler);
 
-            // Add to Favorites handler
-            addFavoritesBtn.addEventListener("click", async () => {
-                let inFavorites = await isInFavorites(movieDetails.movieId);
-                if (inFavorites) {
-                    alert(`${movieDetails.title} is already in Favorites!`);
-                } else {
+            let inFavorites = await isInFavorites(movieDetails.movieId);
+            if (inFavorites) {
+                addFavoritesBtn.classList.add("hidden");
+                // Remove from Favorites handler
+                removeFavoritesBtn?.addEventListener("click", async () => {
+                    await removeFromFavorites(movieDetails.movieId);
+                    alert(`${movieDetails.title} removed from Favorites!`);
+                    location.reload();
+                });
+            } else {
+                removeFavoritesBtn.classList.add("hidden");
+                // Add to Favorites handler
+                addFavoritesBtn?.addEventListener("click", async () => {
                     await addToFavorites(movieDetails.movieId);
                     alert(`${movieDetails.title} added to Favorites!`);
-                }
-            });
-
-            // Add to Watchlist handler
-            addWatchlistBtn.addEventListener("click", async () => {
-                let inWatchlist = await isInWatchlist(movieDetails.movieId);
-                if (inWatchlist) {
-                    alert(`${movieDetails.title} is already in Watchlist!`);
-                } else {
-                    await addToWatchlist(movieDetails.movieId);
-                    alert(`${movieDetails.title} added to Watchlist!`);
-                }
-            });
-
+                });
+            }
+            let inWatchlist = await isInWatchlist(movieDetails.movieId);
+            if (inWatchlist) {
+                addWatchlistBtn.classList.add("hidden");
+                // Remove from Watchlist handler
+                removeWatchlistBtn?.addEventListener("click", async () => {
+                    await removeFromWatchlist(movieDetails.movieId);
+                    alert(`${movieDetails.title} removed from Watchlist!`);
+                    location.reload();
+                });
+            } else {
+                removeWatchlistBtn.classList.add("hidden");
+                // Add to Watchlist handler
+                addWatchlistBtn?.addEventListener("click", async () => {
+                    let inWatchlist = await isInWatchlist(movieDetails.movieId);
+                    if (inWatchlist) {
+                        alert(`${movieDetails.title} is already in Watchlist!`);
+                    } else {
+                        await addToWatchlist(movieDetails.movieId);
+                        alert(`${movieDetails.title} added to Watchlist!`);
+                    }
+                });
+            }
             // Close button handler
             movieModal
                 .querySelector(".close-btn")
