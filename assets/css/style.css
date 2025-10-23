@@ -655,6 +655,8 @@ h1 {
   transition: 0.3s;
 }
 
+
+
 /* Small helper text under form */
 .form-text {
   text-align: center;
@@ -672,9 +674,86 @@ footer {
   text-shadow: var(--border-shadow);
 }
 
+.navbar-brand{
+    color: var(--text-color);
+  }
+
 /* --- Responsive tweaks ------------------------------------------------------ */
 /* Adjust sizing for narrow viewports */
 @media (max-width: 768px) {
+  header {
+    padding-top: 8rem;
+    margin-top: 1rem;
+    margin-bottom: 0rem;
+    padding-bottom: 0.5rem !important;
+    font-size: 1rem !important;
+  }
+
+  .navbar-brand{
+    font-size: 1rem !important;
+    color: var(--text-color);
+  }
+
+  .search-bar{
+    margin-top: 1rem !important;
+    margin-left: 0rem;
+    width: 100% !important;
+  }
+
+  #mobile-filters-btn{
+    z-index: 10;
+    margin-top: 1rem !important;
+    margin-left: 1rem !important;
+    padding: 5px;
+    font-size: 1rem !important;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    border: 1px solid rgba(0, 255, 0, 0.3) !important;
+    color: var(--text-color) !important;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  #mobile-filters{
+    margin-top: 1rem !important;
+    margin-left: 1rem !important;
+    padding: 5px;
+    font-size: 1rem !important;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    border: 1px solid rgba(0, 255, 0, 0.3) !important;
+    color: var(--text-color) !important;
+    cursor: pointer;
+    transition: 0.3s;
+
+  }
+
+  #enter.btn{
+    margin: 0;
+    margin-left: 5px !important;
+    margin-top: 1.5rem !important;
+    padding: 2px;
+  }
+
+  h1 {
+    font-size: 3.5rem !important;
+  }
+
+  .form-container {
+    width: 90% !important;
+  }
+  #genre-filter,
+  #year-filter,
+  .rating-filter {
+    display: none;
+  }
+  .rating-filter {
+    display: none !important;
+  }
+  .section-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 320px) {
   header {
     padding-top: 8rem;
     margin-top: 1rem;
