@@ -178,6 +178,7 @@ body .navbar {
 }
 
 /* === Shared Base Styles for All Filters === */
+/* === Shared Base Styles for All Filters === */
 #genre-filter,
 #year-filter,
 .rating-filter {
@@ -187,7 +188,7 @@ body .navbar {
   color: rgba(0, 255, 0, 0.8);
   font-size: 1rem;
   transition: all 0.3s ease;
-  z-index: 9;
+  z-index: 10;
   border-radius: 0;
   margin-top: 2rem;
   padding: 0.6rem 1rem;
@@ -218,13 +219,13 @@ body .navbar {
   display: flex;
   align-items: center;
   gap: 1rem;
-  width: 25rem;
+  width: 20rem;
   height: 2.5rem;
   padding: 0.8rem 1rem;
 }
 
 /* Slider input inside rating filter */
-.rating-filter input[type='range'] {
+.rating-filter input[type="range"] {
   flex: 1;
   height: 4px;
   background: linear-gradient(to right, #00ff00, #003300);
@@ -253,18 +254,19 @@ body .navbar {
 /* Enter button next to filters */
 #enter-btn {
   margin-left: 1rem;
-  margin-right: 1rem;
   margin-top: 2rem;
   height: 2.5rem;
-  border-radius: 0;
   padding: 0 1.5rem;
   background-color: rgba(0, 255, 0, 0.2);
   color: #00ff00;
   border: 1px solid rgba(0, 255, 0, 0.3);
   cursor: pointer;
   transition: all 0.3s ease;
-  z-index: 9;
+  z-index: 10;
 }
+
+
+/* Movie grid and cards */
 
 .movies-grid {
   display: grid;
@@ -678,6 +680,10 @@ footer {
     color: var(--text-color);
   }
 
+  .mobile-filters, #dropdown-btn {
+    display: none;
+  }
+
 /* --- Responsive tweaks ------------------------------------------------------ */
 /* Adjust sizing for narrow viewports */
 @media (max-width: 768px) {
@@ -697,41 +703,40 @@ footer {
   .search-bar{
     margin-top: 1rem !important;
     margin-left: 0rem;
-    width: 100% !important;
+    width: 95% !important;
+    height: 10px;
   }
 
-  #mobile-filters-btn{
-    z-index: 10;
-    margin-top: 1rem !important;
-    margin-left: 1rem !important;
-    padding: 5px;
-    font-size: 1rem !important;
-    background-color: rgba(0, 0, 0, 0.5) !important;
-    border: 1px solid rgba(0, 255, 0, 0.3) !important;
-    color: var(--text-color) !important;
-    cursor: pointer;
-    transition: 0.3s;
-  }
 
-  #mobile-filters{
-    margin-top: 1rem !important;
-    margin-left: 1rem !important;
-    padding: 5px;
-    font-size: 1rem !important;
-    background-color: rgba(0, 0, 0, 0.5) !important;
-    border: 1px solid rgba(0, 255, 0, 0.3) !important;
-    color: var(--text-color) !important;
-    cursor: pointer;
-    transition: 0.3s;
-
-  }
-
-  #enter.btn{
+  #enter-btn{
+    height: 30px !important;
     margin: 0;
-    margin-left: 5px !important;
-    margin-top: 1.5rem !important;
+    margin-left: 0rem !important;
+    margin-top: 1rem !important;
     padding: 2px;
+    z-index: 9;
   }
+  #dropdown-btn {
+    border: none;
+    font-size: 1.25rem;
+    z-index: 9;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    height: auto !important;
+    min-height: 36px; /* comfortable touch/click target */
+    padding: 0.5rem 0.75rem; /* vertical + horizontal breathing room */
+    margin: 0.5rem 0 0 0 !important; /* separate from nearby elements */
+    margin-left: 0rem !important;
+    text-align: center;
+    white-space: nowrap;
+    background: transparent;
+    color: var(--text-color);
+    cursor: pointer;
+  }
+
+  
 
   h1 {
     font-size: 3.5rem !important;
@@ -740,20 +745,15 @@ footer {
   .form-container {
     width: 90% !important;
   }
-  #genre-filter,
-  #year-filter,
-  .rating-filter {
+  .desktop-filters{
     display: none;
-  }
-  .rating-filter {
-    display: none !important;
   }
   .section-title {
     font-size: 2rem;
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 321px) {
   header {
     padding-top: 8rem;
     margin-top: 1rem;
@@ -761,6 +761,20 @@ footer {
     padding-bottom: 0.5rem !important;
     font-size: 1rem !important;
   }
+
+  .search-bar{
+    margin-top: 3rem !important;
+    margin-left: 0rem;
+    width: 95% !important;
+    height: 10px;
+  }
+
+  #dropdown-btn, #enter-btn {
+    margin-top: 3rem !important;
+  }
+
+
+
 
   h1 {
     font-size: 3.5rem !important;
