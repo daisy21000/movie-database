@@ -15,6 +15,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const ratingValue = document.getElementById("rating-value");
     const addFavoritesBtn = document.getElementById("add-favorites-btn");
     const addWatchlistBtn = document.getElementById("add-watchlist-btn");
+    const favoritesSection = document.getElementById("favorites-grid");
+    const watchlistSection = document.getElementById("watchlist-grid");
+    const emptyFavorites = document.getElementById("empty-favorites");
+    const emptyWatchlist = document.getElementById("empty-watchlist");
 
     let apiKey = null;
     let accountId = null;
@@ -40,12 +44,15 @@ document.addEventListener("DOMContentLoaded", () => {
             .split("; ")
             .find((row) => row.startsWith("userApiKey="))
             .split("=")[1];
-        loginScreen.classList.add("hidden");
-        mainUI.classList.remove("hidden");
+
+        // Question mark operator to avoid null errors in watchlist/favorites page
+        loginScreen?.classList.add("hidden");
+        mainUI?.classList.remove("hidden");
         options.headers.Authorization = "Bearer " + apiKey;
         getAccountDetails();
     }
-    connectBtn.addEventListener("click", async () => {
+
+    connectBtn?.addEventListener("click", async () => {
         apiKey = apiKeyInput.value.trim();
         let isKeyValid = false;
         options.headers.Authorization = "Bearer " + apiKey;
@@ -114,6 +121,16 @@ document.addEventListener("DOMContentLoaded", () => {
         return ratingData;
     };
 
+    const getFavorites = async () => {
+        // Fetch favorite movies from API
+        const response = await fetch(
+            `https://api.themoviedb.org/3/account/${accountId}/favorite/movies`,
+            options
+        );
+        const data = await response.json();
+        return data;
+    };
+
     const addToFavorites = async (movieId) => {
         const response = await fetch(
             `https://api.themoviedb.org/3/account/${accountId}/favorite`,
@@ -136,17 +153,23 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const isInFavorites = async (movieId) => {
-        const response = await fetch(
-            `https://api.themoviedb.org/3/account/${accountId}/favorite/movies`,
-            options
-        );
-        const data = await response.json();
+        const data = await getFavorites();
         for (let movie of data.results) {
             if (movie.id === movieId) {
                 return true;
             }
         }
         return false;
+    };
+
+    const getWatchlist = async () => {
+        // Fetch watchlist movies from API
+        const response = await fetch(
+            `https://api.themoviedb.org/3/account/${accountId}/watchlist/movies`,
+            options
+        );
+        const data = await response.json();
+        return data;
     };
 
     const addToWatchlist = async (movieId) => {
@@ -171,11 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const isInWatchlist = async (movieId) => {
-        const response = await fetch(
-            `https://api.themoviedb.org/3/account/${accountId}/watchlist/movies`,
-            options
-        );
-        const data = await response.json();
+        const data = await getWatchlist();
         for (let movie of data.results) {
             if (movie.id === movieId) {
                 return true;
@@ -397,7 +416,31 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    searchForm.addEventListener("submit", async (e) => {
+    const displayFavorites = async () => {
+        const data = await getFavorites();
+        if (data.results.length !== 0) {
+            emptyFavorites.classList.add("hidden");
+            for (let movie of data.results) {
+                let movieDetails = await getMovieDetails(movie.id);
+                let movieCard = createMovieCard(movieDetails);
+                appendCard(movieCard, favoritesSection);
+            }
+        }
+    };
+
+    const displayWatchlist = async () => {
+        const data = await getWatchlist();
+        if (data.results.length !== 0) {
+            emptyWatchlist.classList.add("hidden");
+            for (let movie of data.results) {
+                let movieDetails = await getMovieDetails(movie.id);
+                let movieCard = createMovieCard(movieDetails);
+                appendCard(movieCard, watchlistSection);
+            }
+        }
+    };
+
+    searchForm?.addEventListener("submit", async (e) => {
         searchResults.innerHTML = ""; // Clear previous results
         e.preventDefault();
         // Encode and trim input
@@ -429,10 +472,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Rating slider event listener to update rating value display
-    ratingSlider.addEventListener("input", function () {
+    ratingSlider?.addEventListener("input", function () {
         ratingValue.textContent = parseFloat(this.value).toFixed(1);
     });
 
-    generateTrendingMovies();
-    generateTopRatedMovies();
+    if (favoritesSection && watchlistSection) {
+        displayFavorites();
+        displayWatchlist();
+    } else {
+        generateTrendingMovies();
+        generateTopRatedMovies();
+    }
 });
