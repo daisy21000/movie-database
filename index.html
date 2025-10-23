@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cinemind</title>
@@ -11,17 +12,14 @@
     <!-- Bootstrap CSS from CDN (v5.3.2)
                  Provides base layout, grid, utility classes and components used below.
                  Replace with a local file if you need offline development or version locking. -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      crossorigin="anonymous"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        crossorigin="anonymous" />
 
     <!-- Project stylesheet: custom styles, layout and layering -->
     <link rel="stylesheet" href="assets/css/style.css" />
-  </head>
+</head>
 
-  <body>
+<body>
     <!--
             Matrix rain canvas:
             - Renders the green "matrix" effect behind the UI.
@@ -38,74 +36,61 @@
             - JS toggles visibility by adding/removing the "hidden" class.
         -->
     <div class="container">
-      <div class="bg-layer-1"></div>
-      <div class="bg-layer-2"></div>
-      <div class="bg-glow"></div>
-      <div class="dark-overlay"></div>
+        <div class="bg-layer-1"></div>
+        <div class="bg-layer-2"></div>
+        <div class="bg-glow"></div>
+        <div class="dark-overlay"></div>
 
-      <div id="login-screen">
-        <div class="row">
-          <div class="column">
-            <header>
-              <h1>The Cinemind Network</h1>
-              <p>Access the infinite world of cinema</p>
-            </header>
-          </div>
+        <div id="login-screen">
+            <div class="row">
+                <div class="column">
+                    <header>
+                        <h1>The Cinemind Network</h1>
+                        <p>Access the infinite world of cinema</p>
+                    </header>
+                </div>
 
-          <!-- Form Container -->
-          <div class="column">
-            <div class="form-container">
-              <section id="login-form">
-                <!--
+                <!-- Form Container -->
+                <div class="column">
+                    <div class="form-container">
+                        <section id="login-form">
+                            <!--
                                     API KEY input:
                                     - type="password" to hide typed characters.
                                     - ID inputPassword5 referenced by script.js for authentication.
                                     - aria-describedby links to helper text below for accessibility.
                                 -->
-                <label for="inputPassword5" class="form-label">API KEY:</label>
-                <input
-                  type="password"
-                  id="inputPassword5"
-                  placeholder="Enter your API key"
-                  class="form-control"
-                  aria-describedby="passwordHelpBlock"
-                />
+                            <label for="inputPassword5" class="form-label">API KEY:</label>
+                            <input type="password" id="inputPassword5" placeholder="Enter your API key"
+                                class="form-control" aria-describedby="passwordHelpBlock" />
 
-                <!--API KEY error message (hidden by default with d-none).
+                            <!--API KEY error message (hidden by default with d-none).
                                         Script toggles d-none to show validation/auth errors. -->
-                <div
-                  id="api-error"
-                  class="alert alert-danger d-none"
-                  role="alert"
-                >
-                  Invalid API key. Please try again.
-                </div>
+                            <div id="api-error" class="alert alert-danger d-none" role="alert">
+                                Invalid API key. Please try again.
+                            </div>
 
-                <!--
+                            <!--
                                     CONNECT button:
                                     - id="submit-btn" is used by script.js to attach click handler.
                                     - type="submit" is acceptable inside a section; the script can prevent default.
                                 -->
-                <button type="submit" id="submit-btn">CONNECT</button>
+                            <button type="submit" id="submit-btn">CONNECT</button>
 
-                <!-- Loading spinner shown while validating API key or loading resources -->
-                <div id="loading" class="d-none text-center my-4">
-                  <div
-                    class="spinner-border text-success"
-                    role="status"
-                    aria-hidden="true"
-                  ></div>
-                  <span class="visually-hidden">Loading...</span>
-                </div>
+                            <!-- Loading spinner shown while validating API key or loading resources -->
+                            <div id="loading" class="d-none text-center my-4">
+                                <div class="spinner-border text-success" role="status" aria-hidden="true"></div>
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
 
-                <div id="passwordHelpBlock" class="form-text">
-                  NOTE: Access restricted to authorized users only
+                            <div id="passwordHelpBlock" class="form-text">
+                                NOTE: Access restricted to authorized users only
+                            </div>
+                        </section>
+                    </div>
                 </div>
-              </section>
             </div>
-          </div>
         </div>
-      </div>
     </div>
 
     <!--
@@ -114,91 +99,57 @@
             - JS uses IDs below to hook behavior: disconnect-btn, search-form, search-input, search-results, etc.
         -->
     <div id="main-ui" class="hidden">
-      <!-- Nav bar, Search and Disconnect Button-->
-      <nav
-        class="navbar navbar-expand-lg bg-body-tertiary"
-        data-bs-theme="dark"
-      >
-        <div class="container-fluid">
-          <a class="navbar-brand" href="index.html">⌈ CINEMIND DATABASE ⌋</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
+        <!-- Nav bar, Search and Disconnect Button-->
+        <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">⌈ CINEMIND DATABASE ⌋</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <!-- Navigation links point to sections on the page or to watchlist.html -->
-              <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  aria-current="page"
-                  href="index.html#trending-section"
-                  >Trending</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="index.html#top-rated-section"
-                  >Top-Rated</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="watchlist.html#Favourites-section"
-                  >Favourites</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="watchlist.html#Watchlist-section"
-                  >Watchlist</a
-                >
-              </li>
-            </ul>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <!-- Navigation links point to sections on the page or to watchlist.html -->
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page"
+                                href="index.html#trending-section">Trending</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#top-rated-section">Top-Rated</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="watchlist.html#Favourites-section">Favourites</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="watchlist.html#Watchlist-section">Watchlist</a>
+                        </li>
+                    </ul>
 
-            <!--
+                    <!--
                             DISCONNECT button:
                             - id="disconnect-btn" used by script.js.
                             - Expected behavior: clear client-side data (API key, cache), hide main UI and show login.
                         -->
-            <button
-              class="btn btn-outline-success"
-              type="button"
-              id="disconnect-btn"
-            >
-              [DISCONNECT]
-            </button>
-          </div>
-        </div>
-      </nav>
+                    <button class="btn btn-outline-success" type="button" id="disconnect-btn">
+                        [DISCONNECT]
+                    </button>
+                </div>
+            </div>
+        </nav>
 
-      <div id="content">
-        <div class="search-section">
-          <!--
+        <div id="content">
+            <div class="search-section">
+                <!--
                         Search form:
                         - id="search-form" referenced by script.js; submit handler performs query.
                         - autocomplete="off" to avoid browser suggestions interfering with UI.
                         - Pressing ENTER in the input will submit the form; script should preventDefault and run async search.
                     -->
-          <form
-            id="search-form"
-            class="d-flex mb-3"
-            role="search"
-            autocomplete="off"
-          >
-            <input
-              type="text"
-              class="form-control me-2 search-bar"
-              id="search-input"
-              placeholder="> SEARCH DATABASE [ENTER TO QUERY]..."
-              aria-label="Search movies"
-              required
-            />
+                <form id="search-form" class="d-flex mb-3" role="search" autocomplete="off">
+                    <input type="text" class="form-control me-2 search-bar" id="search-input"
+                        placeholder="> SEARCH DATABASE [ENTER TO QUERY]..." aria-label="Search movies" required />
 
             <!-- Filter dropdown (client-side filter prior or after API results) -->
             <div class="desktop-filters">
@@ -286,61 +237,50 @@
 </div>
 </div>
 
-          <!-- Error message shown if input is empty/invalid -->
-          <div
-            id="search-error"
-            class="alert alert-warning d-none mt-2"
-            role="alert"
-          >
-            Please enter a valid search term.
-          </div>
+                <!-- Error message shown if input is empty/invalid -->
+                <div id="search-error" class="alert alert-warning d-none mt-2" role="alert">
+                    No results found. Please try again.
+                </div>
 
-          <!-- Loading spinner shown during search requests -->
-          <div id="loading-search" class="d-none text-center my-4">
-            <div
-              class="spinner-border text-success"
-              role="status"
-              aria-hidden="true"
-            ></div>
-            <span class="visually-hidden">Loading...</span>
-          </div>
+                <!-- Loading spinner shown during search requests -->
+                <div id="loading-search" class="d-none text-center my-4">
+                    <div class="spinner-border text-success" role="status" aria-hidden="true"></div>
+                    <span class="visually-hidden">Loading...</span>
+                </div>
 
-          <!-- Search results grid:
+                <!-- Search results grid:
                              - id="search-results" is the target container where script.js will inject movie cards.
                              - The visual layout for cards is defined by .movies-grid in CSS.
                     -->
-          <div id="search-results" class="movies-grid"></div>
-        </div>
+                <div id="search-results" class="movies-grid"></div>
+            </div>
 
-        <section id="trending-section">
-          <!-- Trending movies will be displayed here -->
-          <h2 class="section-title">|> Trending Movies</h2>
-          <div id="trending-grid" class="movies-grid"></div>
-        </section>
-        <section id="top-rated-section">
-          <!-- Top rated movies will be displayed here -->
-          <h2 class="section-title">|> Top Rated Movies</h2>
-          <div id="top-rated-grid" class="movies-grid"></div>
-        </section>
-      </div>
-      <footer class="site-footer text-center py-4">
-        <div class="container">
-          <p>&copy; 2025 Cinemind. All rights reserved.</p>
-
-          <p class="mb-1"><strong>Credits</strong></p>
-          <ul class="list-inline small mb-2">
-            <li class="list-inline-item">
-              Data provided by
-              <a
-                href="https://www.themoviedb.org/"
-                target="_blank"
-                rel="noopener noreferrer"
-                >The Movie Database (TMDb)</a
-              >
-            </li>
-          </ul>
+            <section id="trending-section">
+                <!-- Trending movies will be displayed here -->
+                <h2 class="section-title">|> Trending Movies</h2>
+                <div id="trending-grid" class="movies-grid"></div>
+            </section>
+            <section id="top-rated-section">
+                <!-- Top rated movies will be displayed here -->
+                <h2 class="section-title">|> Top Rated Movies</h2>
+                <div id="top-rated-grid" class="movies-grid"></div>
+            </section>
         </div>
-      </footer>
+        <footer class="site-footer text-center py-4">
+            <div class="container">
+                <p>&copy; 2025 Cinemind. All rights reserved.</p>
+
+                <p class="mb-1"><strong>Credits</strong></p>
+                <ul class="list-inline small mb-2">
+                    <li class="list-inline-item">
+                        Data provided by
+                        <a href="https://www.themoviedb.org/" target="_blank" rel="noopener noreferrer">The Movie
+                            Database
+                            (TMDb)</a>
+                    </li>
+                </ul>
+            </div>
+        </footer>
     </div>
 
     <!--
@@ -348,6 +288,15 @@
             - Template element used to clone consistent movie cards from script.js.
             - script.js should set data-id on the card and fill src/alt/title/year appropriately.
         -->
+  <template id="movie-card-template">
+    <div class="movie-card" data-id="">
+      <img src="" alt="Movie Poster" class="movie-poster" />
+      <div class="movie-info-line">
+        <span class="movie-title">Title</span>
+        <span class="release-year hidden"> </span>
+      </div>
+    </div>
+  </template>
     <template id="movie-card-template">
       <div class="movie-card" data-id="">
         <img src="" alt="Movie Poster" class="movie-poster" />
@@ -372,133 +321,100 @@
           <img src="assets/images/placeholder-movie.png" alt="Movie Poster" class="modal-poster" loading="lazy" />
           <p class="modal-overview">Overview</p>
 
-          <!-- Accordion shows extra movie metadata -->
-          <div class="accordion" id="movieDetailsAccordion">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingYear">
-                <button
-                  class="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapseYear"
-                  aria-expanded="false"
-                  aria-controls="collapseYear"
-                >
-                  Release Year
-                </button>
-              </h2>
-              <div
-                id="collapseYear"
-                class="accordion-collapse collapse"
-                aria-labelledby="headingYear"
-                data-bs-parent="#movieDetailsAccordion"
-              >
-                <div class="accordion-body">
-                  <p class="modal-release-year mb-0"></p>
-                </div>
-              </div>
-            </div>
+                <!-- Accordion shows extra movie metadata -->
+                <div class="accordion" id="movieDetailsAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingYear">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseYear" aria-expanded="false" aria-controls="collapseYear">
+                                Release Year
+                            </button>
+                        </h2>
+                        <div id="collapseYear" class="accordion-collapse collapse" aria-labelledby="headingYear"
+                            data-bs-parent="#movieDetailsAccordion">
+                            <div class="accordion-body">
+                                <p class="modal-release-year mb-0"></p>
+                            </div>
+                        </div>
+                    </div>
 
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingGenres">
-                <button
-                  class="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapseGenres"
-                  aria-expanded="false"
-                  aria-controls="collapseGenres"
-                >
-                  Genres
-                </button>
-              </h2>
-              <div
-                id="collapseGenres"
-                class="accordion-collapse collapse"
-                aria-labelledby="headingGenres"
-                data-bs-parent="#movieDetailsAccordion"
-              >
-                <div class="accordion-body">
-                  <p class="modal-genre mb-0"></p>
-                </div>
-              </div>
-            </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingGenres">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseGenres" aria-expanded="false" aria-controls="collapseGenres">
+                                Genres
+                            </button>
+                        </h2>
+                        <div id="collapseGenres" class="accordion-collapse collapse" aria-labelledby="headingGenres"
+                            data-bs-parent="#movieDetailsAccordion">
+                            <div class="accordion-body">
+                                <p class="modal-genre mb-0"></p>
+                            </div>
+                        </div>
+                    </div>
 
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingCast">
-                <button
-                  class="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapseCast"
-                  aria-expanded="false"
-                  aria-controls="collapseCast"
-                >
-                  Cast
-                </button>
-              </h2>
-              <div
-                id="collapseCast"
-                class="accordion-collapse collapse"
-                aria-labelledby="headingCast"
-                data-bs-parent="#movieDetailsAccordion"
-              >
-                <div class="accordion-body">
-                  <p class="modal-cast mb-0"></p>
-                </div>
-              </div>
-            </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingCast">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseCast" aria-expanded="false" aria-controls="collapseCast">
+                                Cast
+                            </button>
+                        </h2>
+                        <div id="collapseCast" class="accordion-collapse collapse" aria-labelledby="headingCast"
+                            data-bs-parent="#movieDetailsAccordion">
+                            <div class="accordion-body">
+                                <p class="modal-cast mb-0"></p>
+                            </div>
+                        </div>
+                    </div>
 
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingDirector">
-                <button
-                  class="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapseDirector"
-                  aria-expanded="false"
-                  aria-controls="collapseDirector"
-                >
-                  Director
-                </button>
-              </h2>
-              <div
-                id="collapseDirector"
-                class="accordion-collapse collapse"
-                aria-labelledby="headingDirector"
-                data-bs-parent="#movieDetailsAccordion"
-              >
-                <div class="accordion-body">
-                  <p class="modal-director mb-0"></p>
-                </div>
-              </div>
-            </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingDirector">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseDirector" aria-expanded="false"
+                                aria-controls="collapseDirector">
+                                Director
+                            </button>
+                        </h2>
+                        <div id="collapseDirector" class="accordion-collapse collapse" aria-labelledby="headingDirector"
+                            data-bs-parent="#movieDetailsAccordion">
+                            <div class="accordion-body">
+                                <p class="modal-director mb-0"></p>
+                            </div>
+                        </div>
+                    </div>
 
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingRating">
-                <button
-                  class="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapseRating"
-                  aria-expanded="false"
-                  aria-controls="collapseRating"
-                >
-                  Rating
-                </button>
-              </h2>
-              <div
-                id="collapseRating"
-                class="accordion-collapse collapse"
-                aria-labelledby="headingRating"
-                data-bs-parent="#movieDetailsAccordion"
-              >
-                <div class="accordion-body">
-                  <p class="modal-rating mb-0"></p>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingRating">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseRating" aria-expanded="false" aria-controls="collapseRating">
+                                Rating
+                            </button>
+                        </h2>
+                        <div id="collapseRating" class="accordion-collapse collapse" aria-labelledby="headingRating"
+                            data-bs-parent="#movieDetailsAccordion">
+                            <div class="accordion-body">
+                                <p class="modal-rating mb-0"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingUserRating">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseUserRating" aria-expanded="false"
+                                aria-controls="collapseUserRating">
+                                User Rating
+                            </button>
+                        </h2>
+                        <div id="collapseUserRating" class="accordion-collapse collapse"
+                            aria-labelledby="headingUserRating" data-bs-parent="#movieDetailsAccordion">
+                            <div class="accordion-body">
+                                <p class="modal-user-rating mb-0"></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
 
           <!-- User Interaction Section -->
           <div class="user-interaction">
@@ -514,33 +430,38 @@
               title="Your rating (1-5)"
               aria-label="Your rating from 1 to 5"
             />
+                <!-- User Interaction Section -->
+                <div class="user-interaction">
+                    <label for="rating" class="rating-label" id="userRatingLabel">Your Rating:</label>
+                    <input id="rating" type="range" min="1" max="10" step="1" class="rating-slider" data-id=""
+                        title="Your rating (1-10)" aria-label="Your rating from 1 to 10" placeholder="1-10" />
 
-            <label for="comment" class="comment-label">Thoughts:</label>
-            <textarea
-                id="comment"
-                class="comment-box"
-                rows="2"
-                maxlength="100"
-                placeholder="Say something..."
-            ></textarea>
+                    <label for="comment" class="comment-label">Thoughts:</label>
+                    <textarea class="comment-box" rows="2" maxlength="100" placeholder="Say something..."></textarea>
 
-            <button type="button" class="btn btn-outline-success save-rating-btn">
-              Save
-            </button>
+                    <button class="btn btn-outline-success save-rating-btn">
+                        Save
+                    </button>
 
-            <!-- Buttons inside modal:
+                    <!-- Buttons inside modal:
                              - Script should wire these to add-to-favorites/watchlist actions.
                              - Font Awesome icons are used for visual hints.
                     -->
-            <button type="button" class="btn btn-outline-success">
-              Add to Favorites<i class="fa-solid fa-star"></i>
-            </button>
-            <button type="button" class="btn btn-outline-warning">
-              Add to Watchlist<i class="fa-solid fa-plus"></i>
-            </button>
-          </div>
+                    <button class="btn btn-outline-success" id="add-favorites-btn">
+                        Add to Favorites<i class="fa-solid fa-star"></i>
+                    </button>
+                    <button class="btn btn-outline-warning" id="add-watchlist-btn">
+                        Add to Watchlist<i class="fa-solid fa-plus"></i>
+                    </button>
+                    <button class="btn btn-outline-success" id="remove-favorites-btn">
+                        Remove from Favorites<i class="fa-solid fa-star"></i>
+                    </button>
+                    <button class="btn btn-outline-warning" id="remove-watchlist-btn">
+                        Remove from Watchlist<i class="fa-solid fa-plus"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
 
     <!--
@@ -550,52 +471,52 @@
             - Runs at approx 30 FPS via setInterval(draw, 33).
         -->
     <script>
-      (function () {
-        const canvas = document.getElementById('matrixRain');
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
+        // Get canvas and rendering context
+        const canvas = document.getElementById('matrixRain')
+        const ctx = canvas.getContext('2d')
 
-        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%';
-        const fontSize = 16; // px per "cell"
-        let columns = 0;
-        let drops = [];
+        // Set initial canvas size to viewport size.
+        // If you need to support window resize, add an event listener to recalculate these values.
+        canvas.height = window.innerHeight
+        canvas.width = window.innerWidth
 
-        function resize() {
-          canvas.width = window.innerWidth;
-          canvas.height = window.innerHeight;
-          columns = Math.floor(canvas.width / fontSize);
-          drops = [];
-          for (let x = 0; x < columns; x++) drops[x] = 1;
-        }
+        // Characters used in the rain effect
+        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%'
+        const fontSize = 16 // px per "cell"
+        // Number of columns is canvas width divided by fontSize (floating -> used as integer via iteration)
+        const columns = canvas.width / fontSize
+        // Each drop tracks its vertical position (in units of fontSize)
+        const drops = []
 
-        window.addEventListener('resize', resize);
-        resize();
+        // Initialize drops array: start each column at row 1
+        for (let x = 0; x < columns; x++) drops[x] = 1
 
         function draw() {
-          // Semi-transparent black rectangle to create the "trail" effect
-          ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
+            // Semi-transparent black rectangle to create the "trail" effect
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'
+            ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-          // Bright green text for matrix look
-          ctx.fillStyle = '#0F0';
-          ctx.font = fontSize + 'px monospace';
+            // Bright green text for matrix look
+            ctx.fillStyle = '#0F0'
+            ctx.font = fontSize + 'px monospace'
 
-          // Iterate over drops and draw a random character for each column
-          for (let i = 0; i < drops.length; i++) {
-            const text = letters.charAt(Math.floor(Math.random() * letters.length));
-            // x = column index * fontSize, y = drop row * fontSize
-            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+            // Iterate over drops and draw a random character for each column
+            for (let i = 0; i < drops.length; i++) {
+                const text = letters.charAt(
+                    Math.floor(Math.random() * letters.length)
+                )
+                // x = column index * fontSize, y = drop row * fontSize
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize)
 
-            // Reset drop back to top randomly after it passes the bottom
-            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
-            // Move drop down one row
-            drops[i]++;
-          }
+                // Reset drop back to top randomly after it passes the bottom
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975)
+                    drops[i] = 0
+                // Move drop down one row
+                drops[i]++
+            }
         }
-
         // Main loop: ~30fps
-        setInterval(draw, 33);
-      })();
+        setInterval(draw, 33)
     </script>
 
     <!--
@@ -607,7 +528,8 @@
             - Required for navbar collapse and accordion behavior.
             - Using the bundle provides Popper and Bootstrap together.
         -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
 
     <!-- Font Awesome for icons (used in modal buttons and elsewhere) -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
@@ -621,5 +543,6 @@
                 loading-search, movie-card-template, movie-modal, rating-slider, rating-value
         -->
     <script src="assets/js/script.js"></script>
-  </body>
+</body>
+
 </html>
