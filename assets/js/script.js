@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const removeFavoritesBtn = document.getElementById("remove-favorites-btn");
     const removeWatchlistBtn = document.getElementById("remove-watchlist-btn");
     const genreFilter = document.getElementById("genre-filter");
+    const yearFilter = document.getElementById("year-filter");
 
     let apiKey = null;
     let accountId = null;
@@ -592,6 +593,14 @@ document.addEventListener("DOMContentLoaded", () => {
                         genreFilter.value[0].toUpperCase() +
                             genreFilter.value.slice(1)
                     )
+                ) {
+                    continue;
+                }
+
+                // If the user has added a year filter, apply it and then check if the movie release year matches the selected year
+                if (
+                    yearFilter.value &&
+                    movieDetails.releaseYear !== yearFilter.value
                 ) {
                     continue;
                 }
