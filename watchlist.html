@@ -45,7 +45,77 @@
       <div class="dark-overlay"></div>
     </div>
 
-    <div id="main-ui">
+    <div id="login-screen">
+        <div class="row">
+          <div class="column">
+            <header>
+              <h1>The Cinemind Network</h1>
+              <p>Access the infinite world of cinema</p>
+            </header>
+          </div>
+
+          <!-- Form Container -->
+          <div class="column">
+            <div class="form-container">
+              <section id="login-form">
+                <!--
+                                    API KEY input:
+                                    - type="password" to hide typed characters.
+                                    - ID inputPassword5 referenced by script.js for authentication.
+                                    - aria-describedby links to helper text below for accessibility.
+                                -->
+                <label for="inputPassword5" class="form-label">API KEY:</label>
+                <input
+                  type="password"
+                  id="inputPassword5"
+                  placeholder="Enter your API key"
+                  class="form-control"
+                  aria-describedby="passwordHelpBlock"
+                />
+
+                <!--API KEY error message (hidden by default with d-none).
+                                        Script toggles d-none to show validation/auth errors. -->
+                <div
+                  id="api-error"
+                  class="alert alert-danger d-none"
+                  role="alert"
+                >
+                  Invalid API key. Please try again.
+                </div>
+
+                <!--
+                                    CONNECT button:
+                                    - id="submit-btn" is used by script.js to attach click handler.
+                                    - type="submit" is acceptable inside a section; the script can prevent default.
+                                -->
+                <button type="submit" id="submit-btn">CONNECT</button>
+
+                <!-- Loading spinner shown while validating API key or loading resources -->
+                <div id="loading" class="d-none text-center my-4">
+                  <div
+                    class="spinner-border text-success"
+                    role="status"
+                    aria-hidden="true"
+                  ></div>
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+
+                <div id="passwordHelpBlock" class="form-text">
+                  NOTE: Access restricted to authorized users only
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--
+            Main app UI (hidden by default)
+            - Shown after successful authentication.
+            - JS uses IDs below to hook behavior: disconnect-btn, search-form, search-input, search-results, etc.
+        -->
+    <div id="main-ui" class="hidden">
       <!-- Nav bar, Search and Disconnect Button-->
       <nav
         class="navbar navbar-expand-lg bg-body-tertiary"
