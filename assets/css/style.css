@@ -305,6 +305,19 @@ body .navbar {
   z-index: 9;
 }
 
+.cursor {
+  display: inline-block;
+  margin-left: 3px;
+  color: #00ff41;
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+}
+
+
 .movies-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
