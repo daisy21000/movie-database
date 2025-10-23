@@ -434,6 +434,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     movieModal
                         .querySelector(".save-rating-btn")
                         .removeEventListener("click", saveRatingHandler);
+                    addWatchlistBtn.classList.remove("hidden");
+                    removeWatchlistBtn.classList.remove("hidden");
+                    addFavoritesBtn.classList.remove("hidden");
+                    removeFavoritesBtn.classList.remove("hidden");
                 });
         });
         return movieCard;
