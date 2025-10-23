@@ -269,6 +269,13 @@ body .navbar {
     z-index: 9;
 }
 
+/* Search Error Message */
+#search-error {
+    width: 90%;
+    z-index: 5;
+    margin: 0 auto;
+}
+
 .movies-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
