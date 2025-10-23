@@ -13,11 +13,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const topRatedMoviesSection = document.getElementById("top-rated-grid");
     const ratingSlider = document.getElementById("rating-slider");
     const ratingValue = document.getElementById("rating-value");
-    const addFavoriteBtn = document.getElementById("add-favorite-btn");
+    const addFavoritesBtn = document.getElementById("add-favorites-btn");
     const addWatchlistBtn = document.getElementById("add-watchlist-btn");
 
     let apiKey = null;
-    let account_id = null;
+    let accountId = null;
     const options = {
         method: "GET",
         headers: {
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
             options
         );
         const data = await response.json();
-        account_id = data.id;
+        accountId = data.id;
     };
 
     if (document.cookie.includes("userApiKey=")) {
@@ -112,6 +112,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const ratingData = await ratingResponse.json();
         return ratingData;
+    };
+
+    const addToFavorites = async (movieId) => {
+        const response = await fetch(
+            `https://api.themoviedb.org/3/account/${accountId}/favorite`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + apiKey,
+                },
+                body: JSON.stringify({
+                    media_type: "movie",
+                    media_id: movieId,
+                    favorite: true,
+                }),
+            }
+        );
+
+        const data = await response.json();
+        return data;
     };
 
     const getMovieDetails = async (movieId) => {
@@ -243,8 +264,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 .querySelector(".save-rating-btn")
                 .addEventListener("click", saveRatingHandler);
 
+            console.log(addFavoritesBtn);
             // Add to Favorites handler
-            addFavoriteBtn.addEventListener("click", async () => {
+            addFavoritesBtn.addEventListener("click", async () => {
                 await addToFavorites(movieDetails.movieId);
             });
 
