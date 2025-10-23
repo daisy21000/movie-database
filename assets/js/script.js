@@ -135,6 +135,20 @@ document.addEventListener("DOMContentLoaded", () => {
         return data;
     };
 
+    const isInFavorites = async (movieId) => {
+        const response = await fetch(
+            `https://api.themoviedb.org/3/account/${accountId}/favorite/movies`,
+            options
+        );
+        const data = await response.json();
+        for (let movie of data.results) {
+            if (movie.id === movieId) {
+                return true;
+            }
+        }
+        return false;
+    };
+
     const getMovieDetails = async (movieId) => {
         // Get more details of the movie
         const detailsResponse = await fetch(
@@ -267,6 +281,10 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(addFavoritesBtn);
             // Add to Favorites handler
             addFavoritesBtn.addEventListener("click", async () => {
+                if (isInFavorites(movieDetails.movieId)) {
+                    alert("Movie is already in Favorites!");
+                    return;
+                }
                 await addToFavorites(movieDetails.movieId);
             });
 
