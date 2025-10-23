@@ -120,10 +120,10 @@
                             <a class="nav-link" href="index.html#top-rated-section">Top-Rated</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="watchlist.html#favourites-section">Favourites</a>
+                            <a class="nav-link" href="watchlist.html#Favourites-section">Favourites</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="watchlist.html#watchlist-section">Watchlist</a>
+                            <a class="nav-link" href="watchlist.html#Watchlist-section">Watchlist</a>
                         </li>
                     </ul>
 
@@ -151,38 +151,91 @@
                     <input type="text" class="form-control me-2 search-bar" id="search-input"
                         placeholder="> SEARCH DATABASE [ENTER TO QUERY]..." aria-label="Search movies" required />
 
-                    <!-- Filter dropdown (client-side filter prior or after API results) -->
-                    <select id="genre-filter" class="form-select" aria-label="Genre filter" title="Select Genre">
-                        <option value="" selected>All Genres</option>
-                        <option value="action">Action</option>
-                        <option value="comedy">Comedy</option>
-                        <option value="drama">Drama</option>
-                        <option value="horror">Horror</option>
-                        <option value="romance">Romance</option>
-                        <option value="sci-fi">Sci-Fi</option>
-                        <option value="thriller">Thriller</option>
-                    </select>
+            <!-- Filter dropdown (client-side filter prior or after API results) -->
+            <div class="desktop-filters">
+                <!--Filter dropdown-->
+    <select id="genre-filter" class="form-select" aria-label="Genre filter" title="Select Genre">
+      <option value="" selected>All Genres</option>
+      <option value="action">Action</option>
+      <option value="comedy">Comedy</option>
+      <option value="drama">Drama</option>
+      <option value="horror">Horror</option>
+      <option value="romance">Romance</option>
+      <option value="sci-fi">Sci-Fi</option>
+      <option value="thriller">Thriller</option>
+    </select>
+    <!-- Year Filter -->
+  <input
+    type="number"
+    id="year-filter"
+    class="form-control"
+    placeholder="Year"
+    min="1900"
+    max="2025"
+    aria-label="Filter by year"
+    title="Filter by Release Year"
+  />
+  <!-- Rating Filter Slider -->
+<div class="rating-filter d-flex align-items-center gap-2" title="Filter by minimum rating">
+  <label for="rating-slider" class="form-label mb-0 text-success">Min Rating:</label>
+  <input
+    type="range"
+    class="form-range"
+    min="0"
+    max="10"
+    step="0.1"
+    id="rating-slider"
+    value="0"
+    aria-label="Minimum rating"
+  />
+  <span id="rating-value" class="text-success">0</span>
+</div>
+            </div>
+              
 
-                    <!-- Year Filter: numeric input constrained by min/max -->
-                    <input type="number" id="year-filter" class="form-control" placeholder="Year" min="1900" max="2025"
-                        aria-label="Filter by year" title="Filter by Release Year" />
+             <!--dropdown button for mobile filters-->
+<button class="btn btn-outline-success mb-2" type="button" id="dropdown-btn" data-bs-toggle="collapse" data-bs-target="#filters-collapse" aria-expanded="false" aria-controls="filters-collapse">
+  ▼
+</button>
 
-                    <!-- Rating Filter Slider:
-                                 - id="rating-slider" value displayed in #rating-value.
-                                 - Script should listen for input events to update the visible number.
-                        -->
-                    <div class="rating-filter d-flex align-items-center gap-2" title="Filter by minimum rating">
-                        <label for="rating-slider" class="form-label mb-0 text-success">Rating:</label>
-                        <input type="range" class="form-range" min="0" max="10" step="0.1" id="rating-slider" value="0"
-                            aria-label="Minimum rating" />
-                        <span id="rating-value" class="text-success">0</span>
-                    </div>
 
-                    <!-- Submit button for search; script likely prevents default and handles async query -->
-                    <button class="btn btn-outline-success" type="submit" id="enter-btn">
-                        [ENTER]
-                    </button>
-                </form>
+
+            <!-- Submit button for search; script likely prevents default and handles async query -->
+            <button
+              class="btn btn-outline-success"
+              type="submit"
+              id="enter-btn"
+            >
+              [ENTER]
+            </button>
+          </form>
+
+          <!-- Filter dropdown (client-side filter prior or after API results) -->
+           <div class="mobile-filters">
+          <div class="collapse" id="filters-collapse">
+  <div class="card card-body bg-dark text-light p-3">
+    <!-- Filters go here -->
+    <select id="genre-filter-mobile" class="form-select mb-2" aria-label="Genre filter" title="Select Genre">
+      <option value="" selected>All Genres</option>
+      <option value="action">Action</option>
+      <option value="comedy">Comedy</option>
+      <option value="drama">Drama</option>
+      <option value="horror">Horror</option>
+      <option value="romance">Romance</option>
+      <option value="sci-fi">Sci-Fi</option>
+      <option value="thriller">Thriller</option>
+    </select>
+
+    <input type="number" id="year-filter-mobile" class="form-control mb-2" placeholder="Year" min="1900" max="2025" aria-label="Filter by year" title="Filter by Release Year" />
+
+    <div class="rating-filter d-flex align-items-center gap-2">
+      <label for="rating-slider-mobile" class="form-label mb-0 text-success">Rating:</label>
+      <input type="range" class="form-range" min="0" max="10" step="0.1" id="rating-slider-mobile" value="0" aria-label="Minimum rating" />
+      <span id="rating-value-mobile" class="text-success">0</span>
+    </div>
+  </div>
+</div>
+</div>
 
                 <!-- Error message shown if input is empty/invalid -->
                 <div id="search-error" class="alert alert-warning d-none mt-2" role="alert">
@@ -235,14 +288,23 @@
             - Template element used to clone consistent movie cards from script.js.
             - script.js should set data-id on the card and fill src/alt/title/year appropriately.
         -->
+  <template id="movie-card-template">
+    <div class="movie-card" data-id="">
+      <img src="" alt="Movie Poster" class="movie-poster" />
+      <div class="movie-info-line">
+        <span class="movie-title">Title</span>
+        <span class="release-year hidden"> </span>
+      </div>
+    </div>
+  </template>
     <template id="movie-card-template">
-        <div class="movie-card" data-id="">
-            <img src="" alt="Movie Poster" class="movie-poster" />
-            <div class="movie-info-line">
-                <span class="movie-title">Title</span>
-                <span class="release-year"> Year</span>
-            </div>
+      <div class="movie-card" data-id="">
+        <img src="" alt="Movie Poster" class="movie-poster" />
+        <div class="movie-info-line">
+          <span class="movie-title">Title</span>
+          <span class="release-year hidden"></span>
         </div>
+      </div>
     </template>
 
     <!--
@@ -252,12 +314,12 @@
             - Uses a simple custom modal (not Bootstrap modal) so script controls show/hide.
         -->
     <div id="movie-modal" class="modal hidden" role="dialog" aria-modal="true">
-        <div class="modal-content">
-            <button class="close-btn" aria-label="Close modal">×</button>
-            <div class="modal-body">
-                <h2 class="modal-title">Title</h2>
-                <img src="" alt="Movie Poster" class="modal-poster" />
-                <p class="modal-overview"></p>
+      <div class="modal-content">
+        <button type="button" class="close-btn" aria-label="Close modal">×</button>
+        <div class="modal-body">
+          <h2 class="modal-title">Title</h2>
+          <img src="assets/images/placeholder-movie.png" alt="Movie Poster" class="modal-poster" loading="lazy" />
+          <p class="modal-overview">Overview</p>
 
                 <!-- Accordion shows extra movie metadata -->
                 <div class="accordion" id="movieDetailsAccordion">
@@ -354,6 +416,20 @@
                     </div>
                 </div>
 
+          <!-- User Interaction Section -->
+          <div class="user-interaction">
+            <label for="rating" class="rating-label">Your Rating:</label>
+            <input
+              id="rating"
+              type="range"
+              min="1"
+              max="5"
+              step="1"
+              class="rating-slider"
+              data-id=""
+              title="Your rating (1-5)"
+              aria-label="Your rating from 1 to 5"
+            />
                 <!-- User Interaction Section -->
                 <div class="user-interaction">
                     <label for="rating" class="rating-label" id="userRatingLabel">Your Rating:</label>
@@ -391,8 +467,7 @@
     <!--
             Matrix Rain Script:
             - Handles the animated background effect drawn on the canvas above.
-            - Note: currently sets canvas size once to viewport size. If you want to handle resizing,
-                add a window.resize listener to recalculate canvas.width/height and columns/drops arrays.
+            - Uses a resize handler and initializes columns correctly.
             - Runs at approx 30 FPS via setInterval(draw, 33).
         -->
     <script>
