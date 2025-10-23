@@ -365,11 +365,17 @@ document.addEventListener("DOMContentLoaded", () => {
             // Save Rating handler
             const saveRatingHandler = async () => {
                 const userRating = document.getElementById("rating").value;
-                const UserRatingDisplay =
-                    movieModal.querySelector(".modal-user-rating");
+                const UserRatingDisplay = movieModal.querySelector(".modal-user-rating");
+                const ThoughtsBox = movieModal.querySelector(".comment-box");
                 UserRatingDisplay.innerText = `${userRating}`;
 
-                await setMovieRating(movieDetails.movieId, userRating);
+                let movieRatingResponse = await setMovieRating(movieDetails.movieId, userRating);
+                if (movieRatingResponse.success) {
+                    alert(`Your rating of ${userRating} for ${movieDetails.title} has been saved!`);
+                    ThoughtsBox.value = ``;
+                } else {
+                    alert(`There was an error saving your rating for ${movieDetails.title}. Please try again.`);
+                }
             };
 
             movieModal
@@ -421,19 +427,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 .addEventListener("click", () => {
                     movieModal.classList.add("hidden");
                     // Reset modal content
-                    movieModal.querySelector(".modal-release-year").innerText =
-                        "";
+                    movieModal.querySelector(".modal-release-year").innerText ="";
                     movieModal.querySelector(".modal-overview").innerText = "";
                     movieModal.querySelector(".modal-director").innerText = "";
                     movieModal.querySelector(".modal-cast").innerText = "";
                     movieModal.querySelector(".modal-genre").innerText = "";
                     movieModal.querySelector(".modal-rating").innerText = "";
-                    movieModal.querySelector(".modal-user-rating").innerText =
-                        "";
+                    movieModal.querySelector(".modal-user-rating").innerText ="";
+                    movieModal.querySelector(".comment-box").value ="";
 
-                    movieModal
-                        .querySelector(".save-rating-btn")
-                        .removeEventListener("click", saveRatingHandler);
+                    movieModal.querySelector(".save-rating-btn").removeEventListener("click", saveRatingHandler);
                 });
         });
         return movieCard;
