@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const removeWatchlistBtn = document.getElementById("remove-watchlist-btn");
     const genreFilter = document.getElementById("genre-filter");
     const yearFilter = document.getElementById("year-filter");
+    const searchError = document.getElementById("search-error");
 
     let apiKey = null;
     let accountId = null;
@@ -564,6 +565,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     searchForm?.addEventListener("submit", async (e) => {
         searchResults.innerHTML = ""; // Clear previous results
+        searchError.classList.add("d-none");
         e.preventDefault();
         // Encode and trim input
         let query = encodeURIComponent(searchInput.value.trim());
@@ -605,6 +607,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     continue;
                 }
                 appendCard(movieCard, searchResults);
+            }
+            if (!searchResults.innerHTML) {
+                searchError.classList.remove("d-none");
             }
         } catch (err) {
             console.error(err);
