@@ -111,6 +111,7 @@ body .navbar {
 }
 
 .section-title {
+    position: relative;
     z-index: 11;
     font-family: var(--primary-font);
     font-weight: bold;
