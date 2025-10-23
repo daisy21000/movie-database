@@ -200,7 +200,7 @@ body .navbar {
   transition: all 0.3s ease;
   z-index: 9;
   border-radius: 0;
-  margin-top: 2rem;
+  margin-top: 1rem;
   padding: 0.6rem 1rem;
 }
 
@@ -266,8 +266,8 @@ body .navbar {
 #enter-btn {
   margin-left: 1rem;
   margin-right: 1rem;
-  margin-top: 2rem;
-  height: 2.5rem;
+  margin-top: 2.4rem;
+  height: 2.3rem;
   border-radius: 0;
   padding: 0 1.5rem;
   background-color: rgba(0, 255, 0, 0.2);
