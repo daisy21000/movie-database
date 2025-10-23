@@ -112,7 +112,7 @@ body .navbar {
 
 .section-title {
     position: relative;
-    z-index: 11;
+    z-index: 9;
     font-family: var(--primary-font);
     font-weight: bold;
     margin-left: 1rem;
