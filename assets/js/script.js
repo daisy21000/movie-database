@@ -226,6 +226,27 @@ document.addEventListener("DOMContentLoaded", () => {
         return false;
     };
 
+    const removeFromWatchlist = async (movieId) => {
+        const response = await fetch(
+            `https://api.themoviedb.org/3/account/${accountId}/watchlist`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + apiKey,
+                },
+                body: JSON.stringify({
+                    media_type: "movie",
+                    media_id: movieId,
+                    watchlist: false,
+                }),
+            }
+        );
+
+        const data = await response.json();
+        return data;
+    };
+
     const getMovieDetails = async (movieId) => {
         // Get more details of the movie
         const detailsResponse = await fetch(
