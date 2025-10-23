@@ -365,21 +365,31 @@ document.addEventListener("DOMContentLoaded", () => {
             // Save Rating handler
             const saveRatingHandler = async () => {
                 const userRating = document.getElementById("rating").value;
-                const UserRatingDisplay = movieModal.querySelector(".modal-user-rating");
+                const UserRatingDisplay =
+                    movieModal.querySelector(".modal-user-rating");
                 const ThoughtsBox = movieModal.querySelector(".comment-box");
                 UserRatingDisplay.innerText = `${userRating}`;
 
                 // Check if the movie rating was successful and it was saved then notify the user
-                let movieRatingResponse = await setMovieRating(movieDetails.movieId, userRating);
+                let movieRatingResponse = await setMovieRating(
+                    movieDetails.movieId,
+                    userRating
+                );
                 if (movieRatingResponse.success) {
-                    alert(`Your rating of ${userRating} for ${movieDetails.title} has been saved!`);
+                    alert(
+                        `Your rating of ${userRating} for ${movieDetails.title} has been saved!`
+                    );
                     ThoughtsBox.value = ``;
                 } else {
-                    alert(`There was an error saving your rating for ${movieDetails.title}. Please try again.`);
+                    alert(
+                        `There was an error saving your rating for ${movieDetails.title}. Please try again.`
+                    );
                 }
             };
 
-            movieModal.querySelector(".save-rating-btn").addEventListener("click", saveRatingHandler);
+            movieModal
+                .querySelector(".save-rating-btn")
+                .addEventListener("click", saveRatingHandler);
 
             const addFavoritesBtnListener = async () => {
                 let inFavorites = await isInFavorites(movieDetails.movieId);
@@ -447,16 +457,42 @@ document.addEventListener("DOMContentLoaded", () => {
                 .addEventListener("click", () => {
                     movieModal.classList.add("hidden");
                     // Reset modal content
-                    movieModal.querySelector(".modal-release-year").innerText ="";
+                    movieModal.querySelector(".modal-release-year").innerText =
+                        "";
                     movieModal.querySelector(".modal-overview").innerText = "";
                     movieModal.querySelector(".modal-director").innerText = "";
                     movieModal.querySelector(".modal-cast").innerText = "";
                     movieModal.querySelector(".modal-genre").innerText = "";
                     movieModal.querySelector(".modal-rating").innerText = "";
-                    movieModal.querySelector(".modal-user-rating").innerText ="";
-                    movieModal.querySelector(".comment-box").value ="";
+                    movieModal.querySelector(".modal-user-rating").innerText =
+                        "";
+                    movieModal.querySelector(".comment-box").value = "";
 
-                    movieModal.querySelector(".save-rating-btn").removeEventListener("click", saveRatingHandler);
+                    movieModal
+                        .querySelector(".save-rating-btn")
+                        .removeEventListener("click", saveRatingHandler);
+
+                    addFavoritesBtn.classList.remove("hidden");
+                    addWatchlistBtn.classList.remove("hidden");
+                    removeFavoritesBtn?.classList.remove("hidden");
+                    removeWatchlistBtn?.classList.remove("hidden");
+
+                    addFavoritesBtn.removeEventListener(
+                        "click",
+                        addFavoritesBtnListener
+                    );
+                    addWatchlistBtn.removeEventListener(
+                        "click",
+                        addWatchlistBtnListener
+                    );
+                    removeFavoritesBtn?.removeEventListener(
+                        "click",
+                        removeFavoritesBtnListener
+                    );
+                    removeWatchlistBtn?.removeEventListener(
+                        "click",
+                        removeWatchlistBtnListener
+                    );
                 });
         });
         return movieCard;
