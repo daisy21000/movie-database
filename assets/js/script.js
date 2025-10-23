@@ -369,6 +369,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const ThoughtsBox = movieModal.querySelector(".comment-box");
                 UserRatingDisplay.innerText = `${userRating}`;
 
+                // Check if the movie rating was successful and it was saved then notify the user
                 let movieRatingResponse = await setMovieRating(movieDetails.movieId, userRating);
                 if (movieRatingResponse.success) {
                     alert(`Your rating of ${userRating} for ${movieDetails.title} has been saved!`);
@@ -378,9 +379,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             };
 
-            movieModal
-                .querySelector(".save-rating-btn")
-                .addEventListener("click", saveRatingHandler);
+            movieModal.querySelector(".save-rating-btn").addEventListener("click", saveRatingHandler);
 
             let inFavorites = await isInFavorites(movieDetails.movieId);
             if (inFavorites) {
