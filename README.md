@@ -1,5 +1,11 @@
 # 🎬 Movie Database
 
+<img width="1917" height="862" alt="Movie Database Home Page" src="https://github.com/user-attachments/assets/1fe26af3-1e62-4ee4-a90b-7b8938d2213b" />
+
+<p align="center">
+  <a href="https://daisy21000.github.io/movie-database/index.html" target="_blank">Live Project</a>
+</p>
+
 ## Table of Contents
 
 - [Introduction](#introduction)  
@@ -70,7 +76,18 @@ Wireframes were created in Figma to structure the user journey and interface wit
 
 ## Deployment
 
-The project is deployed on GitHub Pages for easy access:
+This site was deployed to Github Pages. The steps to deploy are:
+
+- Go to the Settings in your Github Repo
+- Go to 'Pages' in the Code and automation section in the left-hand sidebar
+- Select 'Deploy from Branch' in the dropdown and set it to the 'main' branch
+- Make sure it it set to the root folder
+- Click the 'Save' button
+- Go back to the 'Code' tab and refresh. (It may take a few minutes to work)
+- Under the 'Deployments' section on the right, click 'github-pages'
+- The link to the deployed site will be at the top of the page
+
+You can find the live page of this project here:
 
 [https://daisy21000.github.io/movie-database/](https://daisy21000.github.io/movie-database/)
 
@@ -85,6 +102,9 @@ The live version reflects the development code exactly.
 - **API Reliability:** Ensured stable, consistent data fetching from TMDb API.
 - **Code Validation:** HTML and CSS validated using W3C validators.
 - **Accessibility:** Semantic HTML and keyboard navigation implemented.
+- **Lighthouse:** Tests were run using lighthouse in the chrome developer tools:
+
+  <img width="966" height="508" alt="Movie Database index page lighthouse report" src="https://github.com/user-attachments/assets/1525598f-e706-432b-8df7-4cae8a233c67" />
 
 ---
 
