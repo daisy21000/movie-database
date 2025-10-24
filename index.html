@@ -36,10 +36,7 @@
             - JS toggles visibility by adding/removing the "hidden" class.
         -->
     <div class="container">
-        <div class="bg-layer-1"></div>
-        <div class="bg-layer-2"></div>
-        <div class="bg-glow"></div>
-        <div class="dark-overlay"></div>
+     
 
         <div id="login-screen">
             <div class="row">
@@ -233,6 +230,8 @@
                     <span class="visually-hidden">Loading...</span>
                 </div>
 
+               
+
                 <!-- Search results grid:
                              - id="search-results" is the target container where script.js will inject movie cards.
                              - The visual layout for cards is defined by .movies-grid in CSS.
@@ -242,12 +241,12 @@
 
             <section id="trending-section">
                 <!-- Trending movies will be displayed here -->
-                <h2 class="section-title">|> Trending Movies</h2>
+                <h2 class="section-title">> Trending Movies<span class="cursor">|</span></h2>
                 <div id="trending-grid" class="movies-grid"></div>
             </section>
             <section id="top-rated-section">
                 <!-- Top rated movies will be displayed here -->
-                <h2 class="section-title">|> Top Rated Movies</h2>
+                <h2 class="section-title">> Top Rated Movies<span class="cursor">|</span></h2>
                 <div id="top-rated-grid" class="movies-grid"></div>
             </section>
         </div>
@@ -479,6 +478,9 @@
         }
         // Main loop: ~30fps
         setInterval(draw, 33)
+        
+      
+
     </script>
 
     <!--
