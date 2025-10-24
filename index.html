@@ -2,21 +2,21 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cinemind</title>
 
     <!-- Favicon: small film icon shown in browser tab -->
-    <link rel="icon" type="image/png" href="assets/favicon/film3.gif" />
+    <link rel="icon" type="image/png" href="assets/favicon/film3.gif">
 
     <!-- Bootstrap CSS from CDN (v5.3.2)
                  Provides base layout, grid, utility classes and components used below.
                  Replace with a local file if you need offline development or version locking. -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        crossorigin="anonymous" />
+        crossorigin="anonymous">
 
     <!-- Project stylesheet: custom styles, layout and layering -->
-    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
@@ -36,7 +36,7 @@
             - JS toggles visibility by adding/removing the "hidden" class.
         -->
     <div class="container">
-     
+
 
         <div id="login-screen">
             <div class="row">
@@ -51,6 +51,7 @@
                 <div class="column">
                     <div class="form-container">
                         <section id="login-form">
+                            <h2 class="visually-hidden">Login</h2>
                             <!--
                                     API KEY input:
                                     - type="password" to hide typed characters.
@@ -59,7 +60,7 @@
                                 -->
                             <label for="inputPassword5" class="form-label">API KEY:</label>
                             <input type="password" id="inputPassword5" placeholder="Enter your API key"
-                                class="form-control" aria-describedby="passwordHelpBlock" />
+                                class="form-control" aria-describedby="passwordHelpBlock">
 
                             <!--API KEY error message (hidden by default with d-none).
                                         Script toggles d-none to show validation/auth errors. -->
@@ -146,7 +147,7 @@
                     -->
                 <form id="search-form" class="d-flex mb-3" role="search" autocomplete="off">
                     <input type="text" class="form-control me-2 search-bar" id="search-input"
-                        placeholder="> SEARCH DATABASE [ENTER TO QUERY]..." aria-label="Search movies" required />
+                        placeholder="> SEARCH DATABASE [ENTER TO QUERY]..." aria-label="Search movies" required>
 
                     <!-- Filter dropdown (client-side filter prior or after API results) -->
                     <div class="desktop-filters">
@@ -163,12 +164,12 @@
                         </select>
                         <!-- Year Filter -->
                         <input type="number" id="year-filter" class="form-control" placeholder="Year" min="1900"
-                            max="2025" aria-label="Filter by year" title="Filter by Release Year" />
+                            max="2025" aria-label="Filter by year" title="Filter by Release Year">
                         <!-- Rating Filter Slider -->
                         <div class="rating-filter d-flex align-items-center gap-2" title="Filter by minimum rating">
                             <label for="rating-slider" class="form-label mb-0 text-success">Min Rating:</label>
                             <input type="range" class="form-range" min="0" max="10" step="0.1" id="rating-slider"
-                                value="0" aria-label="Minimum rating" />
+                                value="0" aria-label="Minimum rating">
                             <span id="rating-value" class="text-success">0</span>
                         </div>
                     </div>
@@ -207,12 +208,12 @@
                             </select>
 
                             <input type="number" id="year-filter-mobile" class="form-control mb-2" placeholder="Year"
-                                min="1900" max="2025" aria-label="Filter by year" title="Filter by Release Year" />
+                                min="1900" max="2025" aria-label="Filter by year" title="Filter by Release Year">
 
                             <div class="rating-filter d-flex align-items-center gap-2">
                                 <label for="rating-slider-mobile" class="form-label mb-0 text-success">Rating:</label>
                                 <input type="range" class="form-range" min="0" max="10" step="0.1"
-                                    id="rating-slider-mobile" value="0" aria-label="Minimum rating" />
+                                    id="rating-slider-mobile" value="0" aria-label="Minimum rating">
                                 <span id="rating-value-mobile" class="text-success">0</span>
                             </div>
                         </div>
@@ -230,7 +231,7 @@
                     <span class="visually-hidden">Loading...</span>
                 </div>
 
-               
+
 
                 <!-- Search results grid:
                              - id="search-results" is the target container where script.js will inject movie cards.
@@ -274,7 +275,7 @@
         -->
     <template id="movie-card-template">
         <div class="movie-card" data-id="">
-            <img src="" alt="Movie Poster" class="movie-poster" />
+            <img src="" alt="Movie Poster" class="movie-poster">
             <div class="movie-info-line">
                 <span class="movie-title">Title</span>
                 <span class="release-year hidden"> </span>
@@ -292,7 +293,7 @@
             <button type="button" class="close-btn" aria-label="Close modal">×</button>
             <div class="modal-body">
                 <h2 class="modal-title">Title</h2>
-                <img src="assets/images/placeholder-movie.png" alt="Movie Poster" class="modal-poster" loading="lazy" />
+                <img src="assets/images/placeholder-movie.png" alt="Movie Poster" class="modal-poster" loading="lazy">
                 <p class="modal-overview">Overview</p>
 
                 <!-- Accordion shows extra movie metadata -->
@@ -395,10 +396,11 @@
                 <div class="user-interaction">
                     <label for="rating" class="rating-label" id="userRatingLabel">Your Rating:</label>
                     <input id="rating" type="range" min="1" max="10" step="1" class="rating-slider" data-id=""
-                        title="Your rating (1-10)" aria-label="Your rating from 1 to 10" placeholder="1-10" />
+                        title="Your rating (1-10)" aria-label="Your rating from 1 to 10">
 
                     <label for="comment" class="comment-label">Thoughts:</label>
-                    <textarea class="comment-box" rows="2" maxlength="100" placeholder="Say something..."></textarea>
+                    <textarea id="comment" class="comment-box" rows="2" maxlength="100"
+                        placeholder="Say something..."></textarea>
 
                     <button class="btn btn-outline-success save-rating-btn">
                         Save
@@ -478,8 +480,8 @@
         }
         // Main loop: ~30fps
         setInterval(draw, 33)
-        
-      
+
+
 
     </script>
 
