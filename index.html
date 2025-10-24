@@ -395,10 +395,11 @@
                 <div class="user-interaction">
                     <label for="rating" class="rating-label" id="userRatingLabel">Your Rating:</label>
                     <input id="rating" type="range" min="1" max="10" step="1" class="rating-slider" data-id=""
-                        title="Your rating (1-10)" aria-label="Your rating from 1 to 10" placeholder="1-10">
+                        title="Your rating (1-10)" aria-label="Your rating from 1 to 10">
 
                     <label for="comment" class="comment-label">Thoughts:</label>
-                    <textarea class="comment-box" rows="2" maxlength="100" placeholder="Say something..."></textarea>
+                    <textarea id="comment" class="comment-box" rows="2" maxlength="100"
+                        placeholder="Say something..."></textarea>
 
                     <button class="btn btn-outline-success save-rating-btn">
                         Save
