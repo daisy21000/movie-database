@@ -2,20 +2,20 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cinemind</title>
 
   <!-- Favicon: small film icon shown in browser tab -->
-  <link rel="icon" type="image/png" href="assets/favicon/film3.gif" />
+  <link rel="icon" type="image/png" href="assets/favicon/film3.gif">
 
   <!-- Bootstrap CSS from CDN (v5.3.2) -->
   <!-- If you want to work offline or lock a version, replace with a local file or a specific integrity hash. -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    crossorigin="anonymous" />
+    crossorigin="anonymous">
 
   <!-- Project stylesheet: custom styles, layout and layering -->
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
@@ -36,7 +36,11 @@
     - To change the login logic, see assets/js/script.js.
   -->
   <div class="container">
-  
+    <!-- Background / visual layer elements. These are empty divs styled via CSS. -->
+    <div class="bg-layer-1"></div>
+    <div class="bg-layer-2"></div>
+    <div class="bg-glow"></div>
+    <div class="dark-overlay"></div>
 
   </div>
 
@@ -56,6 +60,7 @@
       <div class="column">
         <div class="form-container">
           <section id="login-form">
+            <h2 class="visually-hidden">Login</h2>
             <!--
                                     API KEY input:
                                     - type="password" to hide typed characters.
@@ -64,7 +69,7 @@
                                 -->
             <label for="inputPassword5" class="form-label">API KEY:</label>
             <input type="password" id="inputPassword5" placeholder="Enter your API key" class="form-control"
-              aria-describedby="passwordHelpBlock" />
+              aria-describedby="passwordHelpBlock">
 
             <!--API KEY error message (hidden by default with d-none).
                                         Script toggles d-none to show validation/auth errors. -->
@@ -92,7 +97,6 @@
         </div>
       </div>
     </div>
-  </div>
   </div>
 
   <div id="main-ui">
@@ -185,7 +189,7 @@
   -->
   <template id="movie-card-template">
     <div class="movie-card" data-id="">
-      <img src="" alt="Movie Poster" class="movie-poster" />
+      <img src="" alt="Movie Poster" class="movie-poster">
       <div class="movie-info-line">
         <span class="movie-title">Title</span>
         <span class="release-year hidden">Year</span>
@@ -206,7 +210,7 @@
       <button class="close-btn" aria-label="Close modal">×</button>
       <div class="modal-body">
         <h2 class="modal-title">Title</h2>
-        <img src="" alt="Movie Poster" class="modal-poster" />
+        <img src="" alt="Movie Poster" class="modal-poster">
         <p class="modal-overview"></p>
 
         <!-- Accordion shows extra movie metadata -->
@@ -306,7 +310,7 @@
         <div class="user-interaction">
           <label for="rating" class="rating-label" id="userRatingLabel">Your Rating:</label>
           <input id="rating" type="range" min="1" max="10" step="1" class="rating-slider" data-id=""
-            title="Your rating (1-10)" aria-label="Your rating from 1 to 10" placeholder="1-10" />
+            title="Your rating (1-10)" aria-label="Your rating from 1 to 10" placeholder="1-10">
 
           <label for="comment" class="comment-label">Thoughts:</label>
           <textarea class="comment-box" rows="2" maxlength="100" placeholder="Say something..."></textarea>
